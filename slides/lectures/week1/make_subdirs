@@ -1,5 +1,6 @@
 OUTDIR = $(shell Rscript -e "cat(fs::path(here::here('docs', fs::path_rel(getwd(), start=here::here()))))")
 SLIDES := $(wildcard *.Rmd)
+SLIDES_CHILDREN = $(wildcard children/*.Rmd)
 SLIDES_OUT = $(patsubst %.Rmd, $(OUTDIR)/%.html, $(SLIDES))
 SLIDES_PDF = $(patsubst %.Rmd, $(OUTDIR)/%.pdf, $(SLIDES))
 
@@ -9,7 +10,7 @@ all: $(SLIDES_OUT)
 pdf: $(SLIDES_PDF)
 
 $(OUTDIR)/%.html: %.Rmd _output.yml ../css/setup.Rmd $(SLIDES_CHILDREN)
-	Rscript -e "if(!dir.exists('$(OUTDIR)')) dir.create('$(OUTDIR)', recursive=TRUE)"
+	Rscript -e "if(!dir.exists('$(OUTDIR)')) dir.create('$(OUTDIR)')"
 	Rscript -e "rmarkdown::render('$(*F).Rmd', output_yaml = '_output.yml')"
 	rm -rf $(OUTDIR)/$(*F)_files
 	mv $(*F).html $(OUTDIR)
@@ -19,7 +20,7 @@ $(OUTDIR)/%.pdf: $(OUTDIR)/%.html
 	cp -r ../css $(OUTDIR)
 	cp -r ../js $(OUTDIR)
 	cp -r ../img $(OUTDIR)
-	Rscript -e "xaringanBuilder::build_pdf('$(@D)/$(*F).html', complex_slides=T)"
+	Rscript -e "pagedown::chrome_print('$(@D)/$(*F).html')"
 	rm -rf css
 	rm -rf js
 	rm -rf img
