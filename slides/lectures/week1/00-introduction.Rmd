@@ -1,0 +1,167 @@
+---
+title: "An Introduction to BIOF 440"
+author: Abhijit Dasgupta, PhD
+---
+
+```{r setup, include=FALSE, child = '../css/setup.Rmd'}
+```
+
+## Objectives of this course
+
++ Understand principles of good data visualization
++ Know what might make a visualization poor or ineffective
++ Get you going using Python __for visualization__
+  + Various packages
++ Creating static and dynamic visualizations using Python
++ Using the web as a presentation medium
+
+---
+
+## Course resources
+
+### Website: [Canvas](https://faes.instructure.com/594)
+
+### Slack:  [https://biof440.slack.com](https://biof440.slack.com)
+
+You will be sent an invitation link to the Slack channel on Canvas. Please sign in, since that will be the primary means of communication between us, and between your fellow students. 
+
+
+---
+
+# General class practices
+
+- Each week's module will be released by 9 am each Monday. 
+- Each week will include
+    - Lectures/Screencasts
+    - Readings
+    - Assigned tutorials that you will do on your own
+    - Formative assessments
+    - One quiz
+    - Homework
+
+
+---
+
+# Quizzes
+
++ Each week will have a quiz to assess your understanding of that week's material
++ Quizzes will typically be multiple choice
++ Quizzes will typically be time-limited
+
+---
+
+# Homework
+
+## Rules
+
+- Homework assignments are due each Saturday at 11:59pm
+- Homework may be submitted up to 24 hours after the due date, i.e. by Sunday 11:59 pm, with a 20% penalty
+- Homework may not be submitted after Sunday 11:59 pm since solutions will be provided on Monday
+- One homework (typically the lowest grade) will be dropped from the final grade computations
+
+---
+
+# Homework
+## Format
+- Unless otherwise specified, homework must be submitted as a Jupyter notebook (.ipynb) file
+    - Homework for Week 1 will not require a Jupyter notebook and may be submitted as a Word document
+- Homework files will be submitted on Canvas using the Canvas assignment submission system
+    + See screencast for how this works
+
+---
+
+## Collaboration
+
+You are encouraged to collaborate through Slack, especially since there will be a fair amount of variability of R expertise in this class. However, your submitted work should be your own, and we expect academic honesty to be maintained. 
+
+Any materials that is derived from web resources that you have found (i.e., not provided in the class) must be used **with attribution**.
+
+---
+
+## Final Project
+
+.pull-left[
+- A Jupyter notebook must be used
+- Use your own data or data that can be freely used with attribution. 
+- Use Python package(s) to visualize your data sets in at least 3 ways, to show what your data looks like and what your analytic results look like.
+- Each student will be randomly assigned to 2 peers
+  - Critiques based on quality and effectiveness of visualizations]
+.pull-right[
+- All final projects will be shared through a dedicated website, so we can learn from each other (unless you let me know first, for example, if the data is private and embargoed)
+
+- I fully expect some of you to blow me away!!
+]
+
+---
+
+# Class participation
+
+- Ask questions on Slack
+- Comment on the strengths and weaknesses of visualizations when we work on them each week
+- I will start a discussion topic every Wednesday on Canvas. Participate in the discussion, which will remain open until Saturday
+- Discuss topics on the Slack channel
+
+
+
+---
+
+## Multiple sections
+
+We may have multiple sections for a session depending on demand
+
++ We will all share the same Slack environment
++ Each section will have a different Canvas environment
++ All the teaching material will be identical in each section
++ I will reserve the right to make quizzes, formative assessments, assignments and discussions different, though I don't expect to do that often.
+
+---
+
+# Grading
+
+```{r, echo=FALSE}
+tribble(~Component, ~Percentage,
+        'Quizzes', '20%',
+        'Assignments', '30%',
+        'Participation', '25%',
+        'Final Project', '25%') %>% 
+  kable(align='lr', caption = 'Grade components') %>% 
+  kable_styling(full_width = T,position = 'left')
+```
+
+---
+
+# Contact info
+
+### Email: dasgupta.faes@gmail.com
+
+### Slack
+
+---
+
+# Software requirements
+
+For this class you will need a Python environment
+
+1. We will use the Anaconda Python distribution available at https://www.anaconda.com/products/individual. We will be using Python version 3.8. There are installer versions for Windows, Mac and Linux. Installation does not typically need administrative privileges on your computer. 
+
+1. For some examples we may use the facilities at mybinder.org. You will be 
+provided a link that will open up the material as Jupyter notebooks on mybinder.org. 
+
+---
+
+# Software requirements
+
+Python is a modular software system with **packages** providing various functionality. This class will use several packages the provide visualization and reporting functionalities. Most of these are included in the default Anaconda installation
+
+
+
+---
+
+# Other potentially useful software
+
+Python can provide wonderful visualizations, but these may require a tweak or two to make them the way you want for publication or dissemination. Each item provides a commercially available software and an open-source free alternative. 
+
+1. Adobe Illustrator / Inkscape (all OS)
+1. Adobe Photoshop / GIMP (all OS)
+1. Adobe Reader Pro / Preview (Mac OSX)
+1. ImageMagick (accessible via the R package `magick`) (all OS)
