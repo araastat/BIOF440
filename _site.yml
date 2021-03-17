@@ -1,6 +1,6 @@
 name: BIOF 440
-output_dir: docs
-exclude: ['Personal','slides','assignments','notes', 'R', 'README.Rmd']
+output_dir: docs/toplevel
+exclude: ['Personal','docs','slides','assignments','notes', 'R', 'README.Rmd']
 navbar:
   title: Data Visualization using Python
   left:
@@ -18,10 +18,6 @@ navbar:
       href: resources.html
 
   right:
-    - text: Final Projects
-      href: FinalProjects/2020Summer/index.html
-    - text: Course Notes
-      href: notes/
     - icon: fa-github
       text: GitHub
       href: https://www.github.com/araastat/BIOF439
