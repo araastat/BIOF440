@@ -201,6 +201,11 @@ the final project (25%).
     -   Annotations
     -   Networks
 
+-   Customizing plots
+
+    -   Specifying colors, fonts and themes
+    -   Annotating plots
+
 ### Week 7
 
 Class presentations and discussion

@@ -1,9 +1,11 @@
 ---
 title: ''
-output: 
+output:
+  pdf_document:
+    toc: no
   html_document:
     css: styles.css
-    toc: false
+    toc: no
 ---
 
 ```{css, echo=FALSE}
@@ -205,6 +207,11 @@ the final project (25%).
     -   Group differences
     -   Annotations
     -   Networks
+
+-   Customizing plots
+
+    -   Specifying colors, fonts and themes
+    -   Annotating plots
 
 ### Week 7
 
