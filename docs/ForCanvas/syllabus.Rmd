@@ -1,8 +1,6 @@
 ---
 title: ''
 output:
-  pdf_document:
-    toc: no
   html_document:
     css: styles.css
     toc: no
@@ -138,9 +136,9 @@ the final project (25%).
 
 ### Pre-work
 
--   Installing Anaconda Python Distribution and learning how to start
-    and use a Jupyter notebook
--   Installing the `plotly` and `Altair` Python packages
+-   Installing Anaconda Python Distribution
+-   Installing the computational environment for this class
+-   Knowing how to start a JupyterLab notebook
 
 ### Week 1
 
