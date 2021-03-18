@@ -232,527 +232,296 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
 }
 
 
-/* cyrillic-ext */
-/* cyrillic */
-/* greek-ext */
-/* greek */
-/* vietnamese */
-/* latin-ext */
-/* latin */
-/* cyrillic-ext */
-/* cyrillic */
-/* greek-ext */
-/* greek */
-/* vietnamese */
-/* latin-ext */
-/* latin */
-/* cyrillic-ext */
-/* cyrillic */
-/* greek-ext */
-/* greek */
-/* vietnamese */
-/* latin-ext */
-/* latin */
-/* cyrillic-ext */
-/* cyrillic */
-/* greek-ext */
-/* greek */
-/* vietnamese */
-/* latin-ext */
-/* latin */
-@font-face {
-    font-family: 'Source Sans Pro';
-    font-style: normal;
-    font-weight: 600;
-    src: local('Source Sans Pro SemiBold'), local('SourceSansPro-SemiBold'), url('file:///Users/abhijit/Library/Application%20Support/abnerworks.Typora/themes/vue/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlxdu.woff2') format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}@import '';
-
-:root {
-    --side-bar-bg-color: #fff;
-    --control-text-color: #777;
-    --font-sans-serif: 'Ubuntu', 'Source Sans Pro', sans-serif !important;
-    --font-monospace: 'Fira Code', 'Roboto Mono', monospace !important;
-}
-
 html {
-    font-size: 16px;
+	font-size: 19px;
 }
 
+html, body {
+	margin: auto;
+	background: #fefefe;
+}
 body {
-    font-family: var(--font-sans-serif);
-    color: #34495e;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.6rem;
-    letter-spacing: 0;
-    margin: 0;
-    overflow-x: hidden;
+	font-family: "Vollkorn", Palatino, Times;
+	color: #333;
+	line-height: 1.4;
+	text-align: justify;
 }
 
 #write {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 20px 30px 100px;
+	max-width: 960px;
+	margin: 0 auto;
+	margin-bottom: 2em;
+	line-height: 1.53;
+	padding-top: 40px;
 }
 
-#write p {
-    line-height: 1.6rem;
-    word-spacing: .05rem;
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1100px;
+	}
 }
 
-#write ol li {
-    padding-left: 0.5rem;
-}
+/* Typography
+-------------------------------------------------------- */
 
-#write > ul:first-child,
-#write > ol:first-child {
-    margin-top: 30px;
-}
-
-body > *:first-child {
-    margin-top: 0 !important;
-}
-
-body > *:last-child {
-    margin-bottom: 0 !important;
-}
-
-a {
-    color: #42b983;
-    font-weight: 600;
-    padding: 0 2px;
-    text-decoration: none;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    position: relative;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    line-height: 1.4;
-    cursor: text;
-}
-
-h1:hover a.anchor,
-h2:hover a.anchor,
-h3:hover a.anchor,
-h4:hover a.anchor,
-h5:hover a.anchor,
-h6:hover a.anchor {
-    text-decoration: none;
-}
-
-h1 tt,
-h1 code {
-    font-size: inherit !important;
-}
-
-h2 tt,
-h2 code {
-    font-size: inherit !important;
-}
-
-h3 tt,
-h3 code {
-    font-size: inherit !important;
-}
-
-h4 tt,
-h4 code {
-    font-size: inherit !important;
-}
-
-h5 tt,
-h5 code {
-    font-size: inherit !important;
-}
-
-h6 tt,
-h6 code {
-    font-size: inherit !important;
-}
-
-h2 a,
-h3 a {
-    color: #34495e;
+#write>h1:first-child,
+h1 {
+	margin-top: 1.6em;
+	font-weight: normal;
 }
 
 h1 {
-    padding-bottom: .4rem;
-    font-size: 2.2rem;
-    line-height: 1.3;
+	font-size:3em;
 }
 
 h2 {
-    font-size: 1.75rem;
-    line-height: 1.225;
-    margin: 35px 0 15px;
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid #ddd;
+	margin-top:2em;
+	font-weight: normal;
 }
 
 h3 {
-    font-size: 1.4rem;
-    line-height: 1.43;
-    margin: 20px 0 7px;
+	font-weight: normal;
+	font-style: italic;
+	margin-top: 3em;
 }
 
-h4 {
-    font-size: 1.2rem;
+h1, 
+h2, 
+h3{
+	text-align: center;
 }
 
-h5 {
-    font-size: 1rem;
+h2:after{
+	border-bottom: 1px solid #2f2f2f;
+    content: '';
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    height: 1px;
 }
 
-h6 {
-    font-size: 1rem;
-    color: #777;
+h1+h2, h2+h3 {
+	margin-top: 0.83em;
 }
 
 p,
-blockquote,
-ul,
-ol,
-dl,
-table {
-    margin: 0.8em 0;
+.mathjax-block {
+	margin-top: 0;
+	-webkit-hypens: auto;
+	-moz-hypens: auto;
+	hyphens: auto;
 }
-
-li > ol,
-li > ul {
-    margin: 0 0;
+ul {
+	list-style: square;
+	padding-left: 1.2em;
 }
-
-hr {
-    height: 2px;
-    padding: 0;
-    margin: 16px 0;
-    background-color: #e7e7e7;
-    border: 0 none;
-    overflow: hidden;
-    box-sizing: content-box;
-}
-
-body > h2:first-child {
-    margin-top: 0;
-    padding-top: 0;
-}
-
-body > h1:first-child {
-    margin-top: 0;
-    padding-top: 0;
-}
-
-body > h1:first-child + h2 {
-    margin-top: 0;
-    padding-top: 0;
-}
-
-body > h3:first-child,
-body > h4:first-child,
-body > h5:first-child,
-body > h6:first-child {
-    margin-top: 0;
-    padding-top: 0;
-}
-
-a:first-child h1,
-a:first-child h2,
-a:first-child h3,
-a:first-child h4,
-a:first-child h5,
-a:first-child h6 {
-    margin-top: 0;
-    padding-top: 0;
-}
-
-h1 p,
-h2 p,
-h3 p,
-h4 p,
-h5 p,
-h6 p {
-    margin-top: 0;
-}
-
-li p.first {
-    display: inline-block;
-}
-
-ul,
 ol {
-    padding-left: 30px;
+	padding-left: 1.2em;
 }
-
-ul:first-child,
-ol:first-child {
-    margin-top: 0;
-}
-
-ul:last-child,
-ol:last-child {
-    margin-bottom: 0;
-}
-
 blockquote {
-    border-left: 4px solid #42b983;
-    padding: 10px 15px;
-    color: #777;
-    background-color: rgba(66, 185, 131, .1);
+	margin-left: 1em;
+	padding-left: 1em;
+	border-left: 1px solid #ddd;
+}
+code,
+pre {
+	font-family: "Consolas", "Menlo", "Monaco", monospace, serif;
+	font-size: .9em;
+	background: white;
+}
+.md-fences{
+	margin-left: 1em;
+	padding-left: 1em;
+	border: 1px solid #ddd;
+	padding-bottom: 8px;
+	padding-top: 6px;
+	margin-bottom: 1.5em;
 }
 
+a {
+	color: #2484c1;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+a img {
+	border: none;
+}
+h1 a,
+h1 a:hover {
+	color: #333;
+	text-decoration: none;
+}
+hr {
+	color: #ddd;
+	height: 1px;
+	margin: 2em 0;
+	border-top: solid 1px #ddd;
+	border-bottom: none;
+	border-left: 0;
+	border-right: 0;
+}
+.ty-table-edit {
+	background: #ededed;
+    padding-top: 4px;
+}
 table {
-    padding: 0;
-    word-break: initial;
+	margin-bottom: 1.333333rem
+}
+table th,
+table td {
+	padding: 8px;
+	line-height: 1.333333rem;
+	vertical-align: top;
+	border-top: 1px solid #ddd
+}
+table th {
+	font-weight: bold
+}
+table thead th {
+	vertical-align: bottom
+}
+table caption+thead tr:first-child th,
+table caption+thead tr:first-child td,
+table colgroup+thead tr:first-child th,
+table colgroup+thead tr:first-child td,
+table thead:first-child tr:first-child th,
+table thead:first-child tr:first-child td {
+	border-top: 0
+}
+table tbody+tbody {
+	border-top: 2px solid #ddd
 }
 
-table tr {
-    border-top: 1px solid #dfe2e5;
-    margin: 0;
-    padding: 0;
+.task-list{
+	padding:0;
 }
 
-table tr:nth-child(2n),
-thead {
-    background-color: #fafafa;
+.md-task-list-item {
+	padding-left: 1.6rem;
 }
 
-table tr th {
-    font-weight: bold;
-    border: 1px solid #dfe2e5;
-    border-bottom: 0;
-    text-align: left;
-    margin: 0;
-    padding: 6px 13px;
+.md-task-list-item > input:before {
+	content: '\221A';
+	display: inline-block;
+	width: 1.33333333rem;
+  	height: 1.6rem;
+	vertical-align: middle;
+	text-align: center;
+	color: #ddd;
+	background-color: #fefefe;
 }
 
-table tr td {
-    border: 1px solid #dfe2e5;
-    text-align: left;
-    margin: 0;
-    padding: 6px 13px;
+.md-task-list-item > input:checked:before,
+.md-task-list-item > input[checked]:before{
+	color: inherit;
 }
-
-table tr th:first-child,
-table tr td:first-child {
-    margin-top: 0;
-}
-
-table tr th:last-child,
-table tr td:last-child {
-    margin-bottom: 0;
-}
-
-#write strong {
-    padding: 0 1px;
-}
-
-#write em {
-    padding: 0 5px 0 2px;
-}
-
-#write table thead th {
-    background-color: #f2f2f2;
-}
-
-#write .CodeMirror-gutters {
-    border-right: none;
-}
-
-#write .md-fences {
-    border: 1px solid #F4F4F4;
-    -webkit-font-smoothing: initial;
-    margin: 0.8rem 0 !important;
-    padding: 0.3rem 0 !important;
-    line-height: 1.43rem;
-    background-color: #F8F8F8 !important;
-    border-radius: 2px;
-    font-family: var(--font-monospace);
-    font-size: 0.85rem;
-    word-wrap: normal;
-}
-
-#write .CodeMirror-wrap .CodeMirror-code pre {
-    padding-left: 12px;
-}
-
-#write code, tt {
-    padding: 2px 4px;
-    border-radius: 2px;
-    font-family: var(--font-monospace);
-    font-size: 0.92rem;
-    color: #e96900;
-    background-color: #f8f8f8;
-}
-
-tt {
-    margin: 0 2px;
-}
-
-#write .md-footnote {
-    background-color: #f8f8f8;
-    color: #e96900;
-}
-
-/* heighlight. */
-#write mark {
-    background-color: #EBFFEB;
-    border-radius: 2px;
-    padding: 2px 4px;
-    margin: 0 2px;
-    color: #222;
-    font-weight: 500;
-}
-
-#write del {
-    padding: 1px 2px;
-}
-
-.cm-s-inner .cm-link,
-.cm-s-inner.cm-link {
-    color: #22a2c9;
-}
-
-.cm-s-inner .cm-string {
-    color: #22a2c9;
-}
-
-.md-task-list-item > input {
-    margin-left: -1.3em;
-}
-
-@media print {
-    html {
-        font-size: 13px;
-    }
-
-    table,
-    pre {
-        page-break-inside: avoid;
-    }
-
-    pre {
-        word-wrap: break-word;
-    }
-}
-
-.md-fences {
-    background-color: #f8f8f8;
-}
-
-#write pre.md-meta-block {
-    padding: 1rem;
-    font-size: 85%;
-    line-height: 1.45;
-    background-color: #f7f7f7;
-    border: 0;
-    border-radius: 3px;
-    color: #777777;
-    margin-top: 0 !important;
-}
-
-.mathjax-block > .code-tooltip {
-    bottom: .375rem;
-}
-
-#write > h3.md-focus:before {
-    left: -1.5625rem;
-    top: .375rem;
-}
-
-#write > h4.md-focus:before {
-    left: -1.5625rem;
-    top: .285714286rem;
-}
-
-#write > h5.md-focus:before {
-    left: -1.5625rem;
-    top: .285714286rem;
-}
-
-#write > h6.md-focus:before {
-    left: -1.5625rem;
-    top: .285714286rem;
-}
-
-.md-image > .md-meta {
-    border-radius: 3px;
-    font-family: var(--font-monospace);
-    padding: 2px 0 0 4px;
-    font-size: 0.9em;
-    color: inherit;
-}
-
 .md-tag {
-    color: inherit;
+	color: inherit;
+	font: inherit;
+}
+#write pre.md-meta-block {
+	min-height: 35px;
+	padding: 0.5em 1em;
+}
+#write pre.md-meta-block {
+	white-space: pre;
+	background: #f8f8f8;
+	border: 0px;
+	color: #999;
+	
+	width: 100vw;
+	max-width: calc(100% + 60px);
+	margin-left: -30px;
+	border-left: 30px #f8f8f8 solid;
+	border-right: 30px #f8f8f8 solid;
+
+	margin-bottom: 2em;
+	margin-top: -1.3333333333333rem;
+	padding-top: 26px;
+	padding-bottom: 10px;
+	line-height: 1.8em;
+	font-size: 0.9em;
+	font-size: 0.76em;
+	padding-left: 0;
+}
+.md-img-error.md-image>.md-meta{
+	vertical-align: bottom;
+}
+#write>h5.md-focus:before {
+	top: 2px;
 }
 
 .md-toc {
-    margin-top: 20px;
-    padding-bottom: 20px;
+	margin-top: 40px;
 }
 
-.sidebar-tabs {
-    border-bottom: none;
+.md-toc-content {
+	padding-bottom: 20px;
 }
 
-#typora-quick-open {
-    border: 1px solid #ddd;
-    background-color: #f8f8f8;
+.outline-expander:before {
+	color: inherit;
+	font-size: 14px;
+	top: auto;
+	content: "\f0da";
+	font-family: FontAwesome;
 }
 
-#typora-quick-open-item {
-    background-color: #FAFAFA;
-    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
-    border-style: solid;
-    border-width: 1px;
+.outline-expander:hover:before,
+.outline-item-open>.outline-item>.outline-expander:before {
+  	content: "\f0d7";
 }
 
-#md-notification:before {
-    top: 10px;
+/** source code mode */
+#typora-source {
+	font-family: Courier, monospace;
+    color: #6A6A6A;
 }
 
-/** focus mode */
-
-.on-focus-mode blockquote {
-    border-left-color: rgba(85, 85, 85, 0.12);
+.html-for-mac #typora-sidebar {
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
 
-header,
-.context-menu,
-.megamenu-content,
-footer {
-    font-family: var(--font-sans-serif);
+.cm-s-typora-default .cm-header, 
+.cm-s-typora-default .cm-property,
+.CodeMirror.cm-s-typora-default div.CodeMirror-cursor {
+	color: #428bca;
 }
 
-.file-node-content:hover .file-node-icon,
-.file-node-content:hover .file-node-open-state {
-    visibility: visible;
+.cm-s-typora-default .cm-atom, .cm-s-typora-default .cm-number {
+	color: #777777;
 }
 
-.mac-seamless-mode #typora-sidebar {
-    background-color: var(--side-bar-bg-color);
+.typora-node .file-list-item-parent-loc, 
+.typora-node .file-list-item-time, 
+.typora-node .file-list-item-summary {
+	font-family: arial, sans-serif;
 }
 
-.md-lang {
-    color: #b4654d;
+.md-task-list-item>input {
+    margin-left: -1.3em;
+    margin-top: calc(1rem - 12px);
 }
 
-.html-for-mac .context-menu {
-    --item-hover-bg-color: #E6F0FE;
+.md-mathjax-midline {
+	background: #fafafa;
 }
 
+.md-fences .code-tooltip {
+	bottom: -2em !important;
+}
+
+.dropdown-menu .divider {
+	border-color: #e5e5e5;
+}
 
 
 </style>
 </head>
 <body class='typora-export'>
-<div id='write'  class=''><h1><a name="anaconda-python-distribution" class="md-header-anchor"></a><span>Anaconda Python Distribution</span></h1><p><span>Anaconda Python Distribution is a free (for personal use) Python distribution developed by </span><a href='https://www.anaconda.com'><span>Anaconda, Inc.</span></a><span> that provides several nice features and ease of installation. This is the generally recommended Python distribution for data science.</span></p><h2><a name="download" class="md-header-anchor"></a><span>Download</span></h2><p><span>Go to </span><a href='https://www.anaconda.com/products/individual'><span>the Anaconda download site</span></a><span>. Make sure you get the graphical installer for your operating system, and the 64-bit version. Direct links to the installers are below</span></p><figure><table><thead><tr><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th></tr></thead><tbody><tr><td><a href='https://repo.anaconda.com/archive/Anaconda3-2020.11-Windows-x86_64.exe'><span>Windows</span></a></td><td><a href='https://repo.anaconda.com/archive/Anaconda3-2020.11-MacOSX-x86_64.pkg'><span>Mac</span></a></td><td><a href='https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh'><span>Linux</span></a></td></tr></tbody></table></figure><h2><a name="installation" class="md-header-anchor"></a><span>Installation</span></h2><p><span>Click the downloaded installer to run it and follow the directions. Installing Anaconda Python Distribution does not require administrator priviledges, since it installs for your account and not globally.</span></p><h3><a name="on-a-mac" class="md-header-anchor"></a><span>On a Mac</span></h3><figure><table><thead><tr><th style='text-align:center;' ><span>Select windows from installation</span></th><th>&nbsp;</th></tr></thead><tbody><tr><td style='text-align:center;' ><img src="image-20210318003827272.png" alt="image-20210318003827272" style="zoom:50%;" /></td><td><img src="image-20210318004029196.png" alt="image-20210318004029196" style="zoom:50%;" /></td></tr><tr><td style='text-align:center;' ><img src="image-20210318004117199.png" alt="image-20210318004117199" style="zoom:50%;" /></td><td><img src="image-20210318004143242.png" alt="image-20210318004143242" style="zoom:50%;" /></td></tr></tbody></table></figure><h3><a name="on-windows" class="md-header-anchor"></a><span>On Windows</span></h3><p>&nbsp;</p><h2><a name="creating-the-computational-environment-for-this-class" class="md-header-anchor"></a><span>Creating the computational environment for this class</span></h2><p><span>Best practice when starting a Python project is to create and work in a computational environment specific to the project that has the appropriate packages. Traditionally these were called </span><code>virtualenv</code><span>. Anaconda created a similar environment called a </span><em><span>conda environment</span></em><span>, which we will use. </span></p><p><span>In Canvas, you will find a file called </span><em><span>biof440_environment.yml</span></em><span>. This contains the specifications for the environment we will be using in this class. Download this file to your computer.</span></p><p><span>The Anaconda installation installed an app called Anaconda Navigator on your computer. You can access it from </span><code>Start Menu &gt; Anaconda3 (64-bit) &gt; Anaconda Navigator</code><span>  (Windows) or the Applications folder (Mac). On Linux you can start it from a terminal by typing </span><code>anaconda-navigator</code><span>. </span></p><p><img src="image-20210318005406109.png" referrerpolicy="no-referrer" alt="image-20210318005406109"></p><p><span>We</span>’<span>re going to go to the </span><strong><span>Environments</span></strong><span> tab on the left.</span></p><p><img src="image-20210318005952180.png" referrerpolicy="no-referrer" alt="image-20210318005952180"></p><p><span>This screen shows the Python packages installed with the installer. We will install a new computational environment using this screen. At the bottom, click on the </span><strong><span>Import</span></strong><span> button.</span></p><p><img src="image-20210318010138861.png" referrerpolicy="no-referrer" alt="image-20210318010138861"></p><p><span>Click on the folder icon to load a specification file. Don</span>’<span>t write in a name, since the file we</span>’<span>ll load will take care of that. </span></p><p><span>Find the </span><em><span>biof440_environment.yml</span></em><span> file that you downloaded from Canvas and select it.</span></p><p><img src="image-20210318010323193.png" referrerpolicy="no-referrer" alt="image-20210318010323193"></p><p><span>Click </span><strong><span>Import</span></strong><span>. </span></p><p><img src="nav1.png" style="zoom:50%;" /></p><p><span>The following bit takes a few minutes to install. At the end of the process, you</span>’<span>ll see the following screen.</span></p><p><img src="image-20210318012822604.png" referrerpolicy="no-referrer" alt="image-20210318012822604"></p><p>&nbsp;</p><h2><a name="an-alternative-method-using-the-terminal" class="md-header-anchor"></a><span>An alternative method using the terminal</span></h2><p><span>You can also install the conda environment using a terminal and the command line. </span></p><p><span>On Windows, you need to start </span><strong><span>Anaconda Prompt</span></strong><span> from </span><code>Start Menu &gt; Anaconda3 (64-bit) &gt; Anaconda Prompt (Anaconda3)</code><span>. On a Mac, you</span>’<span>d open the </span><strong><span>Terminal</span></strong><span> app from Applications.</span></p><p><span>In the terminal, you would type in the following command:</span></p><pre spellcheck="false" class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" lang="shell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">conda env create <span class="cm-attribute">-f</span> biof440_environment.yml</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="height: 22px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><p><span>This will create the conda environment we will use on your computer.</span></p><p><img src="image-20210318012756518.png" referrerpolicy="no-referrer" alt="image-20210318012756518"></p><p>&nbsp;</p><p>&nbsp;</p></div>
+<div id='write'  class=''><h1><a name="anaconda-python-distribution" class="md-header-anchor"></a><span>Anaconda Python Distribution</span></h1><p><span>Anaconda Python Distribution is a free (for personal use) Python distribution developed by </span><a href='https://www.anaconda.com'><span>Anaconda, Inc.</span></a><span> that provides several nice features and ease of installation. This is the generally recommended Python distribution for data science.</span></p><h2><a name="download" class="md-header-anchor"></a><span>Download</span></h2><p><span>Go to </span><a href='https://www.anaconda.com/products/individual'><span>the Anaconda download site</span></a><span>. Make sure you get the graphical installer for your operating system, and the 64-bit version. Direct links to the installers are below</span></p><figure><table><thead><tr><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th></tr></thead><tbody><tr><td><a href='https://repo.anaconda.com/archive/Anaconda3-2020.11-Windows-x86_64.exe'><span>Windows</span></a></td><td><a href='https://repo.anaconda.com/archive/Anaconda3-2020.11-MacOSX-x86_64.pkg'><span>Mac</span></a></td><td><a href='https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh'><span>Linux</span></a></td></tr></tbody></table></figure><h2><a name="installation" class="md-header-anchor"></a><span>Installation</span></h2><p><span>Click the downloaded installer to run it and follow the directions. Installing Anaconda Python Distribution does not require administrator priviledges, since it installs for your account and not globally.</span></p><h3><a name="on-a-mac" class="md-header-anchor"></a><span>On a Mac</span></h3><figure><table><thead><tr><th style='text-align:center;' ><span>Select windows from installation</span></th><th>&nbsp;</th></tr></thead><tbody><tr><td style='text-align:center;' ><img src="image-20210318003827272.png" alt="image-20210318003827272" style="zoom:50%;" /></td><td><img src="image-20210318004029196.png" alt="image-20210318004029196" style="zoom:50%;" /></td></tr><tr><td style='text-align:center;' ><img src="image-20210318004117199.png" alt="image-20210318004117199" style="zoom:50%;" /></td><td><img src="image-20210318004143242.png" alt="image-20210318004143242" style="zoom:50%;" /></td></tr></tbody></table></figure><h3><a name="on-windows" class="md-header-anchor"></a><span>On Windows</span></h3><p>&nbsp;</p><h2><a name="creating-the-computational-environment-for-this-class" class="md-header-anchor"></a><span>Creating the computational environment for this class</span></h2><p><span>Best practice when starting a Python project is to create and work in a computational environment specific to the project that has the appropriate packages. Traditionally these were called </span><code>virtualenv</code><span>. Anaconda created a similar environment called a </span><em><span>conda environment</span></em><span>, which we will use. </span></p><p><span>In Canvas, you will find a file called </span><em><span>biof440_environment.yml</span></em><span>. This contains the specifications for the environment we will be using in this class. Download this file to your computer.</span></p><p><span>The Anaconda installation installed an app called Anaconda Navigator on your computer. You can access it from </span><code>Start Menu &gt; Anaconda3 (64-bit) &gt; Anaconda Navigator</code><span>  (Windows) or the Applications folder (Mac). On Linux you can start it from a terminal by typing </span><code>anaconda-navigator</code><span>. </span></p><p><img src="image-20210318005406109.png" referrerpolicy="no-referrer" alt="image-20210318005406109"></p><p><span>We</span>’<span>re going to go to the </span><strong><span>Environments</span></strong><span> tab on the left.</span></p><p><img src="image-20210318005952180.png" referrerpolicy="no-referrer" alt="image-20210318005952180"></p><p><span>This screen shows the Python packages installed with the installer. We will install a new computational environment using this screen. At the bottom, click on the </span><strong><span>Import</span></strong><span> button.</span></p><p><img src="image-20210318010138861.png" referrerpolicy="no-referrer" alt="image-20210318010138861"></p><p><span>Click on the folder icon to load a specification file. Don</span>’<span>t write in a name, since the file we</span>’<span>ll load will take care of that. </span></p><p><span>Find the </span><em><span>biof440_environment.yml</span></em><span> file that you downloaded from Canvas and select it.</span></p><p><img src="image-20210318010323193.png" referrerpolicy="no-referrer" alt="image-20210318010323193"></p><p><span>Click </span><strong><span>Import</span></strong><span>. </span></p><p><img src="nav1.png" style="zoom:50%;" /></p><p><span>The following bit takes a few minutes to install. At the end of the process, you</span>’<span>ll see the following screen.</span></p><p><img src="image-20210318012822604.png" referrerpolicy="no-referrer" alt="image-20210318012822604"></p><p>&nbsp;</p><h2><a name="an-alternative-method-using-the-terminal" class="md-header-anchor"></a><span>An alternative method using the terminal</span></h2><p><span>You can also install the conda environment using a terminal and the command line. </span></p><p><span>On Windows, you need to start </span><strong><span>Anaconda Prompt</span></strong><span> from </span><code>Start Menu &gt; Anaconda3 (64-bit) &gt; Anaconda Prompt (Anaconda3)</code><span>. On a Mac, you</span>’<span>d open the </span><strong><span>Terminal</span></strong><span> app from Applications.</span></p><p><span>In the terminal, you would type in the following command:</span></p><pre spellcheck="false" class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" lang="shell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 33px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 29px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -29px; width: 29px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -29px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 20px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">conda env create <span class="cm-attribute">-f</span> biof440_environment.yml</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 26px;"></div><div class="CodeMirror-gutters" style="height: 26px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 28px;"></div></div></div></div></pre><p><span>This will create the conda environment we will use on your computer.</span></p><p><img src="image-20210318012756518.png" referrerpolicy="no-referrer" alt="image-20210318012756518"></p><p>&nbsp;</p><p>&nbsp;</p></div>
 </body>
 </html>
