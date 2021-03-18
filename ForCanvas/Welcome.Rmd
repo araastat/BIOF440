@@ -1,8 +1,0 @@
----
-title: |
-  Welcome to BIOF 440:  
-  Data Visualization using Python
-author: Abhijit Dasgupta, PhD
----
-
-

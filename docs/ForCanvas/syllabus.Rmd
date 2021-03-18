@@ -1,9 +1,11 @@
 ---
 title: ''
-output: 
+output:
+  pdf_document:
+    toc: no
   html_document:
     css: styles.css
-    toc: false
+    toc: no
 ---
 
 ```{css, echo=FALSE}
