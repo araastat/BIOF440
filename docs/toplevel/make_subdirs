@@ -8,7 +8,8 @@ all: $(SLIDES_OUT)
 .PHONY: pdf
 pdf: $(SLIDES_PDF)
 
-$(OUTDIR)/%.html: %.Rmd _output.yml ../templates/setup.Rmd
+$(OUTDIR)/%.html: %.Rmd _output.yml ../css/setup.Rmd $(SLIDES_CHILDREN)
+	Rscript -e "if(!dir.exists('$(OUTDIR)')) dir.create('$(OUTDIR)', recursive=TRUE)"
 	Rscript -e "rmarkdown::render('$(*F).Rmd', output_yaml = '_output.yml')"
 	rm -rf $(OUTDIR)/$(*F)_files
 	mv $(*F).html $(OUTDIR)
@@ -17,8 +18,8 @@ $(OUTDIR)/%.html: %.Rmd _output.yml ../templates/setup.Rmd
 $(OUTDIR)/%.pdf: $(OUTDIR)/%.html
 	cp -r ../css $(OUTDIR)
 	cp -r ../js $(OUTDIR)
-	cp -r img $(OUTDIR)
-	Rscript -e "pagedown::chrome_print('$(@D)/$(*F).html')"
+	cp -r ../img $(OUTDIR)
+	Rscript -e "xaringanBuilder::build_pdf('$(@D)/$(*F).html', complex_slides=T)"
 	rm -rf css
 	rm -rf js
 	rm -rf img
