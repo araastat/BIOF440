@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BIOF440_HW2</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>BIOF440_HW2_Solution</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14543,10 +14543,11 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 
      </div>
@@ -14560,18 +14561,86 @@ a.anchor-link {
 <h3 id="1-(B)">1 (B)<a class="anchor-link" href="#1-(B)">&#182;</a></h3><p>We spoke of the example data sets denoted table1, table2, table3, table4a, table4b and table5 (p. 63 of the pandas slides). All the files are available on Canvas and should be downloaded to the <code>data</code> folder described above. Read these 6 files into a dictionary (<code>dict</code>) object named <code>tbl_data</code>, with keys being the names listed earlier here, and the values being the actual data, using a <code>for-loop</code> and <code>pandas</code> functions. Show your code below.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tbl_data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">fnames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;table1&#39;</span><span class="p">,</span><span class="s1">&#39;table2&#39;</span><span class="p">,</span><span class="s1">&#39;table3&#39;</span><span class="p">,</span><span class="s1">&#39;table4a&#39;</span><span class="p">,</span><span class="s1">&#39;table4b&#39;</span><span class="p">,</span><span class="s1">&#39;table5&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fnames</span><span class="p">:</span>
+    <span class="n">tbl_data</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/&#39;</span><span class="o">+</span><span class="n">f</span><span class="o">+</span><span class="s1">&#39;.csv&#39;</span><span class="p">)</span>
+<span class="n">tbl_data</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>{&#39;table1&#39;:        country  year   cases  population
+ 0  Afghanistan  1999     745    19987071
+ 1  Afghanistan  2000    2666    20595360
+ 2       Brazil  1999   37737   172006362
+ 3       Brazil  2000   80488   174504898
+ 4        China  1999  212258  1272915272
+ 5        China  2000  213766  1280428583,
+ &#39;table2&#39;:         country  year        type       count
+ 0   Afghanistan  1999       cases         745
+ 1   Afghanistan  1999  population    19987071
+ 2   Afghanistan  2000       cases        2666
+ 3   Afghanistan  2000  population    20595360
+ 4        Brazil  1999       cases       37737
+ 5        Brazil  1999  population   172006362
+ 6        Brazil  2000       cases       80488
+ 7        Brazil  2000  population   174504898
+ 8         China  1999       cases      212258
+ 9         China  1999  population  1272915272
+ 10        China  2000       cases      213766
+ 11        China  2000  population  1280428583,
+ &#39;table3&#39;:        country  year               rate
+ 0  Afghanistan  1999       745/19987071
+ 1  Afghanistan  2000      2666/20595360
+ 2       Brazil  1999    37737/172006362
+ 3       Brazil  2000    80488/174504898
+ 4        China  1999  212258/1272915272
+ 5        China  2000  213766/1280428583,
+ &#39;table4a&#39;:        country    1999    2000
+ 0  Afghanistan     745    2666
+ 1       Brazil   37737   80488
+ 2        China  212258  213766,
+ &#39;table4b&#39;:        country        1999        2000
+ 0  Afghanistan    19987071    20595360
+ 1       Brazil   172006362   174504898
+ 2        China  1272915272  1280428583,
+ &#39;table5&#39;:        country  century  year               rate
+ 0  Afghanistan       19    99       745/19987071
+ 1  Afghanistan       20     0      2666/20595360
+ 2       Brazil       19    99    37737/172006362
+ 3       Brazil       20     0    80488/174504898
+ 4        China       19    99  212258/1272915272
+ 5        China       20     0  213766/1280428583}</pre>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14580,20 +14649,16 @@ a.anchor-link {
 <h3 id="1-(C)">1 (C)<a class="anchor-link" href="#1-(C)">&#182;</a></h3><p>Write why each of table1, table2, table3, (table4a + table4b) and table5 are or are not tidy, and, if not, how would you transform them to make them tidy.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>table1 is tidy</p>
+<p>table2 is not tidy since the column <code>type</code> contains 2 kinds of data</p>
+<p>table3 is not tidy, since the <code>rate</code> column is a composite column with both cases and population, as a string</p>
+<p>tables 4a and 4b aren't tidy, since the year data are column headers</p>
+<p>table5 is nto tidy, since, like table3, the <code>rate</code> column is composite, and <code>century</code> and <code>year</code> can be combined into just year</p>
 
-     </div>
 </div>
-</div>
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -14623,10 +14688,10 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gapm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder.tsv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14643,18 +14708,91 @@ a.anchor-link {
 <p>First, find the average life expectancy by continent in 2007. Make sure your result is a <code>DataFrame</code> and not a <code>Series</code> by appropriate use of <code>reset_index</code>.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gapm2</span> <span class="o">=</span> <span class="n">gapm</span><span class="p">[</span><span class="n">gapm</span><span class="o">.</span><span class="n">year</span><span class="o">==</span><span class="mi">2007</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;continent&#39;</span><span class="p">)[</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">gapm2</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>continent</th>
+      <th>lifeExp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Africa</td>
+      <td>54.806038</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Americas</td>
+      <td>73.608120</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Asia</td>
+      <td>70.728485</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Europe</td>
+      <td>77.648600</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Oceania</td>
+      <td>80.719500</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14663,18 +14801,91 @@ a.anchor-link {
 <h3 id="2-(C)">2 (C)<a class="anchor-link" href="#2-(C)">&#182;</a></h3><p>Apply the function <code>sort_values</code> to the DataFrame created in 2(B) to re-arrange the rows in increasing order of life expectancy. Use the help features or Google to figure out how to use <code>sort_values</code></p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gapm2</span><span class="o">=</span><span class="n">gapm2</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">)</span>
+<span class="n">gapm2</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>continent</th>
+      <th>lifeExp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Africa</td>
+      <td>54.806038</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Asia</td>
+      <td>70.728485</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Americas</td>
+      <td>73.608120</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Europe</td>
+      <td>77.648600</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Oceania</td>
+      <td>80.719500</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
