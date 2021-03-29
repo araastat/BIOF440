@@ -49,3 +49,5 @@ slides/lectures/figure/*.png
 
 *.ipynb
 ForCanvas/*
+notebooks/*
+
