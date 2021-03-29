@@ -23,19 +23,19 @@ author: Abhijit Dasgupta, PhD
 
 ### Slack:  [https://biof440.slack.com](https://biof440.slack.com)
 
-You will be sent an invitation link to the Slack channel on Canvas. Please sign in, since that will be the primary means of communication between us, and between your fellow students. 
+You will be sent an invitation link to the Slack channel on Canvas. Please sign in, since that will be the primary means of communication between us, and between your fellow students. Also, send me a message once you are on Slack to add you to the `spring-2021` private channel, since that's where this particular cohort will communicate.
 
 
 ---
 
 # General class practices
 
-- Each week's module will be released by 9 am each Monday. 
+- Each week's module will be released by 8 am each Monday. 
 - Each week will include
     - Lectures/Screencasts
     - Readings
-    - Assigned tutorials that you will do on your own
     - Formative assessments
+    - Discussion topics
     - One quiz
     - Homework
 
@@ -47,6 +47,7 @@ You will be sent an invitation link to the Slack channel on Canvas. Please sign 
 + Each week will have a quiz to assess your understanding of that week's material
 + Quizzes will typically be multiple choice
 + Quizzes will typically be time-limited
++ Quizzes are **not** graded
 
 ---
 
@@ -54,10 +55,9 @@ You will be sent an invitation link to the Slack channel on Canvas. Please sign 
 
 ## Rules
 
-- Homework assignments are due each Saturday at 11:59pm
-- Homework may be submitted up to 24 hours after the due date, i.e. by Sunday 11:59 pm, with a 20% penalty
+- Homework assignments are due each Sunday at 11:59pm
 - Homework may not be submitted after Sunday 11:59 pm since solutions will be provided on Monday
-- One homework (typically the lowest grade) will be dropped from the final grade computations
+- Two homework (typically the lowest grades) will be dropped from the final grade computations
 
 ---
 
@@ -66,7 +66,6 @@ You will be sent an invitation link to the Slack channel on Canvas. Please sign 
 - Unless otherwise specified, homework must be submitted as a Jupyter notebook (.ipynb) file
     - Homework for Week 1 will not require a Jupyter notebook and may be submitted as a Word document
 - Homework files will be submitted on Canvas using the Canvas assignment submission system
-    + See screencast for how this works
 
 ---
 
@@ -120,8 +119,7 @@ We may have multiple sections for a session depending on demand
 
 ```{r, echo=FALSE}
 tribble(~Component, ~Percentage,
-        'Quizzes', '20%',
-        'Assignments', '30%',
+        'Assignments', '50%',
         'Participation', '25%',
         'Final Project', '25%') %>% 
   kable(align='lr', caption = 'Grade components') %>% 
@@ -164,4 +162,4 @@ Python can provide wonderful visualizations, but these may require a tweak or tw
 1. Adobe Illustrator / Inkscape (all OS)
 1. Adobe Photoshop / GIMP (all OS)
 1. Adobe Reader Pro / Preview (Mac OSX)
-1. ImageMagick (accessible via the R package `magick`) (all OS)
+1. ImageMagick  (all OS)
