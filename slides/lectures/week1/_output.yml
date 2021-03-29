@@ -1,9 +1,9 @@
 xaringan::moon_reader:
-  css: ['../css/xaringan-themer.css', "../css/custom.css", "../css/sfah.css"]
+  css: ['../css/robot.css',"../css/robot-fonts.css", "../css/custom.css", "../css/sfah.css"]
   nature:
     beforeInit: ../js/macros.js
     ratio: "16:9"
-    highlightLanguage: "r"
+    highlightLanguage: "python"
     highlightStyle: tomorrow-night-bright
     highlightLines: true
     countIncrementalSlides: false

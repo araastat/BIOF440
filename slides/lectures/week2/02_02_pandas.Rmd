@@ -1,0 +1,1431 @@
+---
+title: Starting pandas
+subtitle: BIOF 440 Week 2
+author: Abhijit Dasgupta
+---
+
+```{r, include=F, child='../css/setup.Rmd'}
+
+```
+```{r, include=F}
+knitr::opts_chunk$set(cache=FALSE)
+```
+
+
+## pandas
+
+`pandas` is the Python Data Analysis package. 
+
+It allows for data ingestion, transformation and cleaning, and creates objects that can then be passed on to analytic packages like `statsmodels` and `scikit-learn` for modeling and packages like `matplotlib`, `seaborn`, and `plotly` for visualization. 
+
+`pandas` is built on top of `numpy`, so many numpy functions are commonly used in manipulating `pandas` objects. 
+
+> `pandas` is a pretty extensive package, and we'll only be able to cover some of its features. For more details, there is free online documentation at [pandas.pydata.org](https://pandas.pydata.org). You can also look at the book ["Python for Data Analysis (2nd edition)"](https://www.amazon.com/Python-Data-Analysis-Wrangling-IPython-dp-1491957662/dp/1491957662/) by Wes McKinney, the original developer of the pandas package, for more details.
+
+---
+
+## Starting pandas
+
+As with any Python module, you have to "activate" `pandas` by using `import`. The "standard" alias for `pandas` is `pd`. We will also import `numpy`, since `pandas` uses some `numpy` functions in the workflow. 
+
+```{python 02-python-pandas-2}
+import numpy as np
+import pandas as pd
+```
+
+---
+
+## Data import and export
+
+Most data sets you will work with are set up in tables, so are rectangular in shape. Think Excel spreadsheets. 
+
+In `pandas` the structure that will hold this kind of data is a `DataFrame`.  
+
+We can read external data into a `DataFrame` using one of many `read_*` functions. 
+
+We can also write from a `DataFrame` to a variety of formats using `to_*` functions. 
+
+| Format type | Description | reader       | writer     |
+| ----------- | ----------- | ------------ | ---------- |
+| text        | CSV         | read_csv     | to_csv     |
+|             | Excel       | read_excel   | to_excel   |
+| text        | JSON        | read_json    | to_json    |
+| binary      | Feather     | read_feather | to_feather |
+| binary      | SAS         | read_sas     |            |
+| SQL         | SQL         | read_sql     | to_sql     |
+
+---
+
+## Data import and export
+
+We'll start by reading in the `mtcars` dataset stored as a CSV file
+
+```{python 02-python-pandas-3, eval=FALSE, echo=TRUE}
+pd.read_csv('data/mtcars.csv')
+```
+```{python, echo=FALSE}
+pd.read_csv('data/mtcars.csv').head(8)
+```
+
+This just prints out the data, but then it's lost. To use this data, we have to give it a name, so it's stored in Python's memory
+
+```{python 02-python-pandas-4}
+mtcars = pd.read_csv('data/mtcars.csv')
+```
+
+---
+
+## Exploring a data set
+
+We would like to get some idea about this data set. There are a bunch of functions linked to the `DataFrame` object that help us in this. First we will use `head` to see the first 8 rows of this data set
+
+```{python 02-python-pandas-6}
+mtcars.head(8)
+```
+
+This is our first look into this data. We notice a few things. Each column has a name, and each row has an *index*, starting at 0. 
+
+> If you're interested in the last N rows, there is a corresponding `tail` function
+
+---
+
+## Exploring a data set
+
+Let's look at the data types of each of the columns
+
+.pull-left[
+```{python 02-python-pandas-7}
+mtcars.dtypes
+```
+]
+.pull-right[
+This tells us that some of the variables, like `mpg` and `disp`, are floating point (decimal) numbers, 
+
+several are integers, 
+
+and `make` is an "object". 
+
+The `dtypes` function borrows from `numpy`, where there isn't really a type for character or categorical variables. So most often, when you see "object" in the output of `dtypes`, you think it's a character or categorical variable. 
+]
+
+---
+
+## Exploring a data set
+
+We can also look at the data structure in a bit more detail.
+
+.pull-left[
+```{python 02-python-pandas-8}
+mtcars.info()
+```
+]
+.pull-right[
+This tells us that this is indeed a `DataFrame`, wth 12 columns, each with 32 valid observations.  We also get the approximate size of this object in memory.
+
+You can also quickly find the number of rows and columns of a data set by using `shape`, which is borrowed from numpy.
+
+```{python 02-python-pandas-9}
+mtcars.shape
+```
+]
+
+---
+
+## Exploring a data set
+
+More generally, we can get a summary of each variable using the `describe` function
+
+```{python 02-python-pandas-10}
+mtcars.describe()
+```
+ 
+This provides a summary of the numeric variables
+
+---
+
+## Exploring a data set
+
+```{python}
+mtcars.describe(include = ['O'])
+```
+
+You get a slightly different output when you just include "object" or non-numeric variables
+
+
+---
+class: middle,center,inverse
+
+# Data structures and types
+
+---
+
+## pandas.Series
+
+pandas has two main data types: `Series` and `DataFrame`. These are analogous to vectors and matrices, in that a `Series` is 1-dimensional while a `DataFrame` is 2-dimensional. 
+
+The `Series` object holds data from a single input variable, and is required, much like numpy arrays, to be homogeneous in type. You can create `Series` objects from lists or numpy arrays quite easily
+
+.pull-left[
+```{python 02-python-pandas-11}
+s = pd.Series([1,3,5,np.nan, 9, 13])
+s
+```
+
+`np.nan` is the representation of missing data used in the PyData ecosystem
+]
+.pull-right[
+```{python 02-python-pandas-12}
+s2 = pd.Series(np.arange(1,10))
+s2
+```
+]
+
+---
+
+## pandas.Series
+
+You can access elements of a `Series` much like a `dict`
+
+```{python 02-python-pandas-13}
+s2[4]
+```
+
+There is no requirement that the index of a `Series` has to be numeric. It can be any kind of scalar object
+
+```{python 02-python-pandas-14}
+s3 = pd.Series(np.random.normal(0,1, (5,)), index = ['a','b','c','d','e'])
+```
+
+.pull-left[
+```{python}
+s3
+```
+
+]
+.pull-right[
+```{python 02-python-pandas-15}
+s3['d']
+```
+]
+
+---
+
+## pandas.Series
+
+.pull-left[
+```{python 02-python-pandas-16}
+s3['a':'d']
+```
+]
+.pull-right[
+Well, slicing worked, but it gave us something different than expected. It gave us both the start **and** end of the slice, which is unlike what we've encountered so far!! 
+
+It turns out that in `pandas`, slicing by index actually does this. It is a discrepancy from `numpy` and Python in general that we have to be careful about. 
+]
+
+-----
+
+You can extract the actual values into a numpy array
+
+```{python 02-python-pandas-17}
+s3.to_numpy()
+```
+
+In fact, you'll see that much of `pandas`' structures are build on top of `numpy` arrays. This is a good thing, since you can take advantage of the powerful numpy functions that are built for fast, efficient scientific computing. 
+
+---
+
+## pandas.Series
+
+Making the point about slicing again, 
+
+```{python 02-python-pandas-18}
+s3.to_numpy()[0:3]
+```
+
+This is different from index-based slicing done earlier.
+
+---
+
+## pandas.DataFrame
+
+The `DataFrame` object holds a rectangular data set. 
+
+Each column of a `DataFrame` is a `Series` object. 
+
+This means that each column of a `DataFrame` must be comprised of data of the same type, but different columns can hold data of different types. This structure is extremely useful in practical data science. 
+
+The invention of this structure was, in my opinion, transformative in making Python an effective data science tool.
+
+---
+
+## Creating a DataFrame
+
+The `DataFrame` can be created by importing data, as we saw in the previous section. It can also be created by a few methods within Python.
+
+First, it can be created from a 2-dimensional `numpy` array.
+
+```{python 02-python-pandas-19}
+rng = np.random.RandomState(25)
+d1 = pd.DataFrame(rng.normal(0,1, (4,5)))
+d1
+```
+
+You will notice that it creates default column names, that are merely the column number, starting from 0. We can also create the column names and row index (similar to the `Series` index we saw earlier) directly during creation.
+
+---
+
+## Creating a DataFrame
+
+```{python 02-python-pandas-20}
+d2 = pd.DataFrame(rng.normal(0,1, (4, 5)), 
+                  columns = ['A','B','C','D','E'], 
+                  index = ['a','b','c','d'])
+d2
+```
+
+We could also create a `DataFrame` from a list of lists, as long as things line up, just as we showed for `numpy` arrays. However, to me, other ways, including the `dict` method we'll see next, is more expressive.
+
+---
+
+## Creating a DataFrame
+
+We can change the column names (which can be extracted and replaced with the `columns` attribute) and the index values (using the `index` attribute).
+
+.pull-left[
+```{python 02-python-pandas-21}
+d2.columns
+```
+
+We can change the column names, if we like.
+
+```{python 02-python-pandas-22}
+d2.columns = pd.Index(['V'+str(i) for i in range(1,6)]) # Index creates the right objects for both column names and row names, which can be extracted and changed with the `index` attribute
+d2
+```
+
+**Exercise:** Can you explain what I did in the list comprehension above? The key points are understanding `str` and how I constructed the `range`.
+]
+.pull-right[
+
+```{python 02-python-pandas-23}
+d2.index = ['o1','o2','o3','o4']
+d2
+```
+]
+
+---
+
+## Creating a DataFrame
+
+You can also extract data from a homogeneous `DataFrame` to a `numpy` array
+
+```{python 02-python-pandas-24}
+d1.to_numpy()
+```
+
+> It turns out that you can use `to_numpy` for a non-homogeneous `DataFrame` as well. `numpy` just makes it homogeneous by assigning each column the data type `object`. This also limits what you can do in `numpy` with the array and may require changing data types using the [`astype` function](https://numpy.org/devdocs/reference/generated/numpy.ndarray.astype.html). 
+
+---
+
+## Creating a DataFrame
+
+The other easy way to create a `DataFrame` is from a `dict` object, where each component object is either a list or a numpy array, and is homogeneous in type. One exception is if a component is of size 1; then it is repeated to meet the needs of the `DataFrame`'s dimensions
+
+```{python 02-python-pandas-25}
+df = pd.DataFrame({
+    'A':3.,
+    'B':rng.random_sample(5),
+    'C': pd.Timestamp('20200512'),
+    'D': np.array([6] * 5),
+    'E': pd.Categorical(['yes','no','no','yes','no']),
+    'F': 'NIH'})
+```
+.pull-left[
+```{python}
+df
+```
+
+]
+.pull-right[
+```{python 02-python-pandas-26, echo=FALSE}
+df.info()
+```
+
+
+We note that C is a date object, E is a category object, and F is a text/string object. pandas has excellent time series capabilities (having origins in FinTech), and the `TimeStamp` function creates datetime objects which can be queried and manipulated in Python. We'll describe category data in the next section.
+
+]
+
+---
+
+## Working with a DataFrame
+
+You can extract particular columns of a `DataFrame` by name
+
+.pull-left[
+```{python 02-python-pandas-28}
+df['E']
+```
+]
+.pull-right[
+
+```{python 02-python-pandas-30}
+df.B
+```
+]
+
+> The `.` notation can be more convenient if we need to perform operations on a single column. If we want to extract multiple columns, this notation will not work. Also, if we want to create new columns or replace existing columns, we need to use the array notation with the column name in quotes. 
+
+---
+
+## Working with a DataFrame
+
+
+```{python 02-python-pandas-31}
+df2 = pd.DataFrame(rng.randint(0,10, (5,4)), 
+                  index = ['a','b','c','d','e'],
+                  columns = ['one','two','three','four'])
+df2
+```
+
+---
+
+## Working with a DataFrame
+
+There are many ways to extract elements. Let's simplify things for this, and then move on to more consistent ways to extract elements of a `DataFrame`. Let's agree on two things. If we're going the direct extraction route, 
+
+1. We will extract single columns of a `DataFrame` with `[]` or `.`, i.e., `df2['one']` or `df2.one`
+1. We will extract slices of rows of a `DataFrame` using location only, i.e., `df2[:3]`. 
+
+For everything else, we'll use two functions, `loc` and `iloc`.
+
++ `loc` extracts elements like a matrix, using index and columns
++ `iloc` extracts elements like a matrix, using location
+
+---
+
+## Working with a DataFrame
+
+
+```{python 02-python-pandas-42}
+df2.loc[:,'one':'three']
+```
+
+```{python 02-python-pandas-43}
+df2.loc['a':'d',:]
+```
+
+
+So `loc` works just like a matrix, but with `pandas` slicing rules (include largest index)
+
+---
+
+## Working with a DataFrame
+
+.pull-left[
+```{python 02-python-pandas-45}
+df2.iloc[:,1:4]
+```
+
+```{python 02-python-pandas-46}
+df2.iloc[1:3,:]
+```
+
+```{python 02-python-pandas-47}
+df2.iloc[1:3, 1:4]
+```
+]
+.pull-right[
+Recall that numeric slicing includes the lower index, **excludes** the highest index.
+]
+---
+
+## Working with a DataFrame
+
+
+If we want to extract a single element from a dataset, there are two functions available, `iat` and `at`, with behavior corresponding to `iloc` and `loc`, respectively.
+
+```{python}
+df2.iat[2,3]
+```
+
+```{python}
+df2.at['b','three']
+```
+
+---
+
+## Working with a DataFrame
+
+
+We can also use tests to extract data from a `DataFrame`. For example, we can extract only **rows** where column labeled `one` is greater than 3. 
+
+```{python 02-python-pandas-48}
+df2[df2.one > 3]
+```
+
+We can also do composite tests. Here we ask for rows where `one` is greater than 3 and `three` is less than 9
+
+```{python 02-python-pandas-49}
+df2[(df2.one > 3) & (df2.three < 9)]
+```
+
+---
+
+## Working with a DataFrame
+
+
+#### `query`
+
+`DataFrame`'s have a `query` method allowing selection using a Python expression
+
+```{python 02-python-pandas-50}
+n = 10
+df = pd.DataFrame(np.random.rand(n, 3), columns = list('abc'))
+df
+```
+
+---
+
+## Working with a DataFrame
+
+#### `query`
+
+```{python 02-python-pandas-51}
+df[(df.a < df.b) & (df.b < df.c)]
+```
+
+We can equivalently write this query as 
+
+```{python 02-python-pandas-52}
+df.query('(a < b) & (b < c)')
+```
+
+---
+
+## Working with a DataFrame
+
+
+#### Replacing values in a DataFrame
+
+We can replace values within a DataFrame either by position or using a query. 
+
+.pull-left[
+```{python}
+df2
+```
+]
+.pull-right[
+```{python}
+df2['one'] = [2,5,2,5,2]
+df2
+```
+]
+---
+
+## Working with a DataFrame
+
+
+Let's now replace values using `replace` which is more flexible. 
+
+```{python}
+df2.replace(0, -9) # replace 0 with -9
+```
+
+
+```{python}
+df2.replace({'one': {5: 500}, 'three': {0: -9, 8: 800}}) 
+# different replacements in different columns
+```
+
+See more examples in the [documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.replace.html?highlight=replace#pandas.DataFrame.replace)
+
+---
+
+## Categorical data
+
+`pandas` provides a `Categorical` function and a `category` object type to Python. This type is analogous to the `factor` data type in R. It is meant to address categorical or discrete variables, where we need to use them in analyses. Categorical variables typically take on a small number of unique values, like gender, blood type, country of origin, race, etc. 
+
+You can create categorical `Series` in a couple of ways:
+
+
+```{python 02-python-pandas-53}
+s = pd.Series(['a','b','c'], dtype='category')
+```
+
+```{python 02-python-pandas-54}
+df = pd.DataFrame({
+    'A':3.,
+    'B':rng.random_sample(5),
+    'C': pd.Timestamp('20200512'),
+    'D': np.array([6] * 5),
+    'E': pd.Categorical(['yes','no','no','yes','no']),
+    'F': 'NIH'})
+
+df['F'].astype('category')
+```
+
+
+---
+
+## Categorical data
+
+You can also create `DataFrame`'s where each column is categorical
+
+```{python 02-python-pandas-55}
+df = pd.DataFrame({'A': list('abcd'), 'B': list('bdca')})
+df_cat = df.astype('category')
+df_cat.dtypes
+```
+
+---
+
+## Categorical data
+
+You can explore categorical data in a variety of ways
+
+.pull-left[
+```{python 02-python-pandas-56}
+df_cat['A'].describe()
+```
+]
+.pull-right[
+```{python 02-python-pandas-57}
+df['A'].value_counts()
+```
+]
+
+---
+
+## Categorical data
+
+One issue with categories is that, if a particular level of a category is not seen before, it can create an error. So you can pre-specify the categories you expect
+
+```{python 02-python-pandas-58}
+df_cat['B'] = pd.Categorical(list('aabb'), categories = ['a','b','c','d'])
+df_cat['B'].value_counts()
+```
+
+---
+
+## Categorical data
+
+#### Re-organizing categories
+
+In categorical data, there is often the concept of a "first" or "reference" category, and an ordering of categories. This tends to be important in visualization. Both aspects of a category can be addressed using the `reorder_categories` function.
+
+In our earlier example, we can see that the `A` variable has 4 categories, with the "first" category being "a".
+
+```{python}
+df_cat.A
+```
+
+---
+
+## Categorical data
+
+#### Re-organizing categories
+
+Suppose we want to change this ordering to the reverse ordering, where
+"d" is the "first" category, and then it goes in reverse order. 
+
+```{python}
+df_cat['A'] = df_cat.A.cat.reorder_categories(['d','c','b','a'])
+df_cat.A
+```
+
+---
+
+## Missing data
+
+Both `numpy` and `pandas` allow for missing values, which are a reality in data science. The missing values are coded as `np.nan`. Let's create some data and force some missing values
+
+```{python 02-python-pandas-59}
+df = pd.DataFrame(np.random.randn(5, 3), index = ['a','c','e', 'f','g'], columns = ['one','two','three']) # pre-specify index and column names
+df['four'] = 20 # add a column named "four", which will all be 20
+df['five'] = df['one'] > 0
+df
+```
+
+---
+
+## Missing data
+
+```{python 02-python-pandas-60}
+df2 = df.reindex(['a','b','c','d','e','f','g'])
+df2
+```
+
+The code above is creating new blank rows based on the new index values, some of which are present in the existing data and some of which are missing.
+
+---
+
+## Missing data
+
+We can create *masks* of the data indicating where missing values reside in a data set.
+
+```{python 02-python-pandas-61}
+df2.isna()
+```
+
+```{python 02-python-pandas-62}
+df2['one'].notna()
+```
+
+---
+
+## Missing data
+
+We can obtain complete data by dropping any row that has any missing value. This is called *complete case analysis*, and you should be very careful using it. It is *only* valid if we belive that the missingness is missing at random, and not related to some characteristic of the data or the data gathering process. 
+
+```{python 02-python-pandas-63}
+df2.dropna(how='any')
+```
+
+---
+
+## Missing data
+
+.pull-left[
+You can also fill in, or *impute*, missing values. This can be done using a single value..
+
+```{python 02-python-pandas-64}
+out1 = df2.fillna(value = 5)
+out1
+```
+]
+.pull-right[
+or a computed value like a column mean
+
+```{python 02-python-pandas-65}
+df3 = df2.copy()
+df3 = df3.select_dtypes(exclude=[object])   # remove non-numeric columns
+out2 = df3.fillna(df3.mean())  # df3.mean() computes column-wise means
+out2
+```
+]
+
+---
+
+## Missing data
+
+You can also impute based on the principle of *last value carried forward* which is common in time series. This means that the missing value is imputed with the previous recorded value. 
+
+.pull-left[
+```{python 02-python-pandas-66}
+out3 = df2.fillna(method = 'ffill') # Fill forward
+out3
+```
+]
+.pull-right[
+```{python 02-python-pandas-67}
+out4 = df2.fillna(method = 'bfill') # Fill backward
+out4
+```
+]
+
+---
+
+## Data transformation
+
+### Arithmetic operations
+
+If you have a `Series` or `DataFrame` that is all numeric, you can add or multiply single numbers to all the elements together.
+
+```{python 02-python-pandas-68}
+A = pd.DataFrame(np.random.randn(3,3))
+print(A)
+```
+.pull-left[
+```{python 02-python-pandas-69}
+print(A + 6)
+```
+]
+.pull-right[
+```{python 02-python-pandas-70}
+print(A * -10)
+```
+]
+
+---
+
+## Data transformation
+
+### Arithmetic operations
+
+If you have two compatible (same dimension) numeric `DataFrame`s, you can add, subtract, multiply and divide elementwise
+
+.pull-left[
+```{python 02-python-pandas-71}
+B = pd.DataFrame(np.random.randn(3,3) + 4)
+print(A + B)
+```
+]
+.pull-right[
+```{python 02-python-pandas-72}
+print(A * B)
+```
+]
+
+---
+
+## Data transformation
+
+### Arithmetic operations
+
+If you have a `Series` with the same number of elements as the number of columns of a `DataFrame`, you can do arithmetic operations, with each element of the `Series` acting upon each column of the `DataFrame`
+
+```{python 02-python-pandas-73}
+c = pd.Series([1,2,3,4,5])
+print(A + c)
+```
+
+```{python 02-python-pandas-74}
+print(A * c)
+```
+
+---
+
+## Data transformation
+
+### Arithmetic operations
+
+This idea can be used to standardize a dataset, i.e. make each column have mean 0 and standard deviation 1.
+
+```{python 02-python-pandas-75}
+means = A.mean(axis=0)
+stds = A.std(axis = 0)
+
+(A - means)/stds
+```
+
+---
+
+## Concatenation of data sets
+
+Let's create some example data sets
+
+```{python 02-python-pandas-76}
+df1 = pd.DataFrame({'A': ['a'+str(i) for i in range(4)],
+    'B': ['b'+str(i) for i in range(4)],
+    'C': ['c'+str(i) for i in range(4)],
+    'D': ['d'+str(i) for i in range(4)]})
+
+df2 =  pd.DataFrame({'A': ['a'+str(i) for i in range(4,8)],
+    'B': ['b'+str(i) for i in range(4,8)],
+    'C': ['c'+str(i) for i in range(4,8)],
+    'D': ['d'+str(i) for i in range(4,8)]})
+df3 =  pd.DataFrame({'A': ['a'+str(i) for i in range(8,12)],
+    'B': ['b'+str(i) for i in range(8,12)],
+    'C': ['c'+str(i) for i in range(8,12)],
+    'D': ['d'+str(i) for i in range(8,12)]})
+```
+
+---
+
+## Concatenation of data sets
+
+We can concatenate these `DataFrame` objects by row
+
+```{python 02-python-pandas-77}
+row_concatenate = pd.concat([df1, df2, df3])
+print(row_concatenate)
+```
+
+This stacks the dataframes together. They are literally stacked, as is evidenced by the index values being repeated. 
+
+---
+
+## Concatenation of data sets
+
+
+This same exercise can be done by the `append` function
+
+```{python 02-python-pandas-78}
+df1.append(df2).append(df3)
+```
+
+---
+
+## Concatenation of data sets
+
+Suppose we want to append a new row to `df1`. Lets create a new row.
+
+```{python 02-python-pandas-79}
+new_row = pd.Series(['n1','n2','n3','n4'])
+pd.concat([df1, new_row])
+```
+
+That's a lot of missing values. The issue is that the we don't have column names in the `new_row`, and the indices are the same, so pandas tries to append it my making a new column. 
+
+---
+
+## Concatenation of data sets
+
+The solution is to make it a `DataFrame`.
+
+```{python 02-python-pandas-80}
+new_row = pd.DataFrame([['n1','n2','n3','n4']], columns = ['A','B','C','D'])
+print(new_row)
+```
+
+```{python 02-python-pandas-81}
+pd.concat([df1, new_row])
+```
+
+
+---
+
+## Adding columns
+
+```{python 02-python-pandas-83}
+pd.concat([df1,df2,df3], axis = 1)
+```
+
+The option `axis=1` ensures that concatenation happens by columns. The default value `axis = 0` concatenates by rows.
+
+---
+
+## Concatenation of data sets
+
+Let's play a little game. Let's change the column names of `df2` and `df3` so they are not the same as `df1`.
+
+
+```{python 02-python-pandas-84}
+df2.columns = ['E','F','G','H']
+df3.columns = ['A','D','F','H']
+pd.concat([df1,df2,df3])
+```
+
+Now pandas ensures that all column names are represented in the new data frame, but with missing values where the row indices and column indices are mismatched. 
+
+---
+
+## Merging data sets
+
+
+For this section we'll use a set of data from a survey, also used by Daniel Chen in "Pandas for Everyone"
+
+```{python 02-python-pandas-86}
+person = pd.read_csv('data/survey_person.csv')
+site = pd.read_csv('data/survey_site.csv')
+survey = pd.read_csv('data/survey_survey.csv')
+visited = pd.read_csv('data/survey_visited.csv')
+```
+
+---
+
+## Merging data sets
+
+.pull-left[
+```{python 02-python-pandas-87}
+print(person)
+```
+
+```{python 02-python-pandas-88}
+print(site)
+```
+]
+.pull-right[
+```{python 02-python-pandas-89}
+print(survey.head())
+```
+
+```{python 02-python-pandas-90}
+print(visited.head())
+```
+]
+
+
+---
+
+### Merging data sets
+
+There are basically four kinds of joins:
+
+| pandas | R          | SQL         | Description                     |
+| ------ | ---------- | ----------- | ------------------------------- |
+| left   | left_join  | left outer  | keep all rows on left           |
+| right  | right_join | right outer | keep all rows on right          |
+| outer  | outer_join | full outer  | keep all rows from both         |
+| inner  | inner_join | inner       | keep only rows with common keys |
+
+
+![](graphs/joins.png)
+
+---
+
+### Merging data sets
+
+The terms `left` and `right` refer to which data set you call first and second respectively. 
+
+We start with an left join
+
+
+```{python 02-python-pandas-91}
+s2v_merge = survey.merge(visited, left_on = 'taken',right_on = 'ident', how = 'left')
+```
+.pull-left[
+```{python 02-python-pandas-92}
+print(s2v_merge.head())
+```
+]
+.pull-right[
+Here, the left dataset is `survey` and the right one is `visited`. Since we're doing a left join, we keep all the rows from `survey` and add columns from `visited`, matching on the common key, called "taken" in one dataset and "ident" in the other. Note that the rows of `visited` are repeated as needed to line up with all the rows with common "taken" values. 
+]
+
+
+---
+
+### Merging data sets
+
+We can now add location information, where the common key is the site code
+
+```{python 02-python-pandas-93}
+s2v2loc_merge = s2v_merge.merge(site, how = 'left', left_on = 'site', right_on = 'name')
+print(s2v2loc_merge.head())
+```
+
+---
+
+### Merging data sets
+
+Lastly, we add the person information to this dataset.
+
+```{python 02-python-pandas-94}
+merged = s2v2loc_merge.merge(person, how = 'left', left_on = 'person', right_on = 'ident')
+print(merged.head())
+```
+
+---
+
+### Merging data sets
+
+You can merge based on multiple columns as long as they match up. 
+.pull-left[
+```{python 02-python-pandas-95}
+ps = person.merge(survey, left_on = 'ident', 
+  right_on = 'person')
+print(ps.head(4))
+```
+]
+.pull-right[
+```{python 02-python-pandas-96}
+vs = visited.merge(survey, left_on = 'ident', 
+  right_on = 'taken')
+print(vs.head(4))
+```
+]
+```{python 02-python-pandas-97}
+ps_vs = ps.merge(vs, 
+                left_on = ['ident','taken', 'quant','reading'],
+                right_on = ['person','ident','quant','reading']) # The keys need to correspond
+ps_vs.head()
+```
+
+Note that since there are common column names, the merge appends `_x` and `_y` to denote which column came from the left and right, respectively.
+
+---
+
+### Tidy data principles and reshaping datasets
+
+The tidy data principle is a principle espoused by Dr. Hadley Wickham, one of the foremost R developers. [Tidy data](http://vita.had.co.nz/papers/tidy-data.pdf) is a structure for datasets to make them more easily analyzed on computers. The basic principles are
+
++ Each row is an observation
++ Each column is a variable
++ Each type of observational unit forms a table
+
+> Tidy data is tidy in one way. Untidy data can be untidy in many ways
+
+Let's look at some examples.
+
+```{python 02-python-pandas-98}
+from glob import glob
+filenames = sorted(glob('data/table*.csv')) # find files matching pattern. I know there are 6 of them
+table1, table2, table3, table4a, table4b, table5 = [pd.read_csv(f) for f in filenames] # Use a list comprehension
+```
+
+This code imports data from 6 files matching a pattern. Python allows multiple assignments on the left of the `=`, and as each dataset is imported, it gets assigned in order to the variables on the left. In the second line I sort the file names so that they match the order in which I'm storing them in the 3rd line. The function `glob` does pattern-matching of file names. 
+
+---
+
+### Tidy data principles and reshaping datasets
+
+The following tables refer to the number of TB cases and population in Afghanistan, Brazil and China in 1999 and 2000
+
+.pull-left[
+```{python 02-python-pandas-99}
+print(table1)
+```
+
+```{python 02-python-pandas-100}
+print(table2)
+```
+]
+.pull-right[
+```{python 02-python-pandas-101}
+print(table3)
+```
+
+```{python 02-python-pandas-102}
+print(table4a) # cases
+```
+]
+
+---
+
+### Tidy data principles and reshaping datasets
+
+```{python 02-python-pandas-103}
+print(table4b) # population
+```
+
+```{python 02-python-pandas-104}
+print(table5)
+```
+
+**Exercise:** Describe why and why not each of these datasets are tidy.
+
+---
+
+### Melting (unpivoting) data
+
+Melting is the operation of collapsing multiple columns into 2 columns, 
+
+- where one column is formed by the old column names, 
+- and the other by the corresponding values. 
+
+Some columns may be kept fixed and their data are repeated to maintain the interrelationships between the variables.
+
+---
+
+### Melting (unpivoting) data
+
+We'll start with loading some data on income and religion in the US from the Pew Research Center.
+
+```{python 02-python-pandas-105}
+pew = pd.read_csv('data/pew.csv')
+print(pew.head())
+```
+
+This dataset is considered in "wide" format. There are several issues with it, including the fact that column headers have data. Those column headers are income groups, that should be a column by tidy principles. Our job is to turn this dataset into "long" format with a column for income group. 
+
+
+---
+
+### Melting (unpivoting) data
+
+
+We will use the function `melt` to achieve this. This takes a few parameters:
+
++ **id_vars** is a list of variables that will remain as is
++ **value_vars** is a list of column nmaes that we will melt (or unpivot). By default, it will melt all columns not mentioned in id_vars
++ **var_name** is a string giving the name of the new column created by the headers (default: `variable`)
++ **value_name** is a string giving the name of the new column created by the values (default: `value`)
+
+
+```{python 02-python-pandas-106}
+pew_long = pew.melt(id_vars = ['religion'], var_name = 'income_group', value_name = 'count')
+print(pew_long.head())
+```
+
+---
+
+## Separating columns containing multiple variables
+
+We will use an Ebola dataset to illustrate this principle
+
+```{python 02-python-pandas-107}
+ebola = pd.read_csv('data/country_timeseries.csv')
+print(ebola.head())
+```
+
+Note that for each country we have two columns -- one for cases (number infected) and one for deaths. Ideally we want one column for country, one for cases and one for deaths. 
+
+---
+
+## Separating columns containing multiple variables
+
+The first step will be to melt this data sets so that the column headers in question from a column and the corresponding data forms a second column.
+
+```{python 02-python-pandas-108}
+ebola_long = ebola.melt(id_vars = ['Date','Day'])
+print(ebola_long.head())
+```
+
+---
+
+## Separating columns containing multiple variables
+
+We now need to split the data in the `variable` column to make two columns. One will contain the country name and the other either Cases or Deaths. We will use some string manipulation functions that we will see later to achieve this.
+
+```{python 02-python-pandas-109}
+variable_split = ebola_long['variable'].str.split('_', expand=True) # split on the `_` character
+print(variable_split[:5])
+```
+
+The `expand=True` option forces the creation of an `DataFrame` rather than a list
+
+```{python 02-python-pandas-110}
+type(variable_split)
+```
+
+---
+
+## Separating columns containing multiple variables
+
+We can now concatenate this to the original data
+
+```{python 02-python-pandas-111}
+variable_split.columns = ['status','country']
+
+ebola_parsed = pd.concat([ebola_long, variable_split], axis = 1)
+
+ebola_parsed.drop('variable', axis = 1, inplace=True) # Remove the column named "variable" and replace the old data with the new one in the same location
+
+print(ebola_parsed.head())
+```
+
+---
+
+## Pivot/spread datasets
+
+If we wanted to, we could also make two columns based on cases and deaths, so for each country and date you could easily read off the cases and deaths. This is achieved using the `pivot_table` function.
+
+In the `pivot_table` syntax, `index` refers to the columns we don't want to change, `columns` refers to the column whose values will form the column names of the new columns, and `values` is the name of the column that will form the values in the pivoted dataset. 
+
+---
+
+## Pivot/spread datasets
+
+.pull-left[
+```{python 02-python-pandas-112}
+ebola_parsed.pivot_table(index = ['Date','Day', 'country'], 
+  columns = 'status', values = 'value').head()
+```
+This creates something called `MultiIndex` in the `pandas` `DataFrame`]
+.pull-right[
+```{python 02-python-pandas-113}
+ebola_parsed.pivot_table(index = ['Date','Day','country'], 
+  columns = 'status', 
+  values = 'value').reset_index().head()
+```
+We can get a normal DataFrame by using the `reset_index` function.
+
+]
+
+---
+
+## Pivot/spread datasets
+
+Pivoting is a 2-column to many-column operation, with the number of columns formed depending on the number of unique values present in the column of the original data that is entered into the `columns` argument of `pivot_table`
+
+**Exercise:** Load the file `weather.csv` into Python and work on making it a tidy dataset. It requires melting and pivoting. The dataset comprises of the maximum and minimum temperatures recorded each day in 2010. There are lots of missing value. Ultimately we want columns for days of the month, maximum temperature and minimum temperature along with the location ID, the year and the month.
+
+---
+
+## Data aggregation and split-apply-combine
+
+We'll use the Gapminder dataset for this section
+
+```{python 02-python-pandas-114}
+df = pd.read_csv('data/gapminder.tsv', sep = '\t') # data is tab-separated, so we use `\t` to specify that
+```
+The paradigm we will be exploring is often called *split-apply-combine* or MapReduce or grouped aggregation. The basic idea is that you split a data set up by some feature, apply a recipe to each piece, compute the result, and then put the results back together into a dataset. This can be described in teh following schematic.
+
+
+.center[![:scale 50%](graphs/split-apply-combine.png)]
+
+---
+
+## Data aggregation and split-apply-combine
+
+
+`pandas` is set up for this. It features the `groupby` function that allows the "split" part of the operation. We can then apply a function to each part and put it back together. Let's see how.
+
+```{python 02-python-pandas-115}
+df.head()
+```
+
+```{python 02-python-pandas-116}
+f"This dataset has {len(df['country'].unique())} countries in it"
+```
+
+---
+
+## Data aggregation and split-apply-combine
+
+One of the variables in this dataset is life expectancy at birth, `lifeExp`. Suppose we want to find the average life expectancy of each country over the period of study.
+
+```{python 02-python-pandas-117}
+df.groupby('country')['lifeExp'].mean()
+```
+
+---
+
+## Data aggregation and split-apply-combine
+
+So what's going on here? First, we use the `groupby` function, telling `pandas` to split the dataset up by values of the column `country`.
+
+```{python 02-python-pandas-118}
+df.groupby('country')
+```
+
+`pandas` won't show you the actual data, but will tell you that it is a grouped dataframe object. This means that each element of this object is a `DataFrame` with data from one country.
+
+---
+
+## Data aggregation and split-apply-combine
+
+```{python 02-python-pandas-119}
+df.groupby('country').ngroups
+```
+
+```{python 02-python-pandas-120}
+df.groupby('country').get_group('United Kingdom')
+```
+
+
+
+---
+
+## Data aggregation and split-apply-combine
+
+```{python 02-python-pandas-122}
+avg_lifeexp_country = df.groupby('country').lifeExp.mean()
+avg_lifeexp_country['United Kingdom']
+```
+
+---
+
+## Data aggregation and split-apply-combine
+
+```{python 02-python-pandas-123}
+df.groupby('country').get_group('United Kingdom').lifeExp.mean()
+```
+
+---
+
+## Data aggregation and split-apply-combine
+
+Let's look at if life expectancy has gone up over time, by continent
+
+```{python 02-python-pandas-124}
+df.groupby(['continent','year']).lifeExp.mean()
+```
+
+---
+
+## Data aggregation and split-apply-combine
+
+```{python 02-python-pandas-125}
+avg_lifeexp_continent_yr = df.groupby(['continent','year']).lifeExp.mean().reset_index()
+avg_lifeexp_continent_yr
+```
+
+```{python 02-python-pandas-126}
+type(avg_lifeexp_continent_yr)
+```
+
+The aggregation function, in this case `mean`, does both the "apply" and "combine" parts of the process.
+
+---
+
+## Data aggregation and split-apply-combine
+
+
+We can do quick aggregations with `pandas`
+
+```{python 02-python-pandas-127}
+df.groupby('continent').lifeExp.describe()
+```
+
+---
+
+## Data aggregation and split-apply-combine
+
+```{python 02-python-pandas-128}
+df.groupby('continent').nth(10) # Tenth observation in each group
+```
+
+---
+
+## Data aggregation and split-apply-combine
+
+You can also use functions from other modules, or your own functions in this aggregation work.
+
+```{python 02-python-pandas-129}
+df.groupby('continent').lifeExp.agg(np.mean)
+```
+
+
+---
+
+## Data aggregation and split-apply-combine
+
+You can do many functions at once
+
+```{python 02-python-pandas-131}
+df.groupby('year').lifeExp.agg([np.count_nonzero, np.mean, np.std])
+```
+
+---
+
+## Data aggregation and split-apply-combine
+
+You can also aggregate on different columns at the same time by passing a `dict` to the `agg` function
+
+```{python 02-python-pandas-132}
+df.groupby('year').agg({'lifeExp': np.mean,'pop': np.median,'gdpPercap': np.median}).reset_index()
+```
+
+---
+
+### Transformation
+
+
+You can do grouped transformations using this same method. Transformations are 1-1 functions, so you get back the same number of observations instead of getting aggregations.
+
+We will compute the z-score for each year, i.e. we will subtract the average life expectancy and divide by the standard deviation
+
+```{python 02-python-pandas-133}
+def my_zscore(values):
+    m = np.mean(values)
+    s = np.std(values)
+    return((values - m)/s)
+```
+
+```{python 02-python-pandas-134}
+df.groupby('year').lifeExp.transform(my_zscore)
+```
+
+---
+
+### Transformation
+
+```{python 02-python-pandas-135}
+df['lifeExp_z'] = df.groupby('year').lifeExp.transform(my_zscore)
+```
+
+```{python 02-python-pandas-136}
+df.groupby('year').lifeExp_z.mean()
+```
+
+---
+
+## Filter
+
+
+We can split the dataset by values of one variable, and filter out those splits that fail some criterion. The following code only keeps countries with a population of at least 10 million at some point during the study period
+
+```{python 02-python-pandas-137}
+df.groupby('country').filter(lambda d: d['pop'].max() > 10000000)
+```
+
+
+
+
+
+
+

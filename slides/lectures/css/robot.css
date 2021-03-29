@@ -109,10 +109,16 @@ thead, tfoot, tr:nth-child(even) { background: #f0f0f0 }
 Additional styles by Abhijit Dasgupta
 */
 
+li {
+    margin: 0;
+    padding: 0.1em;
+}
+
+/*
 li{
   padding-top: 1em;
 }
-
+*/
 .small {
   font-size: 80%;
 }

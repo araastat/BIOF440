@@ -31,15 +31,16 @@ p_load(char = c('tidyverse', 'here', 'janitor', 'fs',
 
 source(here('lib/R/update_header.R'))
 
-
+library(reticulate)
+use_condaenv('biof440', required=TRUE)
 
 ```
 
 ```{r xaringan-themer, include=FALSE}
 library(xaringanthemer)
 style_duo_accent(
-   primary_color = "#3BA7F4", 
-   secondary_color = "#F47C3B",
+   primary_color = "#0656F9", #3BA7F4", 
+   secondary_color = "#F9A906", #F47C3B",
 # style_mono_accent(
 #   base_color = "#3BA7F4",
   header_font_google = google_font("Josefin Sans"),
