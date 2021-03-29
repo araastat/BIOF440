@@ -48,6 +48,8 @@ slides/lectures/img/*
 slides/lectures/figure/*.png
 
 *.ipynb
+.ipynb_checkpoints
+!docs/assignments/**/*.ipynb
 ForCanvas/*
 notebooks/*
 
