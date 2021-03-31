@@ -28,7 +28,6 @@ assignments/**/*.gif
 docs/**/*.R
 docs/**/*.Rmd
 docs/**/*.md
-docs/Makefile
 docs/make_subdirs
 docs/**/Makefile
 docs/**/data/*
@@ -46,6 +45,7 @@ ForCanvas/*.html
 ForCanvas/*.png
 ForCanvas/img
 !docs/ForCanvas/*.html
+!docs/ForCanvas/img/*
 notebooks/*
 
 notes/*.html
