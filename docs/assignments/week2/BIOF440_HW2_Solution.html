@@ -14543,7 +14543,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -14564,7 +14564,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">tbl_data</span> <span class="o">=</span> <span class="p">{}</span>
@@ -14587,7 +14587,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
 
 
 
@@ -14665,18 +14665,438 @@ a.anchor-link {
 <h3 id="1-(extra-credit,-5-points)">1 (extra credit, 5 points)<a class="anchor-link" href="#1-(extra-credit,-5-points)">&#182;</a></h3><p>Write the Python code below that would transform each of the data sets (or the pair <code>table4a + table4b</code>) to be tidy.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Convert table2</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">tbl_data</span><span class="p">[</span><span class="s1">&#39;table2&#39;</span><span class="p">],</span>
+               <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">],</span>
+               <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> 
+               <span class="n">values</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>type</th>
+      <th>country</th>
+      <th>year</th>
+      <th>cases</th>
+      <th>population</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>1999</td>
+      <td>745</td>
+      <td>19987071</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Afghanistan</td>
+      <td>2000</td>
+      <td>2666</td>
+      <td>20595360</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Brazil</td>
+      <td>1999</td>
+      <td>37737</td>
+      <td>172006362</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Brazil</td>
+      <td>2000</td>
+      <td>80488</td>
+      <td>174504898</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>China</td>
+      <td>1999</td>
+      <td>212258</td>
+      <td>1272915272</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>China</td>
+      <td>2000</td>
+      <td>213766</td>
+      <td>1280428583</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tbl_data</span><span class="p">[</span><span class="s1">&#39;table3&#39;</span><span class="p">]</span>
+<span class="n">var_split</span> <span class="o">=</span> <span class="n">tbl_data</span><span class="p">[</span><span class="s1">&#39;table3&#39;</span><span class="p">][</span><span class="s1">&#39;rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">var_split</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cases&#39;</span><span class="p">,</span><span class="s1">&#39;population&#39;</span><span class="p">]</span>
+<span class="n">var_split</span> <span class="o">=</span> <span class="n">var_split</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tbl_data</span><span class="p">[</span><span class="s1">&#39;table3&#39;</span><span class="p">],</span> <span class="n">var_split</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;rate&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>year</th>
+      <th>cases</th>
+      <th>population</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>1999</td>
+      <td>745</td>
+      <td>19987071</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Afghanistan</td>
+      <td>2000</td>
+      <td>2666</td>
+      <td>20595360</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Brazil</td>
+      <td>1999</td>
+      <td>37737</td>
+      <td>172006362</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Brazil</td>
+      <td>2000</td>
+      <td>80488</td>
+      <td>174504898</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>China</td>
+      <td>1999</td>
+      <td>212258</td>
+      <td>1272915272</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>China</td>
+      <td>2000</td>
+      <td>213766</td>
+      <td>1280428583</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d1</span> <span class="o">=</span> <span class="n">tbl_data</span><span class="p">[</span><span class="s1">&#39;table4a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span> <span class="o">=</span> <span class="s1">&#39;country&#39;</span><span class="p">,</span><span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">value_name</span> <span class="o">=</span> <span class="s1">&#39;cases&#39;</span><span class="p">)</span>
+<span class="n">d2</span> <span class="o">=</span> <span class="n">tbl_data</span><span class="p">[</span><span class="s1">&#39;table4b&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span> <span class="o">=</span> <span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">value_name</span> <span class="o">=</span> <span class="s1">&#39;population&#39;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">left_on</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">right_on</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>year</th>
+      <th>cases</th>
+      <th>population</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>1999</td>
+      <td>745</td>
+      <td>19987071</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Brazil</td>
+      <td>1999</td>
+      <td>37737</td>
+      <td>172006362</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>China</td>
+      <td>1999</td>
+      <td>212258</td>
+      <td>1272915272</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Afghanistan</td>
+      <td>2000</td>
+      <td>2666</td>
+      <td>20595360</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Brazil</td>
+      <td>2000</td>
+      <td>80488</td>
+      <td>174504898</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>China</td>
+      <td>2000</td>
+      <td>213766</td>
+      <td>1280428583</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">tbl_data</span><span class="p">[</span><span class="s1">&#39;table5&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">d</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;century&#39;</span><span class="p">],</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">])]</span>
+<span class="n">d1</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">set_axis</span><span class="p">([</span><span class="s1">&#39;cases&#39;</span><span class="p">,</span><span class="s1">&#39;population&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">d</span><span class="p">,</span> <span class="n">d1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;century&#39;</span><span class="p">,</span><span class="s1">&#39;rate&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">d</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>year</th>
+      <th>cases</th>
+      <th>population</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>1999</td>
+      <td>745</td>
+      <td>19987071</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Afghanistan</td>
+      <td>2000</td>
+      <td>2666</td>
+      <td>20595360</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Brazil</td>
+      <td>1999</td>
+      <td>37737</td>
+      <td>172006362</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Brazil</td>
+      <td>2000</td>
+      <td>80488</td>
+      <td>174504898</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>China</td>
+      <td>1999</td>
+      <td>212258</td>
+      <td>1272915272</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>China</td>
+      <td>2000</td>
+      <td>213766</td>
+      <td>1280428583</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14688,7 +15108,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gapm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/gapminder.tsv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -14711,7 +15131,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gapm2</span> <span class="o">=</span> <span class="n">gapm</span><span class="p">[</span><span class="n">gapm</span><span class="o">.</span><span class="n">year</span><span class="o">==</span><span class="mi">2007</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;continent&#39;</span><span class="p">)[</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
@@ -14731,7 +15151,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
 
 
 
@@ -14804,7 +15224,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gapm2</span><span class="o">=</span><span class="n">gapm2</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;lifeExp&#39;</span><span class="p">)</span>
@@ -14824,7 +15244,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
 
 
 
@@ -14897,10 +15317,11 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">brca_clin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data/BreastCancer_Clinical.xlsx&#39;</span><span class="p">)</span>
+<span class="n">brca_expr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data/BreastCancer_Expression.xlsx&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14914,18 +15335,219 @@ a.anchor-link {
 <h3 id="3-(B)">3 (B)<a class="anchor-link" href="#3-(B)">&#182;</a></h3><p>Identify the common subject identifier in the two datasets and merge <code>brca_clin</code> with <code>brca_expr</code> using a left join, calling the result <code>brca</code>. To check, this merged dataset should have 108 rows and 41 columns</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">brca</span> <span class="o">=</span> <span class="n">brca_clin</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">brca_expr</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;Complete TCGA ID&#39;</span><span class="p">,</span> <span class="n">right_on</span> <span class="o">=</span> <span class="s1">&#39;TCGA_ID&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;brca has </span><span class="si">{</span><span class="n">brca</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> rows and </span><span class="si">{</span><span class="n">brca</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columns&quot;</span><span class="p">)</span>
+<span class="n">brca</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>brca has 108 rows and 41 columns
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Complete TCGA ID</th>
+      <th>Gender</th>
+      <th>Age at Initial Pathologic Diagnosis</th>
+      <th>ER Status</th>
+      <th>PR Status</th>
+      <th>HER2 Final Status</th>
+      <th>Tumor</th>
+      <th>Tumor--T1 Coded</th>
+      <th>Node</th>
+      <th>Node-Coded</th>
+      <th>...</th>
+      <th>NP_958782</th>
+      <th>NP_958785</th>
+      <th>NP_958786</th>
+      <th>NP_000436</th>
+      <th>NP_958781</th>
+      <th>NP_958780</th>
+      <th>NP_958783</th>
+      <th>NP_958784</th>
+      <th>NP_112598</th>
+      <th>NP_001611</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>TCGA-A2-A0T2</td>
+      <td>FEMALE</td>
+      <td>66</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>T3</td>
+      <td>T_Other</td>
+      <td>N3</td>
+      <td>Positive</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>TCGA-A2-A0CM</td>
+      <td>FEMALE</td>
+      <td>40</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>T2</td>
+      <td>T_Other</td>
+      <td>N0</td>
+      <td>Negative</td>
+      <td>...</td>
+      <td>0.683404</td>
+      <td>0.694424</td>
+      <td>0.698098</td>
+      <td>0.687077</td>
+      <td>0.687077</td>
+      <td>0.698098</td>
+      <td>0.698098</td>
+      <td>0.698098</td>
+      <td>-2.65215</td>
+      <td>-0.984373</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>TCGA-BH-A18V</td>
+      <td>FEMALE</td>
+      <td>48</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>T2</td>
+      <td>T_Other</td>
+      <td>N1</td>
+      <td>Positive</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>TCGA-BH-A18Q</td>
+      <td>FEMALE</td>
+      <td>56</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>T2</td>
+      <td>T_Other</td>
+      <td>N1</td>
+      <td>Positive</td>
+      <td>...</td>
+      <td>0.195341</td>
+      <td>0.215413</td>
+      <td>0.215413</td>
+      <td>0.205377</td>
+      <td>0.215413</td>
+      <td>0.215413</td>
+      <td>0.215413</td>
+      <td>0.215413</td>
+      <td>-1.03576</td>
+      <td>-0.517226</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>TCGA-BH-A0E0</td>
+      <td>FEMALE</td>
+      <td>38</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>T3</td>
+      <td>T_Other</td>
+      <td>N3</td>
+      <td>Positive</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 41 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14934,38 +15556,299 @@ a.anchor-link {
 <h3 id="3-(C)">3 (C)<a class="anchor-link" href="#3-(C)">&#182;</a></h3><p>Find the mean expression of the proteins NP_958782 &amp; NP_958785 by ER status.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">brca</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;ER Status&#39;</span><span class="p">)[[</span><span class="s1">&#39;NP_958782&#39;</span><span class="p">,</span><span class="s1">&#39;NP_958785&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NP_958782</th>
+      <th>NP_958785</th>
+    </tr>
+    <tr>
+      <th>ER Status</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Indeterminate</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Negative</th>
+      <td>0.429280</td>
+      <td>0.437703</td>
+    </tr>
+    <tr>
+      <th>Positive</th>
+      <td>0.267476</td>
+      <td>0.273189</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="3-(Extra-credit,-5-points)">3 (Extra credit, 5 points)<a class="anchor-link" href="#3-(Extra-credit,-5-points)">&#182;</a></h3><p>Create a new column in <code>brca</code> that equals "HR + " if either ER or PR are positive, "HER2" if HER2 Final Status is positive, and "Triple Neg" if all of ER, PR and HER2 status are negative.</p>
+<h3 id="3-(Extra-credit,-5-points)">3 (Extra credit, 5 points)<a class="anchor-link" href="#3-(Extra-credit,-5-points)">&#182;</a></h3><p>Create a new column <code>Status</code> in <code>brca</code> that equals "HR + " if either ER or PR are positive, "HER2" if HER2 Final Status is positive, and "Triple Neg" if all of ER, PR and HER2 status are negative, and 'Other' otherwise.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="s1">&#39;Other&#39;</span><span class="p">,</span> <span class="n">brca</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="c1"># Initialize Series with same number of rows as brca</span>
+<span class="n">d</span><span class="p">[(</span><span class="n">brca</span><span class="p">[</span><span class="s1">&#39;ER Status&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Positive&#39;</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">brca</span><span class="p">[</span><span class="s1">&#39;PR Status&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Positive&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;HR +&#39;</span>
+<span class="n">d</span><span class="p">[</span><span class="n">brca</span><span class="p">[</span><span class="s1">&#39;HER2 Final Status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Positive&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;HER2&#39;</span>
+<span class="n">d</span><span class="p">[(</span><span class="n">brca</span><span class="p">[</span><span class="s1">&#39;ER Status&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Negative&#39;</span><span class="p">)</span> <span class="o">&amp;</span> 
+  <span class="p">(</span><span class="n">brca</span><span class="p">[</span><span class="s1">&#39;PR Status&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Negative&#39;</span><span class="p">)</span> <span class="o">&amp;</span> 
+  <span class="p">(</span><span class="n">brca</span><span class="p">[</span><span class="s1">&#39;HER2 Final Status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Negative&#39;</span><span class="p">)]</span><span class="o">=</span><span class="s1">&#39;Triple Neg&#39;</span>
+<span class="n">brca</span><span class="p">[</span><span class="s1">&#39;Status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+<span class="n">brca</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Complete TCGA ID</th>
+      <th>Gender</th>
+      <th>Age at Initial Pathologic Diagnosis</th>
+      <th>ER Status</th>
+      <th>PR Status</th>
+      <th>HER2 Final Status</th>
+      <th>Tumor</th>
+      <th>Tumor--T1 Coded</th>
+      <th>Node</th>
+      <th>Node-Coded</th>
+      <th>...</th>
+      <th>NP_958785</th>
+      <th>NP_958786</th>
+      <th>NP_000436</th>
+      <th>NP_958781</th>
+      <th>NP_958780</th>
+      <th>NP_958783</th>
+      <th>NP_958784</th>
+      <th>NP_112598</th>
+      <th>NP_001611</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>TCGA-A2-A0T2</td>
+      <td>FEMALE</td>
+      <td>66</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>T3</td>
+      <td>T_Other</td>
+      <td>N3</td>
+      <td>Positive</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Triple Neg</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>TCGA-A2-A0CM</td>
+      <td>FEMALE</td>
+      <td>40</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>T2</td>
+      <td>T_Other</td>
+      <td>N0</td>
+      <td>Negative</td>
+      <td>...</td>
+      <td>0.694424</td>
+      <td>0.698098</td>
+      <td>0.687077</td>
+      <td>0.687077</td>
+      <td>0.698098</td>
+      <td>0.698098</td>
+      <td>0.698098</td>
+      <td>-2.65215</td>
+      <td>-0.984373</td>
+      <td>Triple Neg</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>TCGA-BH-A18V</td>
+      <td>FEMALE</td>
+      <td>48</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>T2</td>
+      <td>T_Other</td>
+      <td>N1</td>
+      <td>Positive</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Triple Neg</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>TCGA-BH-A18Q</td>
+      <td>FEMALE</td>
+      <td>56</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>T2</td>
+      <td>T_Other</td>
+      <td>N1</td>
+      <td>Positive</td>
+      <td>...</td>
+      <td>0.215413</td>
+      <td>0.215413</td>
+      <td>0.205377</td>
+      <td>0.215413</td>
+      <td>0.215413</td>
+      <td>0.215413</td>
+      <td>0.215413</td>
+      <td>-1.03576</td>
+      <td>-0.517226</td>
+      <td>Triple Neg</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>TCGA-BH-A0E0</td>
+      <td>FEMALE</td>
+      <td>38</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>Negative</td>
+      <td>T3</td>
+      <td>T_Other</td>
+      <td>N3</td>
+      <td>Positive</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Triple Neg</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 42 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14974,18 +15857,414 @@ a.anchor-link {
 <h2 id="Extra-credit-(15-points)">Extra credit (15 points)<a class="anchor-link" href="#Extra-credit-(15-points)">&#182;</a></h2><p>Download weather.csv into your <code>data</code> directory. Use a combination of Python data munging (transformation) tools to make this data tidy.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/weather.csv&#39;</span><span class="p">)</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="s1">&#39;element&#39;</span><span class="p">],</span> <span class="n">var_name</span> <span class="o">=</span> <span class="s1">&#39;variable&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;rainfall&#39;</span><span class="p">)</span>
+<span class="n">weather</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;variable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">weather</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;variable&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="s1">&#39;day&#39;</span><span class="p">],</span>
+                             <span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;element&#39;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="s1">&#39;rainfall&#39;</span><span class="p">)</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="s1">&#39;day&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">weather</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">weather</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>tmax</th>
+      <th>tmin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>1</td>
+      <td>30</td>
+      <td>27.8</td>
+      <td>14.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>2</td>
+      <td>2</td>
+      <td>27.3</td>
+      <td>14.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>2</td>
+      <td>3</td>
+      <td>24.1</td>
+      <td>14.4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>2</td>
+      <td>11</td>
+      <td>29.7</td>
+      <td>13.4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>2</td>
+      <td>23</td>
+      <td>29.9</td>
+      <td>10.7</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>3</td>
+      <td>5</td>
+      <td>32.1</td>
+      <td>14.2</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>3</td>
+      <td>10</td>
+      <td>34.5</td>
+      <td>16.8</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>3</td>
+      <td>16</td>
+      <td>31.1</td>
+      <td>17.6</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>4</td>
+      <td>27</td>
+      <td>36.3</td>
+      <td>16.7</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>5</td>
+      <td>27</td>
+      <td>33.2</td>
+      <td>18.2</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>6</td>
+      <td>17</td>
+      <td>28.0</td>
+      <td>17.5</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>6</td>
+      <td>29</td>
+      <td>30.1</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>7</td>
+      <td>3</td>
+      <td>28.6</td>
+      <td>17.5</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>7</td>
+      <td>14</td>
+      <td>29.9</td>
+      <td>16.5</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>8</td>
+      <td>5</td>
+      <td>29.6</td>
+      <td>15.8</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>8</td>
+      <td>8</td>
+      <td>29.0</td>
+      <td>17.3</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>8</td>
+      <td>13</td>
+      <td>29.8</td>
+      <td>16.5</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>8</td>
+      <td>23</td>
+      <td>26.4</td>
+      <td>15.0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>8</td>
+      <td>25</td>
+      <td>29.7</td>
+      <td>15.6</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>8</td>
+      <td>29</td>
+      <td>28.0</td>
+      <td>15.3</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>8</td>
+      <td>31</td>
+      <td>25.4</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>10</td>
+      <td>5</td>
+      <td>27.0</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>10</td>
+      <td>7</td>
+      <td>28.1</td>
+      <td>12.9</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>10</td>
+      <td>14</td>
+      <td>29.5</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>10</td>
+      <td>15</td>
+      <td>28.7</td>
+      <td>10.5</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>10</td>
+      <td>28</td>
+      <td>31.2</td>
+      <td>15.0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>11</td>
+      <td>2</td>
+      <td>31.3</td>
+      <td>16.3</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>11</td>
+      <td>4</td>
+      <td>27.2</td>
+      <td>12.0</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>11</td>
+      <td>5</td>
+      <td>26.3</td>
+      <td>7.9</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>11</td>
+      <td>26</td>
+      <td>28.1</td>
+      <td>12.1</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>11</td>
+      <td>27</td>
+      <td>27.7</td>
+      <td>14.2</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>12</td>
+      <td>1</td>
+      <td>29.9</td>
+      <td>13.8</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>MX17004</td>
+      <td>2010</td>
+      <td>12</td>
+      <td>6</td>
+      <td>27.8</td>
+      <td>10.5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;jupyter nbconvert --to html BIOF440_HW2_Solution.ipynb&#39;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>256</pre>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
