@@ -35,21 +35,17 @@ docs/**/data/*
 docs/**/*.tgz
 docs/toplevel/*
 
-ForCanvas/*.html
-ForCanvas/*.docx
-ForCanvas/*.odt
-ForCanvas/*.pdf
-
 slides/figure/*.png
 slides/lectures/img/*
 slides/lectures/figure/*.png
 
-
-
 **/*.ipynb
 .ipynb_checkpoints
 !docs/assignments/**/*.ipynb
-ForCanvas/*
+ForCanvas/*.html
+ForCanvas/*.png
+ForCanvas/img
+!docs/ForCanvas/*.html
 notebooks/*
 
 notes/*.html

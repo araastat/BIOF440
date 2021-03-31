@@ -1,45 +1,64 @@
-Resources
-================
+---
+title: Resources
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    css: style.css
+    toc: true
+    toc_depth: 1
+    toc_float: true
+---
 
 # Books
 
 ## General Python resources
 
-[<img style = "height:150px; width:112px; border: 3px solid black;" src="img/PDSH-cover.png"/>](https://jakevdp.github.io/PythonDataScienceHandbook/)
+[<img src="img/PDSH-cover.png" style="height:150px; width:112px; border: 3px solid black;"/>](https://jakevdp.github.io/PythonDataScienceHandbook/)
 
 ## Data visualization
 
-<a href="https://serialmentor.com/dataviz/index.html" target="_blank"><img  style="height:150px; width:112px; border: 3px solid black;" src="img/wilke.jpg"/></a>
+[<img src="img/wilke.jpg" style="height:150px; width:112px; border: 3px solid black;"/>](https://serialmentor.com/dataviz/index.html)
 
 Clicking on the covers will send you to the free online versions of each
 book
 
 ### Other books
 
--   <a href="http://www.thefunctionalart.com/p/the-truthful-art-book.html" target="_blank">The Truthful Art: Data, Charts, and Maps for Communication</a>
+-   [The Truthful Art: Data, Charts, and Maps for
+    Communication](http://www.thefunctionalart.com/p/the-truthful-art-book.html){target="_blank"}
     by Albert Cairo
--   <a href="https://www.amazon.com/gp/product/0470944889/" target="_blank">Visualize This</a>
+-   [Visualize
+    This](https://www.amazon.com/gp/product/0470944889/){target="_blank"}
     by Nathan Yau
 
 ------------------------------------------------------------------------
 
 # Web references
 
+## Python
+
+-   [pandas user
+    guide](https://pandas.pydata.org/docs/user_guide/index.html#user-guide):
+    Documentation for the pandas package
+
 ## Data viz
 
--   <a href="https://ggplot2.tidyverse.org/" target="_blank">ggplot2 reference</a>:
-    The definitive guide to ggplot2. Check out the pages for the
-    different functions for great examples
 -   [Python graph gallery](https://www.python-graph-gallery.com/):
     Example-filled site for different python-based graphics. The ads can
     be a bit irritating, but the content is great.
+-   [matplotlib
+    gallery](https://matplotlib.org/stable/gallery/index.html)
+-   [seaborn gallery](https://seaborn.pydata.org/examples/index.html)
+-   [plotly gallery](https://plotly.com/python/)
+-   [altair gallery](https://altair-viz.github.io/gallery/index.html)
 
 ------------------------------------------------------------------------
 
 # Web resources
 
 -   [Flowing Data](https://www.flowingdata.com): This is one of my
-    favorite sites for learning data viz. There are several
+    favorite sites for learning data viz. There are several
     [tutorials](https://flowingdata.com/category/tutorials/) in R for
     different graphics, as well as other languages. Nathan Yau, who runs
     the website, also has 2 excellent
@@ -57,7 +76,7 @@ book
 
 ## Infographics
 
--   [BusinessPundit’s Guide to
+-   [BusinessPundit's Guide to
     Infographics](https://www.businesspundit.com/guide-to-infographics/)
 -   [A complete exploratory data analysis and visualization for text
     data](https://towardsdatascience.com/a-complete-exploratory-data-analysis-and-visualization-for-text-data-29fb1b96fb6a)
