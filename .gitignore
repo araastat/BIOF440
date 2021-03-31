@@ -8,10 +8,7 @@ __MACOSX*
 .Ruserdata
 .Rbuildignore
 
-**/.ipynb_checkpoints/*
 
-notes/*
-docs/notes/*
 *~
 .nojekyll
 **/*_cache/*
@@ -47,9 +44,16 @@ slides/figure/*.png
 slides/lectures/img/*
 slides/lectures/figure/*.png
 
-*.ipynb
+
+
+**/*.ipynb
 .ipynb_checkpoints
 !docs/assignments/**/*.ipynb
 ForCanvas/*
 notebooks/*
 
+notes/*.html
+notes/*.ipynb
+
+**/data
+resources.html

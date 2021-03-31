@@ -1,0 +1,90 @@
+---
+title: Python Tips & Tricks
+subtitle: BIOF 440
+author: Abhijit Dasgupta
+date: "Last updated: `r format(Sys.Date(),'%d %b, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: tango
+jupyter:
+  jupytext:
+    formats: ipynb,Rmd
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+      format_version: '1.2'
+      jupytext_version: 1.10.3
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(comment = "", eval=FALSE)
+```
+
+----
+<!-- #region hide_input=false -->
+## Finding all files with a particular pattern
+<!-- #endregion -->
+
+```{python}
+from glob import glob
+fnames = glob('data/table*.csv')
+fnames
+```
+
+## Extract file name without extension from path
+
+```{python}
+from glob import glob
+from os.path import basename, splitext
+
+fnames = glob('data/table*.csv')
+keys = [splitext(basename(f))[0] for f in fnames]
+keys
+```
+
+```{python tags=c()}
+# Creating a function for this
+from os.path import basename, splitext
+def extract_fname(f):
+    if isinstance(f, list): # input a list of paths instead of a single path
+        out = [extract_fname(u) for u in f] # recursively define the function
+    else:
+        out = splitext(basename(f))[0] # do this for a single path
+    return out # return the output
+
+```
+
+```{python tags=c()}
+# Testing the function
+extract_fname(fnames)
+```
+
+## Read all CSV files (with some filename pattern) from a folder into a dictionary
+
+```{python tags=c()}
+from glob import glob
+import pandas as pd
+fnames = glob('data/table*.csv')
+keys = extract_fname(fnames)
+
+data_dict = {k:pd.read_csv(f) for k,f in zip(keys, fnames)} # Google "python zip"
+data_dict.keys()
+```
+
+## From a dictionary create separate objects
+
+We take a dictionary and assign each value (whatever that is) to a variable named for the corresponding key
+
+```{python}
+for k in data_dict.keys():
+    globals()[k] = data_dict[k]
+
+[k in globals() for k in data_dict.keys()] # checks if the objects exist in the Python environment
+```
