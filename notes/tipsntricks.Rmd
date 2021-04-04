@@ -28,6 +28,29 @@ knitr::opts_chunk$set(comment = "", eval=FALSE)
 ```
 
 ----
+
+## Check the type/class of a pandas object
+```{python}
+import pandas as pd
+table1 = pd.read_csv('data/table1.csv')
+type(table1)
+```
+
+## Check the data types in a DataFrame
+
+```{python}
+import seaborn as sns
+penguins = sns.load_dataset('penguins')
+penguins.dtypes
+```
+
+## Convert all columns in a DataFrame of type "object" to type "category"
+
+```{python}
+penguins.loc[:,penguins.dtypes=='object'] = penguins.select_dtypes('object').apply(lambda x: x.astype('category'))
+penguins.dtypes
+```
+
 <!-- #region hide_input=false -->
 ## Finding all files with a particular pattern
 <!-- #endregion -->
