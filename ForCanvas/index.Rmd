@@ -1,0 +1,23 @@
+---
+title: 'Index'
+date: "`r format(Sys.Date(), '%d %b, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(fs)
+library(glue)
+library(tidyverse)
+knitr::opts_chunk$set(echo=FALSE)
+```
+
+```{r, results='asis'}
+fname = tibble('File' = dir_ls(glob='*.*md') %>% 
+  path_ext_remove() %>% 
+  str_c('.html'))
+
+fname %>% 
+  mutate(File = glue('[{path_ext_remove(File)}]({File})')) %>% 
+    knitr::kable()
+```
+
