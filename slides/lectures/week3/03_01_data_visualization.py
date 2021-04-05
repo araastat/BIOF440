@@ -20,6 +20,9 @@
 # <h2 class='center'>Abhijit Dasgupta</h2>
 #
 
+# %% [markdown] nteract={"transient": {"deleting": false}}
+# > The presentation was done using a Jupyter add-in called RISE. It doesn't print or save well. This is the Jupyter notebook that is used directly for the slides this week.
+
 # %% [markdown] slideshow={"slide_type": "slide"}
 # # Data visualization
 
@@ -46,14 +49,14 @@
 #
 # Data visualizations should be readable. It should be obvious what the chart is about and how to interpret it.
 
-# %% [markdown] slideshow={"slide_type": "fragment"} cell_style="split"
+# %% [markdown] cell_style="split" slideshow={"slide_type": "fragment"}
 # ![](img/bad1.png)
 
-# %% [markdown] slideshow={"slide_type": "fragment"} cell_style="split"
+# %% [markdown] cell_style="split" slideshow={"slide_type": "fragment"}
 # ![](img/good1.png)
 #
 
-# %% [markdown] slideshow={"slide_type": "subslide"} hide_input=false
+# %% [markdown] hide_input=false slideshow={"slide_type": "subslide"}
 # ## Some ideas
 #
 # - Your visualization depends on your audience
@@ -116,7 +119,7 @@
 #    1. Include your sources
 #    1. Consider your audience
 
-# %% [markdown] slideshow={"slide_type": "subslide"} cell_style="split"
+# %% [markdown] cell_style="split" slideshow={"slide_type": "subslide"}
 # ### 1) Check the data
 #
 # <img src="https://flowingdata.com/wp-content/uploads/2010/07/1-check-the-data.jpg">
@@ -125,7 +128,7 @@
 # * If your data is weak, your chart is weak
 # * Start with simple graphs to see if there are any outliers
 
-# %% [markdown] slideshow={"slide_type": "fragment"} cell_style="split"
+# %% [markdown] cell_style="split" slideshow={"slide_type": "fragment"}
 # ### 2) Explain encodings
 #
 # <img src="https://flowingdata.com/wp-content/uploads/2010/07/2-explain-encodings.jpg">
@@ -135,7 +138,7 @@
 # * Label shapes
 # * Explain color scales
 
-# %% [markdown] slideshow={"slide_type": "subslide"} cell_style="split"
+# %% [markdown] cell_style="split" slideshow={"slide_type": "subslide"}
 # ### 3) Label axes
 #
 # <img src="https://flowingdata.com/wp-content/uploads/2010/07/3-labels-axes.jpg">
@@ -144,7 +147,7 @@
 # * Describe the scale (incremental, exponential, logarithmic?)
 # * Have axes values start at zero
 
-# %% [markdown] slideshow={"slide_type": "fragment"} cell_style="split"
+# %% [markdown] cell_style="split" slideshow={"slide_type": "fragment"}
 # ### 4) Include units
 #
 # <img src="https://flowingdata.com/wp-content/uploads/2010/07/4-include-units.jpg">
@@ -152,7 +155,7 @@
 # * Numbers without units are meaningless
 # * Remove the guesswork
 
-# %% [markdown] slideshow={"slide_type": "subslide"} cell_style="split"
+# %% [markdown] cell_style="split" slideshow={"slide_type": "subslide"}
 # ### 5) Keep your geometry in check
 #
 # <img src="https://flowingdata.com/wp-content/uploads/2010/07/5-keep-geometry-in-check.jpg">
@@ -161,7 +164,7 @@
 # * Don't use area to compare two units unless they are an area. An increase in a unit squares the area.
 # * Tip: size circles and other 2D shapes by area, unless it's a bar chart
 
-# %% [markdown] slideshow={"slide_type": "subslide"} cell_style="split"
+# %% [markdown] cell_style="split" slideshow={"slide_type": "subslide"}
 # ### 6) Include your sources
 #
 # <img src="https://flowingdata.com/wp-content/uploads/2010/07/6-sources.jpg">
@@ -410,27 +413,27 @@ plt.show()
 #
 # We saw this in the frequency bar plot, where `value_counts` creates a `Series` with unique values as the index and the values as the frequencies
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 freqs = penguins['species'].value_counts()
 
 freqs.index
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 freqs.values
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 penguins['species'].value_counts().plot(kind='bar');
 plt.show()
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Another example
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 import numpy as np
 D = pd.DataFrame(n  , columns = ['A','B','C','D'])
 D.head()
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 D.plot(kind='line');
 
 # %% [markdown] slideshow={"slide_type": "fragment"}
@@ -479,14 +482,14 @@ sns.set_style('white', {'font.family':'Futura'})
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Histograms
 #
-# %% name="a1" eval=false cell_style="split" slideshow={"slide_type": "fragment"}
+# %% cell_style="split" eval=false name="a1" slideshow={"slide_type": "fragment"}
 sns.displot(
     data = penguins,     # DataFrame
     x = 'bill_length_mm',# columns to encode
     kind = 'hist'        # Type of encoding
     );
 
-# %% name="a2" eval=false cell_style="split" slideshow={"slide_type": "fragment"}
+# %% cell_style="split" eval=false name="a2" slideshow={"slide_type": "fragment"}
 sns.displot(
     data = penguins,     # DataFrame
     x = 'bill_length_mm',# columns to encode
@@ -495,14 +498,14 @@ sns.displot(
     );
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Histograms
-# %% name="a3" eval=false cell_style="split" slideshow={"slide_type": "fragment"}
+# %% cell_style="split" eval=false name="a3" slideshow={"slide_type": "fragment"}
 sns.displot(
     data = penguins,     # DataFrame
     x = 'bill_length_mm',# columns to encode
     kind = 'hist',       # Type of encoding
     col = 'species'      # Encode species as facets, one per column
     );
-# %% name="a4" eval=false slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" eval=false name="a4" slideshow={"slide_type": "fragment"}
 sns.displot(
     data = penguins,     # DataFrame
     x = 'bill_length_mm',# columns to encodeS
@@ -533,13 +536,13 @@ sns.catplot(data = penguins, x = 'species', kind = 'count');
 # %% [markdown] slideshow={"slide_type": "slide"}
 # ## Relating two continuous variables
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 sns.relplot(
     data = penguins, 
     x = 'bill_length_mm', 
     y = 'body_mass_g');
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 sns.relplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -547,7 +550,7 @@ sns.relplot(
     hue = 'species'
 );
 
-# %% slideshow={"slide_type": "subslide"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "subslide"}
 sns.relplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -556,7 +559,7 @@ sns.relplot(
     style = 'species',
 );
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 sns.relplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -566,7 +569,7 @@ sns.relplot(
     col = 'island',
 );
 
-# %% tags=[] slideshow={"slide_type": "subslide"} cell_style="center"
+# %% cell_style="center" slideshow={"slide_type": "subslide"} tags=[]
 sns.relplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -576,7 +579,7 @@ sns.relplot(
     col = 'island',
       ;S
 
-# %% tags=[] slideshow={"slide_type": "subslide"} cell_style="center"
+# %% cell_style="center" slideshow={"slide_type": "subslide"} tags=[]
 sns.relplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -597,13 +600,13 @@ sns.relplot(
 fmri = sns.load_dataset('fmri')
 fmri.head()
 
-# %% tags=[] slideshow={"slide_type": "subslide"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "subslide"} tags=[]
 sns.relplot(data = fmri, x = 'timepoint', y = 'signal', kind = 'line');
 
-# %% tags=[] slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"} tags=[]
 sns.relplot(data = fmri, x = 'timepoint', y = 'signal', kind = 'line', hue = 'event');
 
-# %% tags=[] slideshow={"slide_type": "subslide"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "subslide"} tags=[]
 sns.relplot(
     data = fmri, 
     x = 'timepoint', 
@@ -612,7 +615,7 @@ sns.relplot(
     hue = 'event', 
     style = 'region');
 
-# %% tags=[] slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"} tags=[]
 sns.relplot(
     data = fmri, 
     x = 'timepoint', 
@@ -621,14 +624,14 @@ sns.relplot(
     hue = 'event', 
     style = 'region', ci = None);
 
-# %% slideshow={"slide_type": "subslide"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "subslide"}
 sns.lmplot(
     data = penguins,
     x = 'bill_length_mm',
     y = 'body_mass_g',
 );
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 sns.lmplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -651,13 +654,13 @@ sns.lmplot(
 diamonds = sns.load_dataset('diamonds')
 diamonds.shape
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 sns.catplot(data = diamonds, 
             x = 'cut', 
             y = 'price', 
             kind = 'box');
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 cat_order = ['Fair','Good','Very Good','Premium','Ideal']
 sns.catplot(
     data = diamonds,
@@ -680,10 +683,10 @@ sns.catplot(
 # %% [markdown] slideshow={"slide_type": "slide"}
 # ## Pair plot
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 sns.pairplot(data = penguins);
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 sns.pairplot(data = penguins, hue = 'species');
 
 # %% slideshow={"slide_type": "subslide"}
@@ -735,7 +738,7 @@ for i,u in enumerate(penguins['species'].unique()):
 ax.legend(title='Species', loc='best', labelcolor='black');
 plt.show()
 
-# %% slideshow={"slide_type": "subslide"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "subslide"}
 fig, axs = plt.subplots(nrows = 1, ncols=3, sharex=True, sharey=True, figsize = [15,5])
 cols = ['red','blue','green']
 for i,u in enumerate(penguins['species'].unique()):
@@ -749,7 +752,7 @@ for i,u in enumerate(penguins['species'].unique()):
         axs[i].set_ylabel('Body mass (g)')
 fig.legend();
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 g = sns.relplot(data = penguins, x = 'bill_length_mm', y = 'body_mass_g', col = 'species', hue = 'species')
 g.set_xlabels('Bill length (mm)')
 g.set_ylabels('Body mass (g)');
@@ -768,14 +771,14 @@ print(pd.Series(fig.canvas.get_supported_filetypes()))
 #
 # You can save your work using the `plt.savefig` function
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 # This will save the last run figure
 plt.savefig(
     'penguins.png',
     transparent=True,
     dpi = 300);
 
-# %% slideshow={"slide_type": "fragment"} cell_style="split"
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
 # This will save the figure contained in fig
 fig.savefig(
     'penguins.png',

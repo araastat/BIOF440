@@ -21,6 +21,10 @@ jupyter:
 
 <!-- #endregion -->
 
+<!-- #region nteract={"transient": {"deleting": false}} -->
+> The presentation was done using a Jupyter add-in called RISE. It doesn't print or save well. This is the Jupyter notebook that is used directly for the slides this week.
+<!-- #endregion -->
+
 <!-- #region slideshow={"slide_type": "slide"} -->
 # Data visualization
 <!-- #endregion -->
@@ -51,16 +55,16 @@ This chart is not novel or fancy, but the annotations make it relevant and conte
 Data visualizations should be readable. It should be obvious what the chart is about and how to interpret it.
 <!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "fragment"} cell_style="split" -->
+<!-- #region cell_style="split" slideshow={"slide_type": "fragment"} -->
 ![](img/bad1.png)
 <!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "fragment"} cell_style="split" -->
+<!-- #region cell_style="split" slideshow={"slide_type": "fragment"} -->
 ![](img/good1.png)
 
 <!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} hide_input=false -->
+<!-- #region hide_input=false slideshow={"slide_type": "subslide"} -->
 ## Some ideas
 
 - Your visualization depends on your audience
@@ -130,7 +134,7 @@ Data visualizations should be readable. It should be obvious what the chart is a
    1. Consider your audience
 <!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} cell_style="split" -->
+<!-- #region cell_style="split" slideshow={"slide_type": "subslide"} -->
 ### 1) Check the data
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/1-check-the-data.jpg">
@@ -140,7 +144,7 @@ Data visualizations should be readable. It should be obvious what the chart is a
 * Start with simple graphs to see if there are any outliers
 <!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "fragment"} cell_style="split" -->
+<!-- #region cell_style="split" slideshow={"slide_type": "fragment"} -->
 ### 2) Explain encodings
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/2-explain-encodings.jpg">
@@ -151,7 +155,7 @@ Data visualizations should be readable. It should be obvious what the chart is a
 * Explain color scales
 <!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} cell_style="split" -->
+<!-- #region cell_style="split" slideshow={"slide_type": "subslide"} -->
 ### 3) Label axes
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/3-labels-axes.jpg">
@@ -161,7 +165,7 @@ Data visualizations should be readable. It should be obvious what the chart is a
 * Have axes values start at zero
 <!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "fragment"} cell_style="split" -->
+<!-- #region cell_style="split" slideshow={"slide_type": "fragment"} -->
 ### 4) Include units
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/4-include-units.jpg">
@@ -170,7 +174,7 @@ Data visualizations should be readable. It should be obvious what the chart is a
 * Remove the guesswork
 <!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} cell_style="split" -->
+<!-- #region cell_style="split" slideshow={"slide_type": "subslide"} -->
 ### 5) Keep your geometry in check
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/5-keep-geometry-in-check.jpg">
@@ -180,7 +184,7 @@ Data visualizations should be readable. It should be obvious what the chart is a
 * Tip: size circles and other 2D shapes by area, unless it's a bar chart
 <!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} cell_style="split" -->
+<!-- #region cell_style="split" slideshow={"slide_type": "subslide"} -->
 ### 6) Include your sources
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/6-sources.jpg">
@@ -480,17 +484,17 @@ With time series, **pandas** stores the time aspect in the index of the `Series`
 We saw this in the frequency bar plot, where `value_counts` creates a `Series` with unique values as the index and the values as the frequencies
 <!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 freqs = penguins['species'].value_counts()
 
 freqs.index
 ```
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 freqs.values
 ```
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 penguins['species'].value_counts().plot(kind='bar');
 plt.show()
 ```
@@ -499,13 +503,13 @@ plt.show()
 ## Another example
 <!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 import numpy as np
 D = pd.DataFrame(n  , columns = ['A','B','C','D'])
 D.head()
 ```
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 D.plot(kind='line');
 ```
 
@@ -563,7 +567,7 @@ sns.set_style('white', {'font.family':'Futura'})
 ## Histograms
 
 <!-- #endregion -->
-```{python a1, eval=FALSE, cell_style="split", slideshow={'slide_type': 'fragment'}}
+```{python a1, cell_style="split", eval=FALSE, slideshow={'slide_type': 'fragment'}}
 sns.displot(
     data = penguins,     # DataFrame
     x = 'bill_length_mm',# columns to encode
@@ -571,7 +575,7 @@ sns.displot(
     );
 
 ```
-```{python a2, eval=FALSE, cell_style="split", slideshow={'slide_type': 'fragment'}}
+```{python a2, cell_style="split", eval=FALSE, slideshow={'slide_type': 'fragment'}}
 sns.displot(
     data = penguins,     # DataFrame
     x = 'bill_length_mm',# columns to encode
@@ -582,7 +586,7 @@ sns.displot(
 <!-- #region slideshow={"slide_type": "subslide"} -->
 ## Histograms
 <!-- #endregion -->
-```{python a3, eval=FALSE, cell_style="split", slideshow={'slide_type': 'fragment'}}
+```{python a3, cell_style="split", eval=FALSE, slideshow={'slide_type': 'fragment'}}
 sns.displot(
     data = penguins,     # DataFrame
     x = 'bill_length_mm',# columns to encode
@@ -590,7 +594,7 @@ sns.displot(
     col = 'species'      # Encode species as facets, one per column
     );
 ```
-```{python a4, eval=FALSE, slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python a4, cell_style="split", eval=FALSE, slideshow={'slide_type': 'fragment'}}
 sns.displot(
     data = penguins,     # DataFrame
     x = 'bill_length_mm',# columns to encodeS
@@ -629,14 +633,14 @@ sns.catplot(data = penguins, x = 'species', kind = 'count');
 ## Relating two continuous variables
 <!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 sns.relplot(
     data = penguins, 
     x = 'bill_length_mm', 
     y = 'body_mass_g');
 ```
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 sns.relplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -645,7 +649,7 @@ sns.relplot(
 );
 ```
 
-```{python slideshow={'slide_type': 'subslide'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'subslide'}}
 sns.relplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -655,7 +659,7 @@ sns.relplot(
 );
 ```
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 sns.relplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -666,7 +670,7 @@ sns.relplot(
 );
 ```
 
-```{python tags=c(), slideshow={'slide_type': 'subslide'}, cell_style="center"}
+```{python cell_style="center", slideshow={'slide_type': 'subslide'}, tags=c()}
 sns.relplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -677,7 +681,7 @@ sns.relplot(
       ;S
 ```
 
-```{python tags=c(), slideshow={'slide_type': 'subslide'}, cell_style="center"}
+```{python cell_style="center", slideshow={'slide_type': 'subslide'}, tags=c()}
 sns.relplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -701,15 +705,15 @@ fmri = sns.load_dataset('fmri')
 fmri.head()
 ```
 
-```{python tags=c(), slideshow={'slide_type': 'subslide'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'subslide'}, tags=c()}
 sns.relplot(data = fmri, x = 'timepoint', y = 'signal', kind = 'line');
 ```
 
-```{python tags=c(), slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}, tags=c()}
 sns.relplot(data = fmri, x = 'timepoint', y = 'signal', kind = 'line', hue = 'event');
 ```
 
-```{python tags=c(), slideshow={'slide_type': 'subslide'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'subslide'}, tags=c()}
 sns.relplot(
     data = fmri, 
     x = 'timepoint', 
@@ -719,7 +723,7 @@ sns.relplot(
     style = 'region');
 ```
 
-```{python tags=c(), slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}, tags=c()}
 sns.relplot(
     data = fmri, 
     x = 'timepoint', 
@@ -729,7 +733,7 @@ sns.relplot(
     style = 'region', ci = None);
 ```
 
-```{python slideshow={'slide_type': 'subslide'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'subslide'}}
 sns.lmplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -737,7 +741,7 @@ sns.lmplot(
 );
 ```
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 sns.lmplot(
     data = penguins,
     x = 'bill_length_mm',
@@ -764,14 +768,14 @@ diamonds = sns.load_dataset('diamonds')
 diamonds.shape
 ```
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 sns.catplot(data = diamonds, 
             x = 'cut', 
             y = 'price', 
             kind = 'box');
 ```
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 cat_order = ['Fair','Good','Very Good','Premium','Ideal']
 sns.catplot(
     data = diamonds,
@@ -797,11 +801,11 @@ sns.catplot(
 ## Pair plot
 <!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 sns.pairplot(data = penguins);
 ```
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 sns.pairplot(data = penguins, hue = 'species');
 ```
 
@@ -863,7 +867,7 @@ ax.legend(title='Species', loc='best', labelcolor='black');
 plt.show()
 ```
 
-```{python slideshow={'slide_type': 'subslide'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'subslide'}}
 fig, axs = plt.subplots(nrows = 1, ncols=3, sharex=True, sharey=True, figsize = [15,5])
 cols = ['red','blue','green']
 for i,u in enumerate(penguins['species'].unique()):
@@ -878,7 +882,7 @@ for i,u in enumerate(penguins['species'].unique()):
 fig.legend();
 ```
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 g = sns.relplot(data = penguins, x = 'bill_length_mm', y = 'body_mass_g', col = 'species', hue = 'species')
 g.set_xlabels('Bill length (mm)')
 g.set_ylabels('Body mass (g)');
@@ -901,7 +905,7 @@ print(pd.Series(fig.canvas.get_supported_filetypes()))
 You can save your work using the `plt.savefig` function
 <!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 # This will save the last run figure
 plt.savefig(
     'penguins.png',
@@ -909,7 +913,7 @@ plt.savefig(
     dpi = 300);
 ```
 
-```{python slideshow={'slide_type': 'fragment'}, cell_style="split"}
+```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
 # This will save the figure contained in fig
 fig.savefig(
     'penguins.png',
