@@ -25,12 +25,9 @@ book
 
 ### Other books
 
--   [The Truthful Art: Data, Charts, and Maps for
-    Communication](http://www.thefunctionalart.com/p/the-truthful-art-book.html){target="_blank"}
-    by Albert Cairo
--   [Visualize
-    This](https://www.amazon.com/gp/product/0470944889/){target="_blank"}
-    by Nathan Yau
+[<img src="img/the-truthful-art.png" style="height:150px; width: 112px; border: 3px solid black;"/>](http://www.thefunctionalart.com/p/the-truthful-art-book.html){target="_blank"}
+[<img src="img/visualize-this.png" style="height:150px; width:112px; border: 3px solid black;"/>](https://www.amazon.com/gp/product/0470944889/){target="_blank"}
+[<img src="img/tufte.png" style="height:150px; width:112px; border: 3px solid black;"/>](https://www.edwardtufte.com/tufte/books_vdqi){target="_blank"}
 
 ------------------------------------------------------------------------
 
