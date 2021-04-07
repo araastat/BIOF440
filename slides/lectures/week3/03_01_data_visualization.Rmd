@@ -1,43 +1,30 @@
 ---
-jupyter:
-  jupytext:
-    formats: ipynb,Rmd,py:percent
-    text_representation:
-      extension: .Rmd
-      format_name: rmarkdown
-      format_version: '1.2'
-      jupytext_version: 1.10.3
-  kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
+title: "Statistical data visualizations (static)"
+author: "Abhijit Dasgupta"
+subtitle: "BIOF 440"
 ---
 
-<!-- #region slideshow={"slide_type": "slide"} -->
-<h1 class='center'> Statistical data visualizations (static)</h1>
-<h2 class='center'>BIOF 440</h2>
+```{r, include=F, child='../css/setup.Rmd'}
 
-<h2 class='center'>Abhijit Dasgupta</h2>
+```
+```{r, include=F}
+knitr::opts_chunk$set(cache=FALSE)
+```
 
-<!-- #endregion -->
+class: middle,center,inverse
 
-<!-- #region nteract={"transient": {"deleting": false}} -->
-> The presentation was done using a Jupyter add-in called RISE. It doesn't print or save well. This is the Jupyter notebook that is used directly for the slides this week.
-<!-- #endregion -->
-
-<!-- #region slideshow={"slide_type": "slide"} -->
 # Data visualization
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+---
+
 ## Visualization for analysis
 
 - Tool for understanding datasets
 - You ask questions and quickly answer them
 - Iterate to develop insights.
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+---
+
 ## Context is important
 
 A data visualization should be self-contained and be able to express the **context** of the data. 
@@ -47,46 +34,43 @@ This makes the visualization **informative**.
 ![](img/hr.png)
 
 This chart is not novel or fancy, but the annotations make it relevant and contextual
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## Improve readability
 
 Data visualizations should be readable. It should be obvious what the chart is about and how to interpret it.
-<!-- #endregion -->
 
-<!-- #region cell_style="split" slideshow={"slide_type": "fragment"} -->
-![](img/bad1.png)
-<!-- #endregion -->
+.pull-left[
+<img src="img/bad1.png">
+]
+.pull-right[
+<img src="img/good1.png">
+]
 
-<!-- #region cell_style="split" slideshow={"slide_type": "fragment"} -->
-![](img/good1.png)
+---
 
-<!-- #endregion -->
-
-<!-- #region hide_input=false slideshow={"slide_type": "subslide"} -->
 ## Some ideas
 
 - Your visualization depends on your audience
     + If the audience is your lab group (has a similar contextual background), then you may not have to provide as much context in your visualization
     + If you audience is a conference or a journal reader, you probably need to have more detail and context within the visualization
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
 - Your visualization needs to reflect the character of the data
     + Continuous <--> categorical <--> binary
     + Dates and times
     + Spatial data (may be related to objects other than maps, like cell structure or organisms)
     + Networked or co-related data
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+---
+class: middle,inverse
+
 > Design is choice. The theory of the visual display of quantitative information consists of principles that generate design options and that guide choices among options. The principles should not be applied rigidly or in a peevish spirit; they are not logically or mathematically certain; and it is better to violate any principle than to place graceless or inelegant marks on paper. Most principles of design should be greeted with some skepticism, for word authority can dominate our vision, and we may come to see only through the lenses of word authority rather than with our own eyes.
 >
 > -- <cite>Edward Tufte, The Visual Display of Quantitative Data
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## Tufte's Principles of Graphical Integrity
 
 1. Show data variation, not design variation
@@ -94,9 +78,9 @@ Data visualizations should be readable. It should be obvious what the chart is a
 1. Use clear, detailed, thorough labelling.
 1. Representation of numbers should be directly proportional to numerical quantities
 1. Don't use more dimensions than the data require
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## Tufte's Principles of Graphical Integrity
 
 1. Show data variation, not design variation
@@ -109,9 +93,9 @@ Data visualizations should be readable. It should be obvious what the chart is a
    - This is essential for fair representation
 1. Don't use more dimensions than the data require
    - Be appropriate in use of 3D graphics, for example
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## Tufte's Fundamental Principles of Design
 
    1. Show comparisons
@@ -120,9 +104,9 @@ Data visualizations should be readable. It should be obvious what the chart is a
    1. Completely integrate modes (like text, images, numbers)
    1. Establish credibility
    1. Focus on content
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+---
+
 ## Nathan Yau's Seven Basic Rules for Making Charts and Graphs
 
    1. Check the data
@@ -132,9 +116,10 @@ Data visualizations should be readable. It should be obvious what the chart is a
    1. Keep your geometry in check
    1. Include your sources
    1. Consider your audience
-<!-- #endregion -->
 
-<!-- #region cell_style="split" slideshow={"slide_type": "subslide"} -->
+---
+
+.pull-left[
 ### 1) Check the data
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/1-check-the-data.jpg">
@@ -142,9 +127,11 @@ Data visualizations should be readable. It should be obvious what the chart is a
 * This should be obvious
 * If your data is weak, your chart is weak
 * Start with simple graphs to see if there are any outliers
-<!-- #endregion -->
+]
 
-<!-- #region cell_style="split" slideshow={"slide_type": "fragment"} -->
+--
+
+.pull-right[
 ### 2) Explain encodings
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/2-explain-encodings.jpg">
@@ -153,9 +140,10 @@ Data visualizations should be readable. It should be obvious what the chart is a
 * Provide a legend
 * Label shapes
 * Explain color scales
-<!-- #endregion -->
+]
+---
 
-<!-- #region cell_style="split" slideshow={"slide_type": "subslide"} -->
+.pull-left[
 ### 3) Label axes
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/3-labels-axes.jpg">
@@ -163,18 +151,21 @@ Data visualizations should be readable. It should be obvious what the chart is a
 * Axes without labels or explanation are just decorationS
 * Describe the scale (incremental, exponential, logarithmic?)
 * Have axes values start at zero
-<!-- #endregion -->
+]
+--
 
-<!-- #region cell_style="split" slideshow={"slide_type": "fragment"} -->
+.pull-right[
 ### 4) Include units
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/4-include-units.jpg">
 
 * Numbers without units are meaningless
 * Remove the guesswork
-<!-- #endregion -->
+]
 
-<!-- #region cell_style="split" slideshow={"slide_type": "subslide"} -->
+---
+
+.pull-left[
 ### 5) Keep your geometry in check
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/5-keep-geometry-in-check.jpg">
@@ -182,10 +173,10 @@ Data visualizations should be readable. It should be obvious what the chart is a
 * This is something that is immediately noticeable
 * Don't use area to compare two units unless they are an area. An increase in a unit squares the area.
 * Tip: size circles and other 2D shapes by area, unless it's a bar chart
-<!-- #endregion -->
+]
+--
 
-<!-- #region cell_style="split" slideshow={"slide_type": "subslide"} -->
-### 6) Include your sources
+.pull-right[### 6) Include your sources
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/6-sources.jpg">
 
@@ -193,23 +184,25 @@ Data visualizations should be readable. It should be obvious what the chart is a
 * Always include the source of your data
 * Makes your graphic more reputable
 * Allows for others to dig deeper
-<!-- #endregion -->
+]
 
-<!-- #region cell_style="split" slideshow={"slide_type": "fragment"} -->
-### 7) Consider your audience
+---
+
+.pull-left[### 7) Consider your audience
 
 <img src="https://flowingdata.com/wp-content/uploads/2010/07/7-audience.jpg">
 
 * What purpose do your charts have and who are they for?
 * Avoid quirky fonts
 * Make good design choices
-<!-- #endregion -->
+]
+---
+class: middle,center,inverse
 
-<!-- #region slideshow={"slide_type": "slide"} -->
 # Data to graphics
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## Visual encoding
 
 The basic question in data visualization is how we transform data values into blobs of ink on paper, or more recently, pixels on a screen. 
@@ -219,17 +212,15 @@ The basic question in data visualization is how we transform data values into bl
 > -- <cite>Fundamentals of Data Visualization by Claus O. Wilke</cite>
 
 We can also refer to these as **visual encoding**, i.e., how we encode aspects of data visually
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## Common aesthetics/encodings
 
 ![:scale 50](img/aesthetics.png)
 
+---
 
-<!-- #endregion -->
-
-<!-- #region slideshow={"slide_type": "subslide"} -->
 ## Common aesthetics/encodings
 
 The choice of aesthetics often will be guided by the kind of data you're trying to visualize, as we said earlier
@@ -238,9 +229,9 @@ The choice of aesthetics often will be guided by the kind of data you're trying 
 - Categorical ordered
 - Categorical unordered
 - Time (dates, times, years)
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## Common aesthetics/encodings
 
 Type      | Encodings   | Notes
@@ -251,21 +242,22 @@ Unordered categorical | x, y, shape, color, line type | qualitative color scales
 Time | x, y | |
 
 > Can you think of examples where we can encode data types with different kinds of visualizations?
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+---
+class: middle,center,inverse
+
 # Statistical Data Visualization
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+---
+
 ## Statistical data visualization
 
 In this class we will mainly be dealing with statistical data visualizations, rather than visualizing functions and fixed patterns.
 
 The package **seaborn** will be our main high-level Python tool to enable us to do this.
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+---
+
 ## seaborn, pandas and matplotlib
 
 - pandas is the main tool to prepare data for visualization. It also has some plotting capabilities
@@ -273,13 +265,11 @@ The package **seaborn** will be our main high-level Python tool to enable us to 
 - matplotlib is the primary tool for static data visualization in Python
     - Create customizable plots
     - Very granular; can control almost all aspects of a graph
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
 ![:scale 75%](img/mpl.png)
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## seaborn, pandas and matplotlib
 
 - Both **pandas** plotting and **seaborn** are built on top of **matplotlib**
@@ -288,32 +278,43 @@ The package **seaborn** will be our main high-level Python tool to enable us to 
     - set up visualizations
     - customize visualizations
     - save visualizations
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+---
+class: middle,center,inverse
+
 # Let's get started
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## Setting up
 
 We'll use this set of packages almost always for creating static visualizations meant for a paper, poster, or website
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
+
+```python
 import pandas as pd
 import matplotlib as mpl
-import matplotlib.pyplot as  
+import matplotlib.pyplot as plt
 import seaborn as sns
-# %matplotlib inline
-plt.style.use('seaborn-whitegrid')
+
+%matplotlib inline
+plt.style.use("seaborn-whitegrid")
+```
+```{python, echo=FALSE}
+import pandas as pd
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.style.use("seaborn-whitegrid")
+
 ```
 
-<!-- #region slideshow={"slide_type": "fragment"} -->
-This will be the usual setup for the material this week
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+This will be the usual setup for the material this week
+
+---
+
 ## Starting with basic pandas plots
 
 With **pandas**, we can do quite a bit of basic statistical plotting.
@@ -321,207 +322,306 @@ With **pandas**, we can do quite a bit of basic statistical plotting.
 It also allows us to see the direct relationship between the data and visualizations
 
 We can plot from both `Series` and `DataFrame` objects
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "fragment"} -->
-**pandas** was originally built to work with time series, so a tacit assumption underlying **pandas** plotting is that the index of the `DataFrame` or `Series` is a series of dates or times, and each column is data collected at each of these time points for a particular variable. So a `DataFrame` was assumed to be a set of time series, and the plotting tools were designed accordingly. However, we won't follow that assumption here, since a `DataFrame` is used much more richly in data science.
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+.footnote[**pandas** was originally built to work with time series, so a tacit assumption underlying **pandas** plotting is that the index of the `DataFrame` or `Series` is a series of dates or times, and each column is data collected at each of these time points for a particular variable. So a `DataFrame` was assumed to be a set of time series, and the plotting tools were designed accordingly. However, we won't follow that assumption here, since a `DataFrame` is used much more richly in data science.
+]
+---
+
 ## Starting with basic pandas plots
 
 Let's start by importing the _cars2018.csv_ into our session
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-cars = pd.read_csv('data/cars2018.csv')
+
+```{python, echo=TRUE}
+cars = pd.read_csv("data/cars2018.csv")
 cars.head()
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+
+
+
+
+
+
+
+---
+class: middle,center,inverse
+
 # Visualizing one variable (Continuous)
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## Histogram
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-cars['MPG'].plot(kind = 'hist');
+
+```python
+cars["MPG"].plot(kind="hist")
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_41_0.png)
+
+
+---
+
 ## Density plot
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-cars['MPG'].plot(kind = 'kde');
+
+```python
+cars["MPG"].plot(kind="kde")
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_43_0.png)
+
+
+---
+
 ## Box plot
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-cars['MPG'].plot(kind = 'box');
+
+```python
+cars["MPG"].plot(kind="box")
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
-# Visualizing one variable (categorical)
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+![png](03_01_data_visualization_files/03_01_data_visualization_45_0.png)
+
+---
+class: middle,center,inverse
+
+# Visualizing one variable (categorical)
+
+---
+
 ## Frequency barplot
 
 For a frequency barplot, you need to do a bit of data summarization using **pandas**
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-cars['Cylinders'].value_counts()
+
+```python
+cars["Cylinders"].value_counts()
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+
+
+    4     502
+    6     392
+    8     195
+    12     23
+    3      21
+    10      8
+    5       2
+    16      1
+    Name: Cylinders, dtype: int64
+
+
+
+---
+
 ## Frequency barplot
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-cars['Cylinders'].value_counts().plot(kind='bar');
+
+```python
+cars["Cylinders"].value_counts().plot(kind="bar")
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_50_0.png)
+
+
+---
+
 ## Frequency barplot
 
 To order the bars by their natural order, we can modify how `value_counts` is computed
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-cars['Cylinders'].value_counts(sort=False).plot(kind='bar');
+
+```python
+cars["Cylinders"].value_counts(sort=False).plot(kind="bar")
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_52_0.png)
+
+
+---
+class: middle,center,inverse
+
 # Visualizing bivariate relationships
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## Scatter plot (2 continuous variables)
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-cars.plot(x = 'Displacement', y = 'MPG', kind = 'scatter');
+
+```python
+cars.plot(x="Displacement", y="MPG", kind="scatter")
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_55_0.png)
+
+
+---
+
 ## Scatterplot matrix
 
 You can look at inter-relationships between all the continuous variables in a dataset using a scatterplot matrix. We'll use the _penguins_ data, which we can load through the **seaborn** package.
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-penguins = sns.load_dataset('penguins')
-pd.plotting.scatter_matrix(penguins);
+
+```python
+penguins = sns.load_dataset("penguins")
+pd.plotting.scatter_matrix(penguins)
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_57_0.png)
+
+
+
+---
 
 ## Box plots (continuous x categorical)
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-cars.boxplot(column = 'MPG', by='Cylinders');
+
+```python
+cars.boxplot(column="MPG", by="Cylinders")
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
-# An aside about pandas plotting
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+![png](03_01_data_visualization_files/03_01_data_visualization_59_0.png)
+
+
+---
+class: middle,center,inverse
+
+# An aside about pandas plotting
+
+---
+
 ## Plotting several columns in a DataFrame
 
 Because **pandas** was created to deal with sets of time series, the plotting rules were set up to encode each column into a separate visualization
 
 For example, if you want to look at univariate characteristics of all continuous variables in a DataFrame:
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-penguins.plot(kind = 'kde');
+
+```python
+penguins.plot(kind="kde")
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_62_0.png)
+
+
+---
+
 ## Plotting several columns in a DataFrame
 
 We'd do better by putting each variable into a separate plot
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-penguins.plot(kind='kde', subplots=True);
+
+```python
+penguins.plot(kind="kde", subplots=True)
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_64_0.png)
+
+
+---
+
 ## Plotting several columns in a DataFrame
 
 Let's put each subplot on its own scale
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-penguins.plot(kind = 'kde', subplots=True, sharex = False, layout=(2,2));
 
+```python
+penguins.plot(kind="kde", subplots=True, sharex=False, layout=(2, 2))
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
-## Boxplots of several columns
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-penguins[['bill_length_mm','bill_depth_mm','flipper_length_mm']].plot(kind='box');
+![png](03_01_data_visualization_files/03_01_data_visualization_66_0.png)
+
+
+---
+
+## Boxplots of several columns
+
+
+```python
+penguins[["bill_length_mm", "bill_depth_mm", "flipper_length_mm"]].plot(kind="box")
 plt.show()
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_68_0.png)
+
+
+---
+
 ## Plotting against the index of a Series or DataFrame
 
 With time series, **pandas** stores the time aspect in the index of the `Series` or `DataFrame`. So typically, **pandas** plots each variable against the index for encodings like line plots or bar plots
 
 We saw this in the frequency bar plot, where `value_counts` creates a `Series` with unique values as the index and the values as the frequencies
-<!-- #endregion -->
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
-freqs = penguins['species'].value_counts()
+
+```python
+freqs = penguins["species"].value_counts()
 
 freqs.index
 ```
+    Index(['Adelie', 'Gentoo', 'Chinstrap'], dtype='object')
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
+```python
 freqs.values
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
-penguins['species'].value_counts().plot(kind='bar');
+    array([152, 124,  68])
+
+```python
+penguins["species"].value_counts().plot(kind="bar")
 plt.show()
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
-## Another example
-<!-- #endregion -->
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
+![png](03_01_data_visualization_files/03_01_data_visualization_72_0.png)
+
+
+---
+
+## Another example
+
+.pull-left[
+```{python}
 import numpy as np
-D = pd.DataFrame(n  , columns = ['A','B','C','D'])
+n = np.random.randn(5,4)
+D = pd.DataFrame(n, columns=["A", "B", "C", "D"])
 D.head()
 ```
-
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
-D.plot(kind='line');
+]
+.pull-right[
+```python
+D.plot(kind="line")
 ```
 
-<!-- #region slideshow={"slide_type": "fragment"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_75_0.png)
+]
+
 So we can plot multiple variables on a plot (but does it make sense?)
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+---
+class: middle,center,inverse
+
 # seaborn for statistical visualization
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## seaborn
 
 Using **pandas**, we see basic encodings, basically just `x` and `y`
@@ -529,26 +629,26 @@ Using **pandas**, we see basic encodings, basically just `x` and `y`
 **seaborn** gets us a richer set of visual encodings, using relatively straightforward code.
 
 We'll see later how we'd do a similar plot using more granular code from **matplotlib**
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## seaborn
 
 The main classes of figures created using **seaborn**: 
 
 ![](https://seaborn.pydata.org/_images/function_overview_8_0.png)
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## seaborn
 
 **seaborn** allows us to make it easier to create 
 
 - _facets_, i.e., subplots based on unique values of column(s) of the `DataFrame`
 - _overlays_, i.e., plots where we can encode unique values of column(s) of a `DataFrame` on the same plot
-<!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## seaborn
 
 **seaborn** code follows a general paradigm, where we
@@ -557,370 +657,597 @@ The main classes of figures created using **seaborn**:
 - specify the column(s) we want to plot
 - specify the column(s) we want to either facet or overlay
 - specify the encodings  for the different data elements
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'skip'}}
-sns.set_style('white', {'font.family':'Futura'})
+
+```{python, echo=FALSE}
+sns.set_style("white", {"font.family": "Futura"})
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+---
+
 ## Histograms
 
-<!-- #endregion -->
-```{python a1, cell_style="split", eval=FALSE, slideshow={'slide_type': 'fragment'}}
-sns.displot(
-    data = penguins,     # DataFrame
-    x = 'bill_length_mm',# columns to encode
-    kind = 'hist'        # Type of encoding
-    );
 
-```
-```{python a2, cell_style="split", eval=FALSE, slideshow={'slide_type': 'fragment'}}
+.pull-left[
+```python
 sns.displot(
-    data = penguins,     # DataFrame
-    x = 'bill_length_mm',# columns to encode
-    kind = 'hist',       # Type of encoding
-    hue = 'species'      # Encode species as colors (hue) and overlay
-    );
+    data=penguins,  # DataFrame
+    x="bill_length_mm",  # columns to encode
+    kind="hist",  # Type of encoding
+)
 ```
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+
+![png](03_01_data_visualization_files/03_01_data_visualization_84_0.png)
+]
+.pull-right[
+```python
+sns.displot(
+    data=penguins,  # DataFrame
+    x="bill_length_mm",  # columns to encode
+    kind="hist",  # Type of encoding
+    hue="species",  # Encode species as colors (hue) and overlay
+)
+```
+
+
+![png](03_01_data_visualization_files/03_01_data_visualization_85_0.png)
+]
+
+---
+
 ## Histograms
-<!-- #endregion -->
-```{python a3, cell_style="split", eval=FALSE, slideshow={'slide_type': 'fragment'}}
+
+
+```python
 sns.displot(
-    data = penguins,     # DataFrame
-    x = 'bill_length_mm',# columns to encode
-    kind = 'hist',       # Type of encoding
-    col = 'species'      # Encode species as facets, one per column
-    );
+    data=penguins,  # DataFrame
+    x="bill_length_mm",  # columns to encode
+    kind="hist",  # Type of encoding
+    col="species",  # Encode species as facets, one per column
+)
 ```
-```{python a4, cell_style="split", eval=FALSE, slideshow={'slide_type': 'fragment'}}
+
+
+![png](03_01_data_visualization_files/03_01_data_visualization_87_0.png)
+
+---
+
+## Histograms
+
+.pull-left[
+```python
 sns.displot(
-    data = penguins,     # DataFrame
-    x = 'bill_length_mm',# columns to encodeS
-    kind = 'hist',       # Type of encoding
-    col = 'species',     # Encode species as facets, one per row
+    data=penguins,  # DataFrame
+    x="bill_length_mm",  # columns to encodeS
+    kind="hist",  # Type of encoding
+    col="species",  # Encode species as facets, one per row
     col_wrap=2,
-    height=2.5, aspect=1.5,
-);
+    height=2.5,
+    aspect=1.5,
+)
 ```
-<!-- #region slideshow={"slide_type": "subslide"} -->
+]
+.pull-right[
+![png](03_01_data_visualization_files/03_01_data_visualization_88_0.png)
+]
+
+---
+
 ## Density plot
-<!-- #endregion -->
 
-```{python fig.height=3}
-sns.displot(data = penguins, x = 'bill_length_mm', hue = 'species', kind='kde');
+
+```python
+sns.displot(data=penguins, x="bill_length_mm", hue="species", kind="kde")
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
-## Empirical cumulative distribution plots
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-sns.displot(data = penguins, x = 'bill_length_mm', hue = 'species', kind='ecdf');
+![png](03_01_data_visualization_files/03_01_data_visualization_90_0.png)
+
+
+---
+
+## Empirical cumulative distribution plots
+
+
+```python
+sns.displot(data=penguins, x="bill_length_mm", hue="species", kind="ecdf")
 plt.show()
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_92_0.png)
+
+
+---
+
 ## Categorical plots
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-sns.catplot(data = penguins, x = 'species', kind = 'count');
+
+```python
+sns.catplot(data=penguins, x="species", kind="count")
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_94_0.png)
+
+
+---
+
 ## Relating two continuous variables
-<!-- #endregion -->
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
-sns.relplot(
-    data = penguins, 
-    x = 'bill_length_mm', 
-    y = 'body_mass_g');
+.pull-left[
+```python
+sns.relplot(data=penguins, 
+  x="bill_length_mm", 
+  y="body_mass_g")
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
-sns.relplot(
-    data = penguins,
-    x = 'bill_length_mm',
-    y = 'body_mass_g',
-    hue = 'species'
-);
+
+![png](03_01_data_visualization_files/03_01_data_visualization_96_0.png)
+]
+.pull-right[
+
+```{python, eval=FALSE}
+sns.relplot(data=penguins, 
+  x="bill_length_mm", 
+  y="body_mass_g", 
+  hue="species") #<<
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'subslide'}}
+
+![png](03_01_data_visualization_files/03_01_data_visualization_97_0.png)
+]
+
+---
+
+## Relating two continuous variables
+
+.pull-left[
+```{python, eval=F}
 sns.relplot(
-    data = penguins,
-    x = 'bill_length_mm',
-    y = 'body_mass_g',
-    hue = 'species',
-    style = 'species',
-);
+    data=penguins,
+    x="bill_length_mm",
+    y="body_mass_g",
+    hue="species",
+    style="species", #<<
+)
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
+
+![:scale 75%](03_01_data_visualization_files/03_01_data_visualization_98_0.png)
+]
+.pull-right[
+
+
+```{python,eval=F}
 sns.relplot(
-    data = penguins,
-    x = 'bill_length_mm',
-    y = 'body_mass_g',
-    hue = 'species',
-    style = 'species',
-    col = 'island',
-);
+    data=penguins,
+    x="bill_length_mm",
+    y="body_mass_g",
+    hue="species",
+    style="species",
+    col="island", #<< 
+)
 ```
 
-```{python cell_style="center", slideshow={'slide_type': 'subslide'}, tags=c()}
+
+![png](03_01_data_visualization_files/03_01_data_visualization_99_0.png)
+
+]
+
+---
+
+## Relating two continuous variables
+
+.pull-left[
+```{python, eval=F}
 sns.relplot(
-    data = penguins,
-    x = 'bill_length_mm',
-    y = 'body_mass_g',
-    hue = 'species',
-    style = 'species',
-    col = 'island',
-      ;S
+    data=penguins,
+    x="bill_length_mm",
+    y="body_mass_g",
+    hue="species",
+    style="species",
+    col="island",
+    col_wrap=2, #<<
+)
 ```
 
-```{python cell_style="center", slideshow={'slide_type': 'subslide'}, tags=c()}
+]
+.pull-right[
+![png](03_01_data_visualization_files/03_01_data_visualization_100_0.png)
+]
+
+---
+
+## Relating two continuous variables
+
+.pull-left[
+```{python,eval=F}
 sns.relplot(
-    data = penguins,
-    x = 'bill_length_mm',
-    y = 'body_mass_g',
-    hue = 'species',
-    style = 'species',
-    col = 'island',
-    col_wrap = 2,
-    col_order=['Biscoe','Dream','Torgersen'],
-    height=3, aspect=1.5,
-);
-
+    data=penguins,
+    x="bill_length_mm",
+    y="body_mass_g",
+    hue="species",
+    style="species",
+    col="island",
+    col_wrap=2,
+    col_order=["Biscoe", "Dream", "Torgersen"], #<<
+    height=3,
+    aspect=1.5,
+)
 ```
+]
+.pull-right[
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+![png](03_01_data_visualization_files/03_01_data_visualization_101_0.png)
+]
+
+---
+
 ## Line plots
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-fmri = sns.load_dataset('fmri')
+.pull-left[
+```{python}
+fmri = sns.load_dataset("fmri")
 fmri.head()
 ```
+]
+.pull-right[
 
-```{python cell_style="split", slideshow={'slide_type': 'subslide'}, tags=c()}
-sns.relplot(data = fmri, x = 'timepoint', y = 'signal', kind = 'line');
+```python
+sns.relplot(data=fmri, 
+  x="timepoint", 
+  y="signal", 
+  kind="line")
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}, tags=c()}
-sns.relplot(data = fmri, x = 'timepoint', y = 'signal', kind = 'line', hue = 'event');
+
+![png](03_01_data_visualization_files/03_01_data_visualization_104_0.png)
+]
+---
+
+## Line plots
+
+.pull-left[
+
+```python
+sns.relplot(data=fmri, 
+  x="timepoint", y="signal", 
+  kind="line", hue="event")
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'subslide'}, tags=c()}
+
+![png](03_01_data_visualization_files/03_01_data_visualization_105_0.png)
+
+]
+.pull-right[
+```python
 sns.relplot(
-    data = fmri, 
-    x = 'timepoint', 
-    y = 'signal', 
-    kind = 'line', 
-    hue = 'event', 
-    style = 'region');
+    data=fmri, x="timepoint", y="signal", 
+    kind="line", hue="event", style="region"
+)
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}, tags=c()}
+
+![png](03_01_data_visualization_files/03_01_data_visualization_106_0.png)
+]
+
+---
+
+## Line plots
+
+.pull-left[
+```python
 sns.relplot(
-    data = fmri, 
-    x = 'timepoint', 
-    y = 'signal', 
-    kind = 'line', 
-    hue = 'event', 
-    style = 'region', ci = None);
+    data=fmri,
+    x="timepoint", y="signal",
+    kind="line", hue="event",
+    style="region", ci=None,
+)
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'subslide'}}
+
+![:scale 80%](03_01_data_visualization_files/03_01_data_visualization_107_0.png)
+]
+
+---
+
+## Regression lines
+
+.pull-left[
+```python
 sns.lmplot(
-    data = penguins,
-    x = 'bill_length_mm',
-    y = 'body_mass_g',
-);
+    data=penguins,
+    x="bill_length_mm", y="body_mass_g",
+)
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
+
+![:scale 60%](03_01_data_visualization_files/03_01_data_visualization_108_0.png)
+]
+
+.pull-right[
+
+```{python, eval=FALSE}
 sns.lmplot(
-    data = penguins,
-    x = 'bill_length_mm',
-    y = 'body_mass_g',
-    lowess = True,
-);
+    data=penguins,
+    x="bill_length_mm",     y="body_mass_g",
+    lowess=True, #<<
+)
 ```
 
-```{python slideshow={'slide_type': 'subslide'}}
+
+![:scale 60%](03_01_data_visualization_files/03_01_data_visualization_109_0.png)
+
+]
+
+---
+
+## Regression lines
+
+.pull-left[
+
+```{python, eval=F}
 sns.lmplot(
-    data = penguins,
-    x = 'bill_length_mm',
-    y = 'body_mass_g',
-    hue = 'species',
-);
+    data=penguins,
+    x="bill_length_mm", y="body_mass_g",
+    hue="species", #<<
+)
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+
+![:scale 75%](03_01_data_visualization_files/03_01_data_visualization_110_0.png)
+
+]
+
+---
+
 ## Categorical plots
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-diamonds = sns.load_dataset('diamonds')
+
+```{python}
+diamonds = sns.load_dataset("diamonds")
 diamonds.shape
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
-sns.catplot(data = diamonds, 
-            x = 'cut', 
-            y = 'price', 
-            kind = 'box');
+
+```python
+sns.catplot(data=diamonds, x="cut", y="price", kind="box")
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
-cat_order = ['Fair','Good','Very Good','Premium','Ideal']
+
+![:scale 30%](03_01_data_visualization_files/03_01_data_visualization_113_0.png)
+
+---
+
+## Categorical plots
+
+.pull-left[
+
+```{python, eval=F}
+cat_order = ["Fair", "Good", "Very Good", 
+  "Premium", "Ideal"]
 sns.catplot(
-    data = diamonds,
-    x = 'cut',
-    y = 'price',
-    kind = 'strip',
-    order = cat_order,
-);
+    data=diamonds,
+    x="cut", y="price",
+    kind="strip", 
+    order=cat_order, #<<
+)
 ```
 
-```{python slideshow={'slide_type': 'subslide'}}
-cat_order = ['Fair','Good','Very Good','Premium','Ideal']
+
+![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_114_0.png)
+]
+.pull-right[
+
+```python
+cat_order = ["Fair", "Good", "Very Good", 
+  "Premium", "Ideal"]
 sns.catplot(
-    data = diamonds,
-    x = 'cut',
-    y = 'price',
-    kind = 'bar',
-    order = cat_order,
-);
+    data=diamonds,
+    x="cut", y="price",
+    kind="bar",
+    order=cat_order,
+)
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+
+![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_115_0.png)
+
+.small[Height is the mean price per category, small line is the standard error of the mean.]
+]
+
+---
+
 ## Pair plot
-<!-- #endregion -->
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
-sns.pairplot(data = penguins);
+```python
+sns.pairplot(data=penguins)
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
-sns.pairplot(data = penguins, hue = 'species');
+
+![:scale 40%](03_01_data_visualization_files/03_01_data_visualization_117_0.png)
+
+---
+
+## Pair plot
+
+```python
+sns.pairplot(data=penguins, hue="species")
 ```
 
-```{python slideshow={'slide_type': 'subslide'}}
-g = sns.PairGrid(penguins, diag_sharey=False);
-g.map_upper(sns.scatterplot);
-g.map_lower(sns.kdeplot);
-g.map_diag(sns.kdeplot, lw=2);
+
+![:scale 40%](03_01_data_visualization_files/03_01_data_visualization_118_0.png)
+
+---
+
+## Pair plot
+
+```python
+g = sns.PairGrid(penguins, diag_sharey=False)
+g.map_upper(sns.scatterplot)
+g.map_lower(sns.kdeplot)
+g.map_diag(sns.kdeplot, lw=2)
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+![:scale 35%](03_01_data_visualization_files/03_01_data_visualization_119_0.png)
+
+
+---
+
 ## Joint plot
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-sns.jointplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species");
+
+```python
+sns.jointplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species")
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_121_0.png)
+
+
+---
+
 ## Overlaying aesthetics
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
-g = sns.catplot(data = penguins, x = 'species', y = 'body_mass_g', kind = 'violin')
-sns.swarmplot(data = penguins, x = 'species', y = 'body_mass_g',  ax = g.ax, color='black')
-g.set_xlabels('Species')
-g.set_ylabels('Body mass (g)');
+
+```python
+g = sns.catplot(data=penguins, x="species", y="body_mass_g", kind="violin")
+sns.swarmplot(data=penguins, x="species", y="body_mass_g", ax=g.ax, color="black")
+g.set_xlabels("Species")
+g.set_ylabels("Body mass (g)")
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
+
+![png](03_01_data_visualization_files/03_01_data_visualization_123_0.png)
+
+
+---
+class: middle,center,inverse
+
 # matplotlib
-<!-- #endregion -->
-<!-- #region slideshow={"slide_type": "subslide"} -->
+
+---
+
 ## Granular control
 
 **matplotlib** allows us a lot of granular control of a data visualization.
 
 We can build a visualization from the ground up
 
-![:scale 50%](https://matplotlib.org/stable/_images/anatomy.png)
+![:scale 40%](https://matplotlib.org/stable/_images/anatomy.png)
 
-<!-- #endregion -->
-```{python slideshow={'slide_type': 'subslide'}}
+
+
+```python
 fig, ax = plt.subplots()
-ax.scatter(penguins['bill_length_mm'], penguins['body_mass_g'])
-ax.set_xlabel('Bill length (mm)')
-ax.set_ylabel('Body mass (g)');
+ax.scatter(penguins["bill_length_mm"], penguins["body_mass_g"])
+ax.set_xlabel("Bill length (mm)")
+ax.set_ylabel("Body mass (g)")
 ```
 
-```{python slideshow={'slide_type': 'subslide'}}
+
+![png](03_01_data_visualization_files/03_01_data_visualization_126_0.png)
+
+
+
+```python
 fig, ax = plt.subplots()
-cols = ['red','blue','green']
-for i,u in enumerate(penguins['species'].unique()):
-    d = penguins[penguins['species']==u]
-    ax.scatter(d['bill_length_mm'], d['body_mass_g'], 
-               c = cols[i],
-               label = u)
-ax.legend(title='Species', loc='best', labelcolor='black');
+cols = ["red", "blue", "green"]
+for i, u in enumerate(penguins["species"].unique()):
+    d = penguins[penguins["species"] == u]
+    ax.scatter(d["bill_length_mm"], d["body_mass_g"], c=cols[i], label=u)
+ax.legend(title="Species", loc="best", labelcolor="black")
 plt.show()
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'subslide'}}
-fig, axs = plt.subplots(nrows = 1, ncols=3, sharex=True, sharey=True, figsize = [15,5])
-cols = ['red','blue','green']
-for i,u in enumerate(penguins['species'].unique()):
-    d = penguins[penguins['species'] == u]
-    axs[i].scatter(d['bill_length_mm'], d['body_mass_g'],
-                  c = cols[i],
-                  label = u)
+
+![png](03_01_data_visualization_files/03_01_data_visualization_127_0.png)
+
+
+
+```python
+fig, axs = plt.subplots(nrows=1, ncols=3, sharex=True, sharey=True, figsize=[15, 5])
+cols = ["red", "blue", "green"]
+for i, u in enumerate(penguins["species"].unique()):
+    d = penguins[penguins["species"] == u]
+    axs[i].scatter(d["bill_length_mm"], d["body_mass_g"], c=cols[i], label=u)
     axs[i].set_title(u)
-    axs[i].set_xlabel('Bill length(mm)')
-    if i==0:
-        axs[i].set_ylabel('Body mass (g)')
-fig.legend();
+    axs[i].set_xlabel("Bill length(mm)")
+    if i == 0:
+        axs[i].set_ylabel("Body mass (g)")
+fig.legend()
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
-g = sns.relplot(data = penguins, x = 'bill_length_mm', y = 'body_mass_g', col = 'species', hue = 'species')
-g.set_xlabels('Bill length (mm)')
-g.set_ylabels('Body mass (g)');
+
+![png](03_01_data_visualization_files/03_01_data_visualization_128_0.png)
+
+
+
+```python
+g = sns.relplot(
+    data=penguins, x="bill_length_mm", y="body_mass_g", col="species", hue="species"
+)
+g.set_xlabels("Bill length (mm)")
+g.set_ylabels("Body mass (g)")
 plt.show()
 ```
 
-<!-- #region slideshow={"slide_type": "slide"} -->
-# Saving your work
+
+![png](03_01_data_visualization_files/03_01_data_visualization_129_0.png)
+
+
+---
+
+## Saving your work
 
 **matplotlib**, and, by extension, **pandas** and **seaborn**, has a large number of backend engines that enables one to save their visualizations in several file formats. 
-<!-- #endregion -->
 
-```{python slideshow={'slide_type': 'fragment'}}
+
+```python
 print(pd.Series(fig.canvas.get_supported_filetypes()))
 ```
 
-<!-- #region slideshow={"slide_type": "subslide"} -->
-# Saving your work
+    eps              Encapsulated Postscript
+    jpg     Joint Photographic Experts Group
+    jpeg    Joint Photographic Experts Group
+    pdf             Portable Document Format
+    pgf                   PGF code for LaTeX
+    png            Portable Network Graphics
+    ps                            Postscript
+    raw                      Raw RGBA bitmap
+    rgba                     Raw RGBA bitmap
+    svg             Scalable Vector Graphics
+    svgz            Scalable Vector Graphics
+    tif             Tagged Image File Format
+    tiff            Tagged Image File Format
+    dtype: object
+
+
+---
+
+## Saving your work
 
 You can save your work using the `plt.savefig` function
-<!-- #endregion -->
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
+```python
 # This will save the last run figure
-plt.savefig(
-    'penguins.png',
-    transparent=True,
-    dpi = 300);
+plt.savefig("penguins.png", transparent=True, dpi=300)
+```
+```python
+!ls -l
 ```
 
-```{python cell_style="split", slideshow={'slide_type': 'fragment'}}
-# This will save the figure contained in fig
-fig.savefig(
-    'penguins.png',
-    transparent=True,
-    dpi = 300);
-```
+    total 3736
+    -rw-r--r--  1 abhijit  staff    28084 Apr  5 07:54 03_01_data_visualization.Rmd
+    -rw-r--r--@ 1 abhijit  staff    31217 Apr  5 06:34 03_01_data_visualization.html
+    -rw-r--r--  1 abhijit  staff  1615051 Apr  5 07:54 03_01_data_visualization.ipynb
+    -rw-r--r--  1 abhijit  staff    26327 Apr  5 07:54 03_01_data_visualization.py
+    drwxr-xr-x  4 abhijit  staff      128 Apr  5 06:34 03_01_data_visualization_files[m[m
+    -rw-r--r--  1 abhijit  staff      324 Apr  5 05:41 _output.yml
+    lrwxr-xr-x  1 abhijit  staff       44 Apr  5 01:54 data -> /Users/abhijit/Dropbox/teaching/BIOF439/data
+    drwxr-xr-x  7 abhijit  staff      224 Apr  5 01:24 img
+    -rw-r--r--  1 abhijit  staff   145047 Apr  5 07:55 penguins.png
 
-```{python slideshow={'slide_type': 'fragment'}}
-# !ls -l
-```
