@@ -16,6 +16,8 @@
 #     name: python3
 # ---
 
+# %%
+
 # %% [markdown] slideshow={"slide_type": "slide"}
 # # Data visualization
 
@@ -260,9 +262,9 @@
 # We'll use this set of packages almost always for creating static visualizations meant for a paper, poster, or website
 
 # %% slideshow={"slide_type": "fragment"}
-import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import pandas as pd
 import seaborn as sns
 
 # %matplotlib inline
@@ -354,14 +356,14 @@ cars.plot(x="Displacement", y="MPG", kind="scatter")
 
 # %% slideshow={"slide_type": "fragment"}
 penguins = sns.load_dataset("penguins")
-pd.plotting.scatter_matrix(penguins)
+pd.plotting.scatter_matrix(penguins);
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 #
 # ## Box plots (continuous x categorical)
 
 # %% slideshow={"slide_type": "fragment"}
-cars.boxplot(column="MPG", by="Cylinders")
+cars.boxplot(column="MPG", by="Cylinders");
 
 # %% [markdown] slideshow={"slide_type": "slide"}
 # # An aside about pandas plotting
@@ -374,7 +376,7 @@ cars.boxplot(column="MPG", by="Cylinders")
 # For example, if you want to look at univariate characteristics of all continuous variables in a DataFrame:
 
 # %% slideshow={"slide_type": "fragment"}
-penguins.plot(kind="kde")
+penguins.plot(kind="kde");
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Plotting several columns in a DataFrame
@@ -382,7 +384,7 @@ penguins.plot(kind="kde")
 # We'd do better by putting each variable into a separate plot
 
 # %% slideshow={"slide_type": "fragment"}
-penguins.plot(kind="kde", subplots=True)
+penguins.plot(kind="kde", subplots=True);
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Plotting several columns in a DataFrame
@@ -390,14 +392,13 @@ penguins.plot(kind="kde", subplots=True)
 # Let's put each subplot on its own scale
 
 # %% slideshow={"slide_type": "fragment"}
-penguins.plot(kind="kde", subplots=True, sharex=False, layout=(2, 2))
+penguins.plot(kind="kde", subplots=True, sharex=False, layout=(2, 2));
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Boxplots of several columns
 
 # %% slideshow={"slide_type": "fragment"}
-penguins[["bill_length_mm", "bill_depth_mm", "flipper_length_mm"]].plot(kind="box")
-plt.show()
+penguins[["bill_length_mm", "bill_depth_mm", "flipper_length_mm"]].plot(kind="box");
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Plotting against the index of a Series or DataFrame
@@ -423,7 +424,8 @@ plt.show()
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"}
 import numpy as np
-n = np.random.randn(5,4)
+
+n = np.random.randn(5, 4)
 D = pd.DataFrame(n, columns=["A", "B", "C", "D"])
 D.head()
 
@@ -531,10 +533,10 @@ sns.catplot(data=penguins, x="species", kind="count")
 # ## Relating two continuous variables
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"}
-sns.relplot(data=penguins, x="bill_length_mm", y="body_mass_g")
+sns.relplot(data=penguins, x="bill_length_mm", y="body_mass_g");
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"}
-sns.relplot(data=penguins, x="bill_length_mm", y="body_mass_g", hue="species")
+sns.relplot(data=penguins, x="bill_length_mm", y="body_mass_g", hue="species");
 
 # %% cell_style="split" slideshow={"slide_type": "subslide"}
 sns.relplot(

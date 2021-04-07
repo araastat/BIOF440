@@ -11,6 +11,7 @@ subtitle: "BIOF 440"
 knitr::opts_chunk$set(cache=FALSE)
 ```
 
+
 class: middle,center,inverse
 
 # Data visualization
