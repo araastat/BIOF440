@@ -5,11 +5,11 @@ Resources
 
 ## General Python resources
 
-[<img style = "height:150px; width:112px; border: 3px solid black;" src="img/PDSH-cover.png"/>](https://jakevdp.github.io/PythonDataScienceHandbook/)
+[<img src="img/PDSH-cover.png" style="height:150px; width:112px; border: 3px solid black;"/>](https://jakevdp.github.io/PythonDataScienceHandbook/)
 
 ## Data visualization
 
-<a href="https://serialmentor.com/dataviz/index.html" target="_blank"><img  style="height:150px; width:112px; border: 3px solid black;" src="img/wilke.jpg"/></a>
+[<img src="img/wilke.jpg" style="height:150px; width:112px; border: 3px solid black;"/>](https://serialmentor.com/dataviz/index.html)
 
 Clicking on the covers will send you to the free online versions of each
 book
@@ -25,14 +25,22 @@ book
 
 # Web references
 
+## Python
+
+-   [pandas user
+    guide](https://pandas.pydata.org/docs/user_guide/index.html#user-guide):
+    Documentation for the pandas package
+
 ## Data viz
 
--   <a href="https://ggplot2.tidyverse.org/" target="_blank">ggplot2 reference</a>:
-    The definitive guide to ggplot2. Check out the pages for the
-    different functions for great examples
 -   [Python graph gallery](https://www.python-graph-gallery.com/):
     Example-filled site for different python-based graphics. The ads can
     be a bit irritating, but the content is great.
+-   [matplotlib
+    gallery](https://matplotlib.org/stable/gallery/index.html)
+-   [seaborn gallery](https://seaborn.pydata.org/examples/index.html)
+-   [plotly gallery](https://plotly.com/python/)
+-   [altair gallery](https://altair-viz.github.io/gallery/index.html)
 
 ------------------------------------------------------------------------
 
