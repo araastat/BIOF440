@@ -162,24 +162,7 @@ The **treemap** is one of the first interactive tools moving from research to bu
 - display up to two different quantitative variables at different levels of a hierarchy
 
 
-```python
-import numpy as np
-import plotly
-import plotly.express as px
 
-df = px.data.gapminder().query("year == 2007")
-df["world"] = "world"  # in order to have a single root node
-fig = px.treemap(
-    df,
-    path=["world", "continent", "country"],
-    values="pop",
-    color="lifeExp",
-    hover_data=["iso_alpha"],
-    color_continuous_scale="RdBu",
-    color_continuous_midpoint=np.average(df["lifeExp"], weights=df["pop"]),
-)
-show_fig(fig, "week4_files/treemap1.html")
-```
 
 
 
@@ -200,24 +183,7 @@ show_fig(fig, "week4_files/treemap1.html")
 The Gapminder data, made famous by Hans Rosling, provides an opportunity to show an example of several aspects of interactive data visualization
 
 
-```python
-gapm = px.data.gapminder()
-fig = px.scatter(
-    gapm,
-    x="gdpPercap",
-    y="lifeExp",
-    animation_frame="year",
-    animation_group="country",
-    size="pop",
-    color="continent",
-    hover_name="country",
-    log_x=True,
-    size_max=55,
-    range_x=[100, 100000],
-    range_y=[25, 90],
-)
-show_fig(fig, "week4_files/gap1.html", width="100%", height=500)
-```
+
 
 
 
