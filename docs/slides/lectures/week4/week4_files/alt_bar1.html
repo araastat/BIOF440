@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.8.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"name": "data-00c264d69c9bdf0c6ad135a4f8ac6f26"}, "mark": "bar", "encoding": {"x": {"type": "quantitative", "field": "lifeExp", "title": "Life expectancy"}, "y": {"type": "ordinal", "field": "year"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-00c264d69c9bdf0c6ad135a4f8ac6f26": [{"country": "France", "continent": "Europe", "year": 1952, "lifeExp": 67.41, "pop": 42459667, "gdpPercap": 7029.809327, "iso_alpha": "FRA", "iso_num": 250}, {"country": "France", "continent": "Europe", "year": 1957, "lifeExp": 68.93, "pop": 44310863, "gdpPercap": 8662.834898, "iso_alpha": "FRA", "iso_num": 250}, {"country": "France", "continent": "Europe", "year": 1962, "lifeExp": 70.51, "pop": 47124000, "gdpPercap": 10560.48553, "iso_alpha": "FRA", "iso_num": 250}, {"country": "France", "continent": "Europe", "year": 1967, "lifeExp": 71.55, "pop": 49569000, "gdpPercap": 12999.91766, "iso_alpha": "FRA", "iso_num": 250}, {"country": "France", "continent": "Europe", "year": 1972, "lifeExp": 72.38, "pop": 51732000, "gdpPercap": 16107.19171, "iso_alpha": "FRA", "iso_num": 250}, {"country": "France", "continent": "Europe", "year": 1977, "lifeExp": 73.83, "pop": 53165019, "gdpPercap": 18292.63514, "iso_alpha": "FRA", "iso_num": 250}, {"country": "France", "continent": "Europe", "year": 1982, "lifeExp": 74.89, "pop": 54433565, "gdpPercap": 20293.89746, "iso_alpha": "FRA", "iso_num": 250}, {"country": "France", "continent": "Europe", "year": 1987, "lifeExp": 76.34, "pop": 55630100, "gdpPercap": 22066.44214, "iso_alpha": "FRA", "iso_num": 250}, {"country": "France", "continent": "Europe", "year": 1992, "lifeExp": 77.46, "pop": 57374179, "gdpPercap": 24703.79615, "iso_alpha": "FRA", "iso_num": 250}, {"country": "France", "continent": "Europe", "year": 1997, "lifeExp": 78.64, "pop": 58623428, "gdpPercap": 25889.78487, "iso_alpha": "FRA", "iso_num": 250}, {"country": "France", "continent": "Europe", "year": 2002, "lifeExp": 79.59, "pop": 59925035, "gdpPercap": 28926.03234, "iso_alpha": "FRA", "iso_num": 250}, {"country": "France", "continent": "Europe", "year": 2007, "lifeExp": 80.657, "pop": 61083916, "gdpPercap": 30470.0167, "iso_alpha": "FRA", "iso_num": 250}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

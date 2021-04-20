@@ -4,6 +4,13 @@ subtitle: "BIOF 440"
 author: "Abhijit Dasgupta"
 ---
 
+```{r, include=F, child='../css/setup.Rmd'}
+
+```
+```{r, include=F}
+knitr::opts_chunk$set(cache=FALSE, echo=T, eval=F)
+```
+
 ```python
 import plotly
 from IPython.display import IFrame, display_html
@@ -18,6 +25,8 @@ def show_fig2(filename, width="100%", height=500):
 
 ```
 
+---
+
 ## Why dynamic/interactive data visualizations
 
 - Traditional data visualizations have been meant for print
@@ -25,6 +34,8 @@ def show_fig2(filename, width="100%", height=500):
     - Magazines
     - Reports
     - Billboards
+
+---
 
 ## Why dynamic/interactive data visualizations
 
@@ -40,6 +51,8 @@ def show_fig2(filename, width="100%", height=500):
    
 
  
+---
+
 ## Why dynamic/interactive data visualizations
 
 - In 1984, Apple introduced a personal computer operating via graphical interaction and display
@@ -47,6 +60,9 @@ def show_fig2(filename, width="100%", height=500):
 - Ability to create data visualizations became easy, but was commonly done poorly
 
 .footnote[Stephen Few, [*Data Visualization: Past, Present and Future*](https://www.perceptualedge.com/articles/Whitepapers/Data_Visualization.pdf), 2007]
+
+---
+
 
 ## Visual analytics
 
@@ -56,6 +72,8 @@ def show_fig2(filename, width="100%", height=500):
     - Dig deeper
     - Provide analytic insights, cause-and-effect
     - Compressing information from large corpuses of data into small spaces
+
+---
 
 ## Visual analytics
 
@@ -67,6 +85,8 @@ def show_fig2(filename, width="100%", height=500):
     - highlight subsets of data across multiple graphs simultaneously. 
     
 .footnote[Tableau, [*Why Visual Analytics?*](https://help.tableau.com/current/blueprint/en-us/bp_why_visual_analytics.htm)]
+
+---
 
 ## Visual analytics
 
@@ -83,11 +103,15 @@ We can add
 - on/off mechanisms
 - facets
 
+---
+
 ## Visual analytics
 
 As a reminder, we'll still use the usual geometries to encode data
 
 ![:scale 70%](images/encodings.png)
+
+---
 
 ## Visual analytics
 
@@ -100,6 +124,8 @@ As a reminder, we'll still use the usual geometries to encode data
 1. Search and filter
 
 .footnote[Jennifer Tidwell]
+
+---
 
 ## Visual analytics
 
@@ -116,6 +142,8 @@ This can be translated as
 1. Give an overview of the data in a single plot
 1. Zoom, select, and move around in the space of the plot
 1. Add information (meta-data), usually through tooltips
+
+---
 
 ## Visual analytics
 
@@ -155,6 +183,8 @@ show_fig(fig, "week4_files/treemap1.html")
 
 
 
+---
+
 ## Visual analytics
 
 The Gapminder data, made famous by Hans Rosling, provides an opportunity to show an example of several aspects of interactive data visualization
@@ -191,19 +221,28 @@ show_fig(fig, "week4_files/gap1.html", width="100%", height=500)
 
 
 
+---
+
 ## Visual analytics
 
 The most popular application for dynamic data visualization is [Tableau](https://www.tableau.com). 
 
 However, using Python, or R, or other programming languages to create these visualizations allows you to unify the data science pipeline that includes description, analysis and visualization
 
+---
+class:middle,center,inverse
+
 # Interactive/dynamic data visualizations in Python
+
+---
 
 ## A caveat
 
 In this module we won't talk about animations, i.e., a sequence of graphics that show a flow of data over time. That is dynamic, but not necessarily interactive. 
 
 We will look briefly at animations later in the term
+
+---
 
 ## Python packages for interactive visualizations
 
@@ -215,11 +254,15 @@ The main packages for interactive visualizations in Python are
 
 In addition, there are several others, including mpld3 (using d3.js), pygal, and holoviews.
 
+---
+
 ## Python packages for interactive graphics
 
 We will explore **plotly** and **altair** in this class. In week 6 we'll provide resources for **bokeh** and using **holoviews** to create graphics using **matplotlib**, **bokeh** and **plotly**
 
 Both **plotly** and **altair** have a coding schema (API) that makes the mappings from the data to the visualization explicit, leading to an easier mental model for creating interactive graphics
+
+---
 
 ## Setting up Python
 
@@ -236,7 +279,12 @@ import plotly.graph_objects as go
 import seaborn as sns
 ```
 
+---
+class:middle,center,inverse
+
 # plotly
+
+---
 
 ## plotly
 
@@ -246,6 +294,8 @@ The company behind **plotly.js** developed both Python and R interfaces to creat
 
 We'll concentrate here on statistical visualizations using **plotly**, but the documentation will show many other kinds of graphics that can be generated.
 
+---
+
 ## plotly
 
 The Python interface to **plotly** includes two tracks
@@ -254,6 +304,8 @@ The Python interface to **plotly** includes two tracks
 - a higher-level interface using `plotly.express`
 
 Often it's easier to start a graphic with `plotly.express`, and then customize it with elements from `plotly.graph_objects`. 
+
+---
 
 ## plotly
 
@@ -352,19 +404,25 @@ penguins.head()
 
 
 
+---
+
 ## plotly
 
 Let's start with a basic scatterplot
 
-
-```python
+.pull-left[
+```{python}
 fig = px.scatter(
-    data_frame=penguins, x="bill_length_mm", y="body_mass_g", template="simple_white"
+    data_frame=penguins, 
+    x="bill_length_mm", 
+    y="body_mass_g", 
+    template="simple_white"
 )
 
 show_fig(fig, "week4_files/scatter1.html")
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -375,16 +433,18 @@ show_fig(fig, "week4_files/scatter1.html")
     allowfullscreen
 ></iframe>
 
-
+]
 
 Note that we can mouse over points to get some information, in this case, the x- and y-coordinates
+
+---
 
 ## plotly
 
 We'll now add _species_ encoded as color
 
-
-```python
+.pull-left[
+```{python}
 fig = px.scatter(
     data_frame=penguins,
     x="bill_length_mm",
@@ -394,7 +454,8 @@ fig = px.scatter(
 )
 show_fig(fig, "week4_files/scatter2.html")
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -405,16 +466,18 @@ show_fig(fig, "week4_files/scatter2.html")
     allowfullscreen
 ></iframe>
 
-
+]
 
 Note that **plotly** provides pan, zoom, on/off, select and tooltips automatically
+
+---
 
 ## plotly
 
 We can also add marginal plots with additional arguments
 
-
-```python
+.pull-left[
+```{{python}
 fig = px.scatter(
     penguins,
     x="bill_length_mm",
@@ -426,7 +489,8 @@ fig = px.scatter(
 )
 show_fig(fig, "week4_files/scatter3.html")
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -436,15 +500,17 @@ show_fig(fig, "week4_files/scatter3.html")
     frameborder="0"
     allowfullscreen
 ></iframe>
+]
 
 
+---
 
 ## plotly
 
 Add regression lines
 
-
-```python
+.pull-left[
+```{python}
 fig = px.scatter(
     data_frame=penguins,
     x="bill_length_mm",
@@ -457,7 +523,8 @@ fig = px.scatter(
 )
 show_fig(fig, "week4_files/scatter4.html")
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -468,14 +535,16 @@ show_fig(fig, "week4_files/scatter4.html")
     allowfullscreen
 ></iframe>
 
+]
 
+---
 
 ## plotly
 
 Add regression lines
 
-
-```python
+.pull-left[
+```{python}
 fig = px.scatter(
     data_frame=penguins,
     x="bill_length_mm",
@@ -489,7 +558,8 @@ fig = px.scatter(
 show_fig(fig, filename="week4_files/scatter5.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -499,14 +569,17 @@ show_fig(fig, filename="week4_files/scatter5.html")
     allowfullscreen
 ></iframe>
 
+]
 
+---
 
 ## plotly
 
 We can also do trellis graphics pretty easily using **plotly**
 
+.pull-left[
 
-```python
+```{python}
 fig = px.scatter(
     data_frame=penguins,
     x="bill_length_mm",
@@ -518,7 +591,8 @@ fig = px.scatter(
 show_fig(fig, filename="week4_files/scatter6.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -527,13 +601,15 @@ show_fig(fig, filename="week4_files/scatter6.html")
     frameborder="0"
     allowfullscreen
 ></iframe>
+]
 
 
+---
 
 ## plotly
 
-
-```python
+.pull-left[
+```{python}
 fig = px.scatter(
     data_frame=penguins,
     x="bill_length_mm",
@@ -545,7 +621,8 @@ fig = px.scatter(
 )
 show_fig(fig, filename="week4_files/scatter7.html")
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -556,14 +633,16 @@ show_fig(fig, filename="week4_files/scatter7.html")
     allowfullscreen
 ></iframe>
 
+]
 
+---
 
 ## plotly
 
 We can clean up the plot
 
-
-```python
+.pull-left[
+```{python}
 fig = px.scatter(
     data_frame=penguins,
     x="bill_length_mm",
@@ -580,7 +659,8 @@ fig = px.scatter(
 )
 show_fig(fig, filename="week4_files/scatter8.html")
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -592,14 +672,20 @@ show_fig(fig, filename="week4_files/scatter8.html")
 ></iframe>
 
 
+]
+
+---
+class:middle,center,inverse
 
 # Tooltips
+
+---
 
 ## Tooltips
 
 You can add data from column(s) of the DataFrame as tooltips quite easily
 
-
+.pull-left[
 ```python
 fig = px.scatter(
     data_frame=penguins,
@@ -619,7 +705,8 @@ fig = px.scatter(
 show_fig(fig, filename="week4_files/scatter9.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -629,13 +716,15 @@ show_fig(fig, filename="week4_files/scatter9.html")
     allowfullscreen
 ></iframe>
 
+]
 
+---
 
 ## Tooltips
 
 Choose which variables go into the tooltip
 
-
+.pull-left[
 ```python
 fig = px.scatter(
     data_frame=penguins,
@@ -659,7 +748,8 @@ fig = px.scatter(
 )
 show_fig(fig, filename="week4_files/scatter10.html")
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -671,18 +761,27 @@ show_fig(fig, filename="week4_files/scatter10.html")
 ></iframe>
 
 
+]
+
+---
 
 ## Tooltips
 
 You can change the appearance of the tooltip
 
-
+.pull-left[
 ```python
-fig.update_layout(hoverlabel={"bgcolor": "red", "font_family": "Futura"})
-show_fig(fig, filename="week4_files/scatter11.html")
+fig.update_layout(
+  hoverlabel={
+    "bgcolor": "red", 
+    "font_family": "Futura"
+    })
+show_fig(fig, 
+filename="week4_files/scatter11.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -692,27 +791,36 @@ show_fig(fig, filename="week4_files/scatter11.html")
     allowfullscreen
 ></iframe>
 
+]
 
+---
 
 ## Tool tips
 
 You can also provide a template for the tooltips
 
-
+.pull-left[
 ```python
 import plotly.express as px
 
-df_2007 = px.data.gapminder().query("year==2007")
+df_2007 = (px.data.gapminder()
+  .query("year==2007"))
 
-fig = px.scatter(df_2007, x="gdpPercap", y="lifeExp", log_x=True, color="continent")
+fig = px.scatter(df_2007, 
+  x="gdpPercap", 
+  y="lifeExp", 
+  log_x=True, 
+  color="continent")
 
-fig.update_traces(hovertemplate="GDP: %{x} <br>Life Expectancy: %{y}")  # <<
+fig.update_traces(
+  hovertemplate="GDP: %{x} <br>Life Expectancy: %{y}")  # <<
 fig.update_traces(
     hovertemplate=None, selector={"name": "Europe"}
 )  # revert to default hover
 show_fig(fig, filename="week4_files/scatter12.html")
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -723,9 +831,14 @@ show_fig(fig, filename="week4_files/scatter12.html")
     allowfullscreen
 ></iframe>
 
+]
 
+---
+class:middle,center,inverse
 
 # Univariate plots
+
+---
 
 ## Distributional plots
 
@@ -744,14 +857,14 @@ show_fig(fig, filename="week4_files/hist1.html")
 
 <iframe
     width="100%"
-    height="500"
+    height="400"
     src="week4_files/hist1.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
 
 
-
+---
 
 ```python
 fig = px.histogram(data_frame=penguins, x="body_mass_g", color="species")
@@ -762,14 +875,14 @@ show_fig(fig, filename="week4_files/hist2.html")
 
 <iframe
     width="100%"
-    height="500"
+    height="400"
     src="week4_files/hist2.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
 
 
-
+---
 
 ```python
 fig = px.histogram(
@@ -782,13 +895,15 @@ show_fig(fig, filename="week4_files/hist3.html")
 
 <iframe
     width="100%"
-    height="500"
+    height="300"
     src="week4_files/hist3.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
 
 
+
+---
 
 ## Density plots
 
@@ -802,6 +917,9 @@ show_fig(fig, filename="week4_files/density1.html")
 ```
 
 
+---
+
+## Density plots
 
 <iframe
     width="100%"
@@ -812,6 +930,8 @@ show_fig(fig, filename="week4_files/density1.html")
 ></iframe>
 
 
+
+---
 
 ## Density plots
 
@@ -833,8 +953,9 @@ fig.update_xaxes(title="Body mass")
 fig.update_layout(showlegend=False, template="simple_white")
 show_fig(fig, filename="week4_files/density2.html")
 ```
+---
 
-
+## Density plots
 
 <iframe
     width="100%"
@@ -845,6 +966,8 @@ show_fig(fig, filename="week4_files/density2.html")
 ></iframe>
 
 
+
+---
 
 ## Frequency bar plots
 
@@ -874,7 +997,9 @@ fig = px.bar(
 show_fig(fig, filename="week4_files/bar1.html")
 ```
 
+---
 
+## Frequency bar plots
 
 <iframe
     width="100%"
@@ -886,9 +1011,11 @@ show_fig(fig, filename="week4_files/bar1.html")
 
 
 
+---
+
 ## Frequency bar plots
 
-
+.pull-left[
 ```python
 d = penguins.island.value_counts().reset_index()
 
@@ -897,7 +1024,8 @@ fig = px.bar(
     x="index",
     y="island",
     text="island",  # <<
-    labels={"island": "Frequency", "index": "Island"},
+    labels={"island": "Frequency", 
+      "index": "Island"},
     template="simple_white",
 ).update_layout(
     xaxis={"categoryorder": "category descending"},  # << Reverse alphabetical order
@@ -905,7 +1033,8 @@ fig = px.bar(
 show_fig(fig, filename="week4_files/bar2.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -915,11 +1044,13 @@ show_fig(fig, filename="week4_files/bar2.html")
     allowfullscreen
 ></iframe>
 
+]
 
+---
 
 ## Frequency bar plots
 
-
+.pull-left[
 ```python
 d = penguins.island.value_counts().reset_index()
 
@@ -928,14 +1059,17 @@ fig = px.bar(
     x="index",
     y="island",
     text="island",  # <<
-    labels={"island": "Frequency", "index": "Island"},
+    labels={"island": "Frequency", 
+    "index": "Island"},
     template="simple_white",
 ).update_layout(
-    xaxis={"categoryorder": "total ascending"},  # <<  value order
+    xaxis={"categoryorder": 
+      "total ascending"},  # <<  value order
 )
 show_fig(fig, filename="week4_files/bar3.html")
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -947,10 +1081,13 @@ show_fig(fig, filename="week4_files/bar3.html")
 ></iframe>
 
 
+]
+
+---
 
 ## Frequency bar plots
 
-
+.pull-left[
 ```python
 d = penguins.island.value_counts().reset_index()
 
@@ -970,7 +1107,8 @@ fig = px.bar(
 show_fig(fig, filename="week4_files/bar4.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -981,8 +1119,14 @@ show_fig(fig, filename="week4_files/bar4.html")
 ></iframe>
 
 
+]
+
+---
+class:middle,center,inverse
 
 # Grouped bar charts
+
+---
 
 ## Stacked bar charts
 
@@ -999,7 +1143,7 @@ show_fig(fig, filename="week4_files/bar5.html")
 
 <iframe
     width="100%"
-    height="500"
+    height="400"
     src="week4_files/bar5.html"
     frameborder="0"
     allowfullscreen
@@ -1007,13 +1151,15 @@ show_fig(fig, filename="week4_files/bar5.html")
 
 
 
+---
+
 ## Stacked bar charts
 
 
 ```python
 tips_summary = tips.groupby(["day", "sex"])["total_bill"].sum().reset_index()
 ```
-
+.pull-left[
 
 ```python
 fig = px.bar(
@@ -1027,7 +1173,8 @@ fig = px.bar(
 show_fig(fig, filename="week4_files/bar6.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -1037,11 +1184,13 @@ show_fig(fig, filename="week4_files/bar6.html")
     allowfullscreen
 ></iframe>
 
+]
 
+---
 
 ## Grouped bar chart
 
-
+.pull-left[
 ```python
 fig = px.bar(
     data_frame=tips_summary,
@@ -1055,7 +1204,8 @@ fig = px.bar(
 show_fig(fig, filename="week4_files/bar7.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -1065,7 +1215,10 @@ show_fig(fig, filename="week4_files/bar7.html")
     allowfullscreen
 ></iframe>
 
+]
 
+
+---
 
 ## Percent bar chart
 
@@ -1148,7 +1301,11 @@ tips_summary.head()
 </div>
 
 
+---
 
+## Percent bar chart
+
+.pull-left[
 
 ```python
 fig = px.bar(
@@ -1157,13 +1314,15 @@ fig = px.bar(
     y="Percent",
     color="sex",
     template="simple_white",
-    category_orders={"day": ["Thur", "Fri", "Sat", "Sun"], "sex": ["Male", "Female"]},
+    category_orders={"day": ["Thur", "Fri", "Sat", "Sun"], 
+      "sex": ["Male", "Female"]},
 )
 fig.update_layout(yaxis_tickformat="%")
 show_fig(fig, filename="week4_files/bar8.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -1174,6 +1333,9 @@ show_fig(fig, filename="week4_files/bar8.html")
 ></iframe>
 
 
+]
+
+---
 
 ## plotly
 
@@ -1199,23 +1361,31 @@ fig = px.scatter_matrix(
 show_fig(fig, filename="week4_files/splom.html")
 ```
 
+---
+
+### Scatterplot matrices
 
 
 <iframe
     width="100%"
     height="500"
-    src="week4_files/scatter1.html"
+    src="week4_files/splom.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
 
 
 
+---
+class:middle,center,inverse
+
 # Continuous vs categorical
+
+---
 
 ## Boxplots 
 
-
+.pull-left[
 ```python
 fig = px.box(
     data_frame=penguins,
@@ -1227,7 +1397,8 @@ fig = px.box(
 show_fig(fig, filename="week4_files/box1.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -1237,11 +1408,13 @@ show_fig(fig, filename="week4_files/box1.html")
     allowfullscreen
 ></iframe>
 
+]
 
+---
 
 ## Violin plot
 
-
+.pull-left[
 
 ```python
 fig = px.violin(
@@ -1254,7 +1427,8 @@ fig = px.violin(
 show_fig(fig, filename="week4_files/violin1.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -1265,10 +1439,13 @@ show_fig(fig, filename="week4_files/violin1.html")
 ></iframe>
 
 
+]
+
+---
 
 ## Strip plot
 
-
+.pull-left[
 ```python
 fig = px.strip(
     data_frame=penguins,
@@ -1281,7 +1458,8 @@ fig = px.strip(
 show_fig(fig, filename="week4_files/strip1.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -1291,17 +1469,24 @@ show_fig(fig, filename="week4_files/strip1.html")
     allowfullscreen
 ></iframe>
 
+]
 
+---
 
 ## Grouped violin plots
 
-
+.pull-left[
 ```python
-fig = px.violin(data_frame=tips, y="tip", x="smoker", color="sex", box=True)
+fig = px.violin(data_frame=tips, 
+  y="tip", 
+  x="smoker", 
+  color="sex", 
+  box=True)
 show_fig(fig, filename="week4_files/violin2.html")
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -1312,6 +1497,9 @@ show_fig(fig, filename="week4_files/violin2.html")
 ></iframe>
 
 
+]
+
+---
 
 ## Parallel coordinates plot
 
@@ -1330,7 +1518,9 @@ penguins.species.astype("category").cat.codes.value_counts(sort=False)
     2    124
     dtype: int64
 
+---
 
+## Parallel coordinates plot
 
 
 ```python
@@ -1347,13 +1537,15 @@ show_fig(fig, filename="week4_files/parallel.html")
 
 <iframe
     width="100%"
-    height="500"
+    height="350"
     src="week4_files/parallel.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
 
+---
 
+## Treemap
 
 
 ```python
@@ -1371,6 +1563,9 @@ fig = px.treemap(
 show_fig(fig, filename="week4_files/treemap1.html")
 ```
 
+---
+
+## Treemap
 
 
 <iframe
@@ -1383,12 +1578,14 @@ show_fig(fig, filename="week4_files/treemap1.html")
 
 
 
+---
+class:middle,center,inverse
+
 # More dynamism
 
+---
+
 ## Sliders
-
-
-
 
 ```python
 gapm = px.data.gapminder()
@@ -1409,7 +1606,9 @@ fig = px.scatter(
 show_fig(fig, filename="week4_files/gap1.html")
 ```
 
+---
 
+## Sliders
 
 <iframe
     width="100%"
@@ -1421,7 +1620,12 @@ show_fig(fig, filename="week4_files/gap1.html")
 
 
 
+---
+class:middle,center,inverse
+
 # Altair
+
+---
 
 ## Altair
 
@@ -1430,6 +1634,8 @@ Altair provides a wrapper around the Vega-Lite Javascript library, which is base
 It provides a syntax that explicitly describes the visual encodings that will be put on a plot. 
 
 This syntax is different from plotly, but it is clear in its own way.
+
+---
 
 ## Altair
 
@@ -1540,6 +1746,7 @@ mpg.head()
 </div>
 
 
+---
 
 
 ```python
@@ -1644,6 +1851,8 @@ show_fig2('week4_files/alt_scatter5.html')
 
 
 
+---
+
 ## Automatic aggregations
 
 
@@ -1681,6 +1890,8 @@ show_fig2('week4_files/alt_agg2.html')
 ></iframe>
 
 
+
+---
 
 ## Aggregation
 
@@ -1749,7 +1960,12 @@ show_fig2('week4_files/alt_agg6.html')
 
 
 
+---
+class:middle,center,inverse
+
 # Univariate plots
+
+---
 
 ## Histograms
 
@@ -1773,6 +1989,8 @@ show_fig2('week4_files/alt_hist1.html')
 ></iframe>
 
 
+
+---
 
 ## Density plots
 
@@ -1799,6 +2017,8 @@ show_fig2('week4_files/alt_density1.html')
 
 
 
+---
+
 ## Frequency bar plots
 
 
@@ -1808,7 +2028,9 @@ d.head()
 ```
 
 
+---
 
+## Frequency bar plots
 
 <div>
 <style scoped>
@@ -1926,7 +2148,12 @@ show_fig2('week4_files/alt_bar1.html')
 
 
 
+---
+class:middle,center,inverse
+
 # Bivariate plots
+
+---
 
 ## Scatter plots
 
@@ -1950,13 +2177,15 @@ show_fig2('week4_files/alt_points1.html')
 
 <iframe
     width="100%"
-    height="500"
+    height="350"
     src="week4_files/alt_points1.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
 
 
+
+---
 
 ## Boxplots
 
@@ -1983,6 +2212,8 @@ show_fig2('week4_files/alt_box1.html')
 ></iframe>
 
 
+
+---
 
 ## Violin plots
 
@@ -2021,7 +2252,9 @@ Violin plots, like density plots, are a little trickier, since you have to manua
 show_fig2('week4_files/alt_violin1.html')
 ```
 
+---
 
+## Violin plots
 
 <iframe
     width="100%"
@@ -2032,6 +2265,8 @@ show_fig2('week4_files/alt_violin1.html')
 ></iframe>
 
 
+
+---
 
 ## Strip plots
 
@@ -2053,7 +2288,12 @@ show_fig2('week4_files/alt_strip1.html')
 
 
 
+---
+class:middle,center,inverse
+
 # Adding layers
+
+---
 
 ## Scatter plots
 
@@ -2075,9 +2315,11 @@ show_fig2('week4_files/alt_points_layers1.html')
 
 
 
+---
+
 ## Scatter plots
 
-
+.pull-left[
 ```python
 alt.Chart(gapm).mark_circle().encode(
     x=alt.X(
@@ -2090,7 +2332,8 @@ alt.Chart(gapm).mark_circle().encode(
 show_fig2('week4_files/alt_gap1.html')
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -2099,12 +2342,14 @@ show_fig2('week4_files/alt_gap1.html')
     frameborder="0"
     allowfullscreen
 ></iframe>
+]
 
 
+---
 
 ## Scatter plots + tooltip
 
-
+.pull-left[
 ```python
 alt.Chart(gapm).mark_circle().encode(
     x=alt.X(
@@ -2118,7 +2363,8 @@ alt.Chart(gapm).mark_circle().encode(
 show_fig2('week4_files/alt_gap2.html')
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -2128,11 +2374,13 @@ show_fig2('week4_files/alt_gap2.html')
     allowfullscreen
 ></iframe>
 
+]
 
+---
 
 ## Scatter plots + tooltip
 
-
+pull-left[
 ```python
 alt.Chart(gapm).mark_circle().encode(
     x=alt.X(
@@ -2151,7 +2399,8 @@ alt.Chart(gapm).mark_circle().encode(
 show_fig2('week4_files/alt_gap3.html')
 ```
 
-
+]
+.pull-right[
 
 <iframe
     width="100%"
@@ -2161,9 +2410,11 @@ show_fig2('week4_files/alt_gap3.html')
     allowfullscreen
 ></iframe>
 
-
+]
 
 See [here](https://github.com/d3/d3-format#locale_format) for details on formatting
+
+---
 
 ## Bar plots
 
@@ -2171,10 +2422,8 @@ See [here](https://github.com/d3/d3-format#locale_format) for details on formatt
 ```python
 medals = px.data.medals_long()
 alt.Chart(medals).mark_bar().encode(
-    x="medal",
-    y="sum(count):Q",
-    color="medal:N",
-    column="nation:N",
+    x="medal", y="sum(count):Q",
+    color="medal:N",column="nation:N",
 ).properties(
     width=250,
 ).save('week4_files/alt_facet1.html')
@@ -2185,7 +2434,7 @@ show_fig2('week4_files/alt_facet1.html')
 
 <iframe
     width="100%"
-    height="500"
+    height="400"
     src="week4_files/alt_facet1.html"
     frameborder="0"
     allowfullscreen
@@ -2193,18 +2442,16 @@ show_fig2('week4_files/alt_facet1.html')
 
 
 
+---
+
 ## Bar plots
 
 
 ```python
 alt.Chart(medals).mark_bar().encode(
-    x=alt.X("medal", sort=["gold", "silver", "bronze"]),
-    y="sum(count):Q",
-    color=alt.Color("medal:N", sort=["gold", "silver", "bronze"]),
-    column="nation:N",
-).properties(
-    width=250,
-).save('week4_files/alt_facet2.html')
+    x=alt.X("medal", sort=["gold", "silver", "bronze"]), y="sum(count):Q",
+    color=alt.Color("medal:N", sort=["gold", "silver", "bronze"]), column="nation:N",
+).properties(width=250).save('week4_files/alt_facet2.html')
 show_fig2('week4_files/alt_facet2.html')
 ```
 
@@ -2212,13 +2459,15 @@ show_fig2('week4_files/alt_facet2.html')
 
 <iframe
     width="100%"
-    height="500"
+    height="400"
     src="week4_files/alt_facet2.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
 
 
+
+---
 
 ## Stacked bar charts
 
@@ -2246,6 +2495,8 @@ show_fig2('week4_files/alt_stack1.html')
 
 
 
+---
+
 ## Stacked bar charts
 
 
@@ -2272,6 +2523,8 @@ show_fig2('week4_files/alt_stack2.html')
 
 
 
+---
+
 ## Stacked bar charts
 
 
@@ -2292,13 +2545,15 @@ show_fig2('week4_files/alt_stack3.html')
 
 <iframe
     width="100%"
-    height="500"
+    height="300"
     src="week4_files/alt_stack3.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
 
 
+
+---
 
 ## Parallel coordinates
 
@@ -2322,7 +2577,9 @@ alt.Chart(iris).transform_window(
 show_fig2('week4_files/alt_parallel1.html')
 ```
 
+---
 
+## Parallel coordinates
 
 <iframe
     width="100%"
@@ -2333,6 +2590,8 @@ show_fig2('week4_files/alt_parallel1.html')
 ></iframe>
 
 
+
+---
 
 ## Adding layers explicitly
 
@@ -2362,6 +2621,8 @@ show_fig2('week4_files/alt_layer1.html')
 
 
 
+---
+
 ## Adding layers explicitly
 
 
@@ -2388,6 +2649,8 @@ show_fig2('week4_files/alt_layer2.html')
 
 
 
+---
+
 ## Adding layers explicitly
 
 
@@ -2413,6 +2676,8 @@ show_fig2('week4_files/alt_layers3.html')
 ></iframe>
 
 
+
+---
 
 ## Scatter plots + lines
 
@@ -2442,6 +2707,8 @@ show_fig2('week4_files/alt_layers4.html')
 
 
 
+---
+
 ## Scatter plots + lines
 
 
@@ -2470,6 +2737,8 @@ show_fig2('week4_files/alt_layers5.html')
 
 
 
+---
+
 ## Facets
 
 
@@ -2490,7 +2759,9 @@ show_fig2('week4_files/alt_facets4.html')
 
 
 
-## Facets
+---
+
+
 
 ## Facets
 
@@ -2517,29 +2788,7 @@ show_fig2('week4_files/alt_facet5.html')
 
 
 
-## Facets
-
-
-```python
-alt.Chart(penguins).mark_point().encode(
-    x=alt.X("bill_length_mm:Q", title="Bill length (mm)", scale=alt.Scale(zero=False)),
-    y=alt.Y("body_mass_g:Q", title="Body mass (g)", scale=alt.Scale(zero=False)),
-    column=alt.Column("species:N", title=None),
-    row=alt.Row("island:N", title=None),
-).properties(width=300).save('week4_files/alt_facet6.html')
-show_fig2('week4_files/alt_facet6.html')
-```
-
-
-
-<iframe
-    width="100%"
-    height="500"
-    src="week4_files/alt_facet6.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+---
 
 
 ## Scatterplot matrix
@@ -2569,7 +2818,12 @@ show_fig2('week4_files/alt_splom.html')
 
 
 
+---
+class:middle,center,inverse
+
 # Putting charts together
+
+---
 
 ## Side-by-side
 
@@ -2602,25 +2856,33 @@ show_fig2('week4_files/alt_concat1.html')
 
 
 
+---
+
 ## In a column
 
-
+.pull-left[
 ```python
 plot1 = (
     alt.Chart(penguins)
     .mark_circle()
-    .encode(x="bill_length_mm", y="body_mass_g", color="species")
+    .encode(x="bill_length_mm", 
+    y="body_mass_g", 
+    color="species")
 )
 plot2 = (
     alt.Chart(penguins)
     .mark_circle()
-    .encode(x="bill_depth_mm", y="body_mass_g", color="species")
+    .encode(
+      x="bill_depth_mm", 
+      y="body_mass_g", 
+      color="species")
 )
 
 (plot1 & plot2).save('week4_files/alt_concat2.html')
 show_fig2('week4_files/alt_concat2.html', height=600)
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -2632,6 +2894,9 @@ show_fig2('week4_files/alt_concat2.html', height=600)
 ></iframe>
 
 
+]
+
+---
 
 ## Composite plots
 
@@ -2690,7 +2955,9 @@ right_hist = (
 show_fig2('week4_files/alt_joint.html')
 ```
 
+---
 
+## Composite plots
 
 <iframe
     width="100%"
@@ -2702,7 +2969,12 @@ show_fig2('week4_files/alt_joint.html')
 
 
 
+---
+class:middle,center,inverse
+
 # Interactivity
+
+---
 
 ## Brushing
 
@@ -2733,6 +3005,9 @@ y_ticks = base.mark_tick().encode(
 show_fig2('week4_files/alt_brush1.html')
 ```
 
+---
+
+## Brushing
 
 
 <iframe
@@ -2744,6 +3019,8 @@ show_fig2('week4_files/alt_brush1.html')
 ></iframe>
 
 
+
+---
 
 ## Brushing
 
@@ -2766,7 +3043,9 @@ base = (
 show_fig2('week4_files/alt_brush2.html')
 ```
 
+---
 
+## Brushing
 
 <iframe
     width="100%"
@@ -2777,6 +3056,8 @@ show_fig2('week4_files/alt_brush2.html')
 ></iframe>
 
 
+
+---
 
 ## Multi-line highlight
 
@@ -2809,7 +3090,9 @@ lines = base.mark_line().encode(
 show_fig2('week4_files/alt_lines1.html')
 ```
 
+---
 
+## Multi-line highlight
 
 <iframe
     width="100%"
@@ -2821,6 +3104,8 @@ show_fig2('week4_files/alt_lines1.html')
 
 
 
+---
+
 ## Resources
 
 1. [Encodings](https://altair-viz.github.io/user_guide/encoding.html)
@@ -2828,20 +3113,4 @@ show_fig2('week4_files/alt_lines1.html')
 1. [Transformations](https://altair-viz.github.io/user_guide/transform/index.html)
 
 
-
-```python
-!jupyter nbconvert --to markdown week4.ipynb
-```
-
-    [NbConvertApp] Converting notebook week4.ipynb to markdown
-    [NbConvertApp] Writing 51884 bytes to week4.md
-
-
-
-```python
-!jupyter nbconvert --to html week4.ipynb
-```
-
-    [NbConvertApp] Converting notebook week4.ipynb to html
-    [NbConvertApp] Writing 847721 bytes to week4.html
 

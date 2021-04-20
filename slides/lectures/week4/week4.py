@@ -17,6 +17,20 @@
 #     name: python3
 # ---
 
+# %%
+import plotly
+from IPython.display import IFrame, display_html
+
+
+def show_fig(fig, filename, width="100%", height=500):
+    plotly.offline.plot(fig, filename=filename, auto_open=False, auto_play=False)
+    display_html(IFrame(filename, height=height, width=width))
+
+def show_fig2(filename, width="100%", height=500):
+    display_html(IFrame(filename, width=width, height=height))
+
+
+
 # %% [markdown]
 # ## Why dynamic/interactive data visualizations
 #
@@ -92,7 +106,7 @@
 #
 # As a reminder, we'll still use the usual geometries to encode data
 #
-# ![](images/encodings.png)
+# ![:scale 70%](images/encodings.png)
 
 # %% [markdown]
 # ## Visual analytics
@@ -131,7 +145,7 @@
 #
 # - display up to two different quantitative variables at different levels of a hierarchy
 
-# %% tags=[] jupyter={"source_hidden": true}
+# %% tags=[]
 import numpy as np
 import plotly
 import plotly.express as px
@@ -147,15 +161,14 @@ fig = px.treemap(
     color_continuous_scale="RdBu",
     color_continuous_midpoint=np.average(df["lifeExp"], weights=df["pop"]),
 )
-plotly.offline.plot(fig, filename="week4_files/treemap1.html")
-fig.show()
+show_fig(fig, "week4_files/treemap1.html")
 
 # %% [markdown]
 # ## Visual analytics
 #
 # The Gapminder data, made famous by Hans Rosling, provides an opportunity to show an example of several aspects of interactive data visualization
 
-# %% tags=[] jupyter={"source_hidden": true}
+# %% tags=[]
 gapm = px.data.gapminder()
 fig = px.scatter(
     gapm,
@@ -171,7 +184,7 @@ fig = px.scatter(
     range_x=[100, 100000],
     range_y=[25, 90],
 )
-fig.show()
+show_fig(fig, "week4_files/gap1.html", width="100%", height=500)
 
 # %% [markdown]
 # ## Visual analytics
@@ -205,7 +218,7 @@ fig.show()
 #
 # Both **plotly** and **altair** have a coding schema (API) that makes the mappings from the data to the visualization explicit, leading to an easier mental model for creating interactive graphics
 #
-# # Setting up Python
+# ## Setting up Python
 
 # %%
 import altair as alt
@@ -258,7 +271,8 @@ penguins.head()
 fig = px.scatter(
     data_frame=penguins, x="bill_length_mm", y="body_mass_g", template="simple_white"
 )
-fig.show()
+
+show_fig(fig, "week4_files/scatter1.html")
 
 # %% [markdown]
 # Note that we can mouse over points to get some information, in this case, the x- and y-coordinates
@@ -276,7 +290,7 @@ fig = px.scatter(
     color="species",  # <<
     template="simple_white",
 )
-fig.show()
+show_fig(fig, "week4_files/scatter2.html")
 
 # %% [markdown]
 # Note that **plotly** provides pan, zoom, on/off, select and tooltips automatically
@@ -296,7 +310,7 @@ fig = px.scatter(
     marginal_y="violin",  # <<
     template="simple_white",
 )
-fig.show()
+show_fig(fig, "week4_files/scatter3.html")
 
 # %% [markdown]
 # ## plotly
@@ -314,7 +328,7 @@ fig = px.scatter(
     trendline="lowess",  # <<
     template="simple_white",
 )
-fig.show()
+show_fig(fig, "week4_files/scatter4.html")
 
 # %% [markdown]
 # ## plotly
@@ -332,7 +346,7 @@ fig = px.scatter(
     trendline="ols",  # <<
     template="simple_white",
 )
-fig.show()
+show_fig(fig, filename="week4_files/scatter5.html")
 
 # %% [markdown]
 # ## plotly
@@ -348,7 +362,7 @@ fig = px.scatter(
     facet_col="species",  # <<
     template="simple_white",
 )
-fig.show()
+show_fig(fig, filename="week4_files/scatter6.html")
 
 # %% [markdown]
 # ## plotly
@@ -363,7 +377,7 @@ fig = px.scatter(
     facet_col_wrap=2,  # <<
     template="simple_white",
 )
-fig.show()
+show_fig(fig, filename="week4_files/scatter7.html")
 
 # %% [markdown]
 # ## plotly
@@ -385,7 +399,7 @@ fig = px.scatter(
         "species": "Species",
     },
 )
-fig.show()
+show_fig(fig, filename="week4_files/scatter8.html")
 
 # %% [markdown]
 # # Tooltips
@@ -410,7 +424,7 @@ fig = px.scatter(
     },
     hover_name="island",  # <<
 )
-fig.show()
+show_fig(fig, filename="week4_files/scatter9.html")
 
 # %% [markdown]
 # ## Tooltips
@@ -438,7 +452,7 @@ fig = px.scatter(
         "body_mass_g": False,
     },  # <<
 )
-fig.show()
+show_fig(fig, filename="week4_files/scatter10.html")
 
 # %% [markdown]
 # ## Tooltips
@@ -447,7 +461,7 @@ fig.show()
 
 # %%
 fig.update_layout(hoverlabel={"bgcolor": "red", "font_family": "Futura"})
-fig.show()
+show_fig(fig, filename="week4_files/scatter11.html")
 
 # %% [markdown]
 # ## Tool tips
@@ -460,13 +474,12 @@ import plotly.express as px
 df_2007 = px.data.gapminder().query("year==2007")
 
 fig = px.scatter(df_2007, x="gdpPercap", y="lifeExp", log_x=True, color="continent")
-print("plotly express hovertemplate:", fig.data[0].hovertemplate)
+
 fig.update_traces(hovertemplate="GDP: %{x} <br>Life Expectancy: %{y}")  # <<
 fig.update_traces(
     hovertemplate=None, selector={"name": "Europe"}
 )  # revert to default hover
-# print("user_defined hovertemplate:", fig.data[0].hovertemplate)
-fig.show()
+show_fig(fig, filename="week4_files/scatter12.html")
 
 # %% [markdown]
 # # Univariate plots
@@ -480,17 +493,17 @@ fig = px.histogram(
     x="body_mass_g",
 )
 fig.update_xaxes(title="Body mass (g)")
-fig.show()
+show_fig(fig, filename="week4_files/hist1.html")
 
 # %%
 fig = px.histogram(data_frame=penguins, x="body_mass_g", color="species")
-fig.show()
+show_fig(fig, filename="week4_files/hist2.html")
 
 # %%
 fig = px.histogram(
     data_frame=penguins, x="body_mass_g", color="species", marginal="violin"
 )
-fig.show()
+show_fig(fig, filename="week4_files/hist3.html")
 
 # %% [markdown]
 # ## Density plots
@@ -500,7 +513,7 @@ fig.show()
 # %%
 fig = px.violin(data_frame=penguins, x="body_mass_g")
 fig.update_traces(orientation="h", side="positive")  # <<
-fig.show()
+show_fig(fig, filename="week4_files/density1.html")
 
 # %% [markdown]
 # ## Density plots
@@ -520,7 +533,7 @@ fig = ff.create_distplot(
 fig.update_yaxes(showticklabels=False)
 fig.update_xaxes(title="Body mass")
 fig.update_layout(showlegend=False, template="simple_white")
-fig.show()
+show_fig(fig, filename="week4_files/density2.html")
 
 # %% [markdown]
 # ## Frequency bar plots
@@ -531,7 +544,7 @@ d = penguins.island.value_counts().reset_index()
 print(d)
 
 # %%
-px.bar(
+fig = px.bar(
     d,
     x="index",
     y="island",
@@ -539,6 +552,7 @@ px.bar(
     labels={"island": "Frequency", "index": "Island"},
     template="simple_white",
 )
+show_fig(fig, filename="week4_files/bar1.html")
 
 # %% [markdown]
 # ## Frequency bar plots
@@ -546,7 +560,7 @@ px.bar(
 # %%
 d = penguins.island.value_counts().reset_index()
 
-px.bar(
+fig = px.bar(
     d,
     x="index",
     y="island",
@@ -556,6 +570,7 @@ px.bar(
 ).update_layout(
     xaxis={"categoryorder": "category descending"},  # << Reverse alphabetical order
 )
+show_fig(fig, filename="week4_files/bar2.html")
 
 # %% [markdown]
 # ## Frequency bar plots
@@ -563,7 +578,7 @@ px.bar(
 # %%
 d = penguins.island.value_counts().reset_index()
 
-px.bar(
+fig = px.bar(
     d,
     x="index",
     y="island",
@@ -573,6 +588,7 @@ px.bar(
 ).update_layout(
     xaxis={"categoryorder": "total ascending"},  # <<  value order
 )
+show_fig(fig, filename="week4_files/bar3.html")
 
 # %% [markdown]
 # ## Frequency bar plots
@@ -580,7 +596,7 @@ px.bar(
 # %%
 d = penguins.island.value_counts().reset_index()
 
-px.bar(
+fig = px.bar(
     d,
     x="index",
     y="island",
@@ -593,6 +609,7 @@ px.bar(
         "categoryarray": ["Dream", "Torgersen", "Biscoe"],
     },  # Specify the order
 )
+show_fig(fig, filename="week4_files/bar4.html")
 
 # %% [markdown]
 # # Grouped bar charts
@@ -604,7 +621,7 @@ tips = px.data.tips()
 
 fig = px.bar(data_frame=tips, x="day", y="total_bill", color="sex")
 fig.update_layout(showlegend=False)
-fig.show()
+show_fig(fig, filename="week4_files/bar5.html")
 
 # %% [markdown]
 # ## Stacked bar charts
@@ -621,7 +638,7 @@ fig = px.bar(
     category_orders={"day": ["Thur", "Fri", "Sat", "Sun"]},
     template="simple_white",
 )
-fig.show()
+show_fig(fig, filename="week4_files/bar6.html")
 
 # %% [markdown]
 # ## Grouped bar chart
@@ -636,7 +653,7 @@ fig = px.bar(
     barmode="group",
     template="simple_white",
 )
-fig.show()
+show_fig(fig, filename="week4_files/bar7.html")
 
 # %% [markdown]
 # ## Percent bar chart
@@ -660,7 +677,7 @@ fig = px.bar(
     category_orders={"day": ["Thur", "Fri", "Sat", "Sun"], "sex": ["Male", "Female"]},
 )
 fig.update_layout(yaxis_tickformat="%")
-fig.show()
+show_fig(fig, filename="week4_files/bar8.html")
 
 # %% [markdown]
 # ## plotly
@@ -683,7 +700,7 @@ fig = px.scatter_matrix(
     color="species",
     labels=penguins_labels,
 )
-fig.show()
+show_fig(fig, filename="week4_files/splom.html")
 
 # %% [markdown]
 # # Continuous vs categorical
@@ -698,7 +715,7 @@ fig = px.box(
     template="simple_white",
     labels=penguins_labels,
 )
-fig.show()
+show_fig(fig, filename="week4_files/box1.html")
 
 # %% [markdown]
 # ## Violin plot
@@ -712,7 +729,7 @@ fig = px.violin(
     template="simple_white",
     labels=penguins_labels,
 )
-fig.show()
+show_fig(fig, filename="week4_files/violin1.html")
 
 # %% [markdown]
 # ## Strip plot
@@ -726,14 +743,14 @@ fig = px.strip(
     template="simple_white",
     labels=penguins_labels,
 )
-fig.show()
+show_fig(fig, filename="week4_files/strip1.html")
 
 # %% [markdown]
 # ## Grouped violin plots
 
 # %%
 fig = px.violin(data_frame=tips, y="tip", x="smoker", color="sex", box=True)
-fig.show()
+show_fig(fig, filename="week4_files/violin2.html")
 
 # %% [markdown]
 # ## Parallel coordinates plot
@@ -751,7 +768,7 @@ fig = px.parallel_coordinates(
     dimensions=["body_mass_g", "bill_length_mm", "bill_depth_mm", "flipper_length_mm"],
     color="species_id",
 )
-fig.show()
+show_fig(fig, filename="week4_files/parallel.html")
 
 # %% tags=[]
 df = px.data.gapminder().query("year == 2007")
@@ -765,8 +782,7 @@ fig = px.treemap(
     color_continuous_scale="RdBu",
     color_continuous_midpoint=np.average(df["lifeExp"], weights=df["pop"]),
 )
-plotly.offline.plot(fig, filename="week4_files/treemap1.html")
-fig.show()
+show_fig(fig, filename="week4_files/treemap1.html")
 
 # %% [markdown]
 # # More dynamism
@@ -774,8 +790,6 @@ fig.show()
 # ## Sliders
 #
 #
-
-# %%
 
 # %% tags=[]
 gapm = px.data.gapminder()
@@ -793,7 +807,7 @@ fig = px.scatter(
     range_x=[100, 100000],
     range_y=[25, 90],
 )
-fig.show()
+show_fig(fig, filename="week4_files/gap1.html")
 
 # %% [markdown]
 # # Altair
@@ -820,35 +834,44 @@ mpg.head()
     alt.Chart(mpg)  # data set
     .mark_point()  # geometry
     .encode(x="horsepower", y="mpg", color="origin")  # encodings
+    .save('week4_files/alt_scatter1.html')
 )
+show_fig2('week4_files/alt_scatter1.html')
 
 # %%
-alt.Chart(mpg).mark_point()
+alt.Chart(mpg).mark_point().save('week4_files/alt_scatter2.html')
+show_fig2('week4_files/alt_scatter2.html')
+
 
 # %%
-alt.Chart(mpg).mark_point().encode(x="horsepower")
+alt.Chart(mpg).mark_point().encode(x="horsepower").save('week4_files/alt_scatter3.html')
+show_fig2('week4_files/alt_scatter3.html')
 
 # %%
 alt.Chart(mpg).mark_point().encode(
     x="horsepower",
     y="mpg",
-)
+).save('week4_files/alt_scatter4.html')
+show_fig2('week4_files/alt_scatter4.html')
 
 # %%
 alt.Chart(mpg).mark_point().encode(
     x="horsepower",
     y="mpg",
     color="origin",
-)
+).save('week4_files/alt_scatter5.html')
+show_fig2('week4_files/alt_scatter5.html')
 
 # %% [markdown]
 # ## Automatic aggregations
 
 # %%
-alt.Chart(mpg).mark_point().encode(x="cylinders", y="average(mpg)")
+alt.Chart(mpg).mark_point().encode(x="cylinders", y="average(mpg)").save('week4_files/alt_agg1.html')
+show_fig2('week4_files/alt_agg1.html')
 
 # %%
-alt.Chart(mpg).mark_bar().encode(x="cylinders", y="average(mpg)")
+alt.Chart(mpg).mark_bar().encode(x="cylinders", y="average(mpg)").save('week4_files/alt_agg2.html')
+show_fig2('week4_files/alt_agg2.html')
 
 # %% [markdown]
 # ## Aggregation
@@ -859,21 +882,22 @@ alt.Chart(mpg).mark_bar().encode(x="cylinders", y="average(mpg)")
 alt.Chart(mpg).mark_bar().encode(
     alt.X("cylinders", type="quantitative"),
     alt.Y("mpg", type="quantitative", aggregate="average"),
-)
+).save('week4_files/alt_agg3.html')
+show_fig2('week4_files/alt_agg3.html')
 
 # %%
 alt.Chart(mpg).mark_bar().encode(
     alt.X("cylinders", type="ordinal"),
     alt.Y("mpg", type="quantitative", aggregate="average"),
-)
+).save('week4_files/alt_agg4.html')
+show_fig2('week4_files/alt_agg4.html')
 
 # %%
 alt.Chart(mpg).mark_bar().encode(
     alt.X("cylinders:O"),
     alt.Y("average(mpg):Q"),
-)
-
-# %%
+).save('week4_files/alt_agg6.html')
+show_fig2('week4_files/alt_agg6.html')
 
 # %% [markdown]
 # # Univariate plots
@@ -884,7 +908,8 @@ alt.Chart(mpg).mark_bar().encode(
 alt.Chart(mpg).mark_bar().encode(
     x=alt.X("mpg:Q", bin=True),
     y="count()",
-)
+).save('week4_files/alt_hist1.html')
+show_fig2('week4_files/alt_hist1.html')
 
 # %% [markdown]
 # ## Density plots
@@ -895,7 +920,8 @@ alt.Chart(mpg).mark_bar().encode(
     .transform_density(density="mpg", as_=["mpg", "density"])
     .mark_area()
     .encode(alt.X("mpg:Q"), alt.Y("density:Q"))
-)
+).save('week4_files/alt_density1.html')
+show_fig2('week4_files/alt_density1.html')
 
 # %% [markdown]
 # ## Frequency bar plots
@@ -912,7 +938,9 @@ d.head()
         y="year:O",
         x=alt.X("lifeExp:Q", title="Life expectancy"),
     )
+    .save('week4_files/alt_bar1.html')
 )
+show_fig2('week4_files/alt_bar1.html')
 
 # %% [markdown]
 # # Bivariate plots
@@ -929,9 +957,9 @@ d.head()
         ),
         y=alt.Y("body_mass_g", title="Body mass (g)", scale=alt.Scale(zero=False)),
     )
+    .save('week4_files/alt_points1.html')
 )
-
-# %%
+show_fig2('week4_files/alt_points1.html')
 
 # %% [markdown]
 # ## Boxplots
@@ -942,7 +970,9 @@ d.head()
     .mark_boxplot()
     .encode(x="species:O", y="bill_length_mm:Q")
     .properties(width=500, height=250)
+    .save('week4_files/alt_box1.html')
 )
+show_fig2('week4_files/alt_box1.html')
 
 # %% [markdown]
 # ## Violin plots
@@ -976,13 +1006,16 @@ d.head()
     .properties(width=100)
     .configure_facet(spacing=0)
     .configure_view(stroke=None)
+    .save('week4_files/alt_violin1.html')
 )
+show_fig2('week4_files/alt_violin1.html')
 
 # %% [markdown]
 # ## Strip plots
 
 # %%
-alt.Chart(mpg).mark_tick().encode(x="horsepower:Q", y="cylinders:O")
+alt.Chart(mpg).mark_tick().encode(x="horsepower:Q", y="cylinders:O").save('week4_files/alt_strip1.html')
+show_fig2('week4_files/alt_strip1.html')
 
 # %% [markdown]
 # # Adding layers
@@ -991,45 +1024,57 @@ alt.Chart(mpg).mark_tick().encode(x="horsepower:Q", y="cylinders:O")
 # ## Scatter plots
 
 # %%
-alt.Chart(mpg).mark_point().encode(x="horsepower:Q", y="mpg:Q", color="origin:N")
+alt.Chart(mpg).mark_point().encode(x="horsepower:Q", y="mpg:Q", color="origin:N").save('week4_files/alt_points_layers1.html')
+show_fig2('week4_files/alt_points_layers1.html')
 
 # %% [markdown]
 # ## Scatter plots
 
 # %%
 alt.Chart(gapm).mark_circle().encode(
-    x=alt.X("year:O", scale=alt.Scale(zero=False)), # Don't start from 0, make year ordinal
-    y=alt.Y("lifeExp",title='Life expectancy (years)'),
+    x=alt.X(
+        "year:O", scale=alt.Scale(zero=False)
+    ),  # Don't start from 0, make year ordinal
+    y=alt.Y("lifeExp", title="Life expectancy (years)"),
     color=alt.Color("country", legend=None),
-    size='pop:Q',
-)
+    size="pop:Q",
+).save('week4_files/alt_gap1.html')
+show_fig2('week4_files/alt_gap1.html')
 
 # %% [markdown]
 # ## Scatter plots + tooltip
 
 # %%
 alt.Chart(gapm).mark_circle().encode(
-    x=alt.X("year:O", scale=alt.Scale(zero=False)), # Don't start from 0, make year ordinal
-    y=alt.Y("lifeExp",title='Life expectancy (years)'),
+    x=alt.X(
+        "year:O", scale=alt.Scale(zero=False)
+    ),  # Don't start from 0, make year ordinal
+    y=alt.Y("lifeExp", title="Life expectancy (years)"),
     color=alt.Color("country", legend=None),
-    size='pop:Q',
-    tooltip=['country:N','year:O','pop','lifeExp'],
-)
+    size="pop:Q",
+    tooltip=["country:N", "year:O", "pop", "lifeExp"],
+).save('week4_files/alt_gap2.html')
+show_fig2('week4_files/alt_gap2.html')
 
 # %% [markdown]
 # ## Scatter plots + tooltip
 
 # %%
 alt.Chart(gapm).mark_circle().encode(
-    x=alt.X("year:O", scale=alt.Scale(zero=False)), # Don't start from 0, make year ordinal
-    y=alt.Y("lifeExp",title='Life expectancy (years)'),
+    x=alt.X(
+        "year:O", scale=alt.Scale(zero=False)
+    ),  # Don't start from 0, make year ordinal
+    y=alt.Y("lifeExp", title="Life expectancy (years)"),
     color=alt.Color("country", legend=None),
-    size='pop:Q',
-    tooltip=[alt.Tooltip('country',type='nominal'),
-             alt.Tooltip('year', title='Year'),
-             alt.Tooltip('pop:Q', title='Population', format=',.2s'), # SI units
-             alt.Tooltip('lifeExp',title='Life expectancy', format='.2f')],
-)
+    size="pop:Q",
+    tooltip=[
+        alt.Tooltip("country", type="nominal"),
+        alt.Tooltip("year", title="Year"),
+        alt.Tooltip("pop:Q", title="Population", format=",.2s"),  # SI units
+        alt.Tooltip("lifeExp", title="Life expectancy", format=".2f"),
+    ],
+).save('week4_files/alt_gap3.html')
+show_fig2('week4_files/alt_gap3.html')
 
 # %% [markdown]
 # See [here](https://github.com/d3/d3-format#locale_format) for details on formatting
@@ -1040,66 +1085,69 @@ alt.Chart(gapm).mark_circle().encode(
 # %%
 medals = px.data.medals_long()
 alt.Chart(medals).mark_bar().encode(
-    x = 'medal',
-    y = 'sum(count):Q',
-    color = 'medal:N',
-    column = 'nation:N',
+    x="medal",
+    y="sum(count):Q",
+    color="medal:N",
+    column="nation:N",
 ).properties(
     width=250,
-)
+).save('week4_files/alt_facet1.html')
+show_fig2('week4_files/alt_facet1.html')
 
 # %% [markdown] tags=[]
 # ## Bar plots
 
 # %%
 alt.Chart(medals).mark_bar().encode(
-    x = alt.X('medal',sort = ['gold','silver','bronze']),
-    y = 'sum(count):Q',
-    color = alt.Color('medal:N',sort=['gold','silver','bronze']),
-    column = 'nation:N',
+    x=alt.X("medal", sort=["gold", "silver", "bronze"]),
+    y="sum(count):Q",
+    color=alt.Color("medal:N", sort=["gold", "silver", "bronze"]),
+    column="nation:N",
 ).properties(
     width=250,
-)
+).save('week4_files/alt_facet2.html')
+show_fig2('week4_files/alt_facet2.html')
 
 # %% [markdown]
 # ## Stacked bar charts
 
 # %%
 alt.Chart(medals).mark_bar().encode(
-    x = 'nation',
-    y = alt.Y('count',sort='color'),
-    color = alt.Color('medal:N',sort=['gold','silver','bronze']),
+    x="nation",
+    y=alt.Y("count", sort="color"),
+    color=alt.Color("medal:N", sort=["gold", "silver", "bronze"]),
 ).properties(
     width=200,
-)
+).save('week4_files/alt_stack1.html')
+show_fig2('week4_files/alt_stack1.html')
 
 # %% [markdown]
 # ## Stacked bar charts
 
 # %%
 alt.Chart(medals).mark_bar().encode(
-    x = 'nation',
-    y = alt.Y('count',sort='color', stack='normalize',
-             axis = alt.Axis(format='%')),
-    color = alt.Color('medal:N',sort=['gold','silver','bronze']),
+    x="nation",
+    y=alt.Y("count", sort="color", stack="normalize", axis=alt.Axis(format="%")),
+    color=alt.Color("medal:N", sort=["gold", "silver", "bronze"]),
 ).properties(
     width=200,
-)
+).save('week4_files/alt_stack2.html')
+show_fig2('week4_files/alt_stack2.html')
 
 # %% [markdown]
 # ## Stacked bar charts
 
 # %%
-medal_order = ['gold','silver','bronze'] #<<
+medal_order = ["gold", "silver", "bronze"]  # <<
 alt.Chart(medals).mark_bar().encode(
-    x = 'nation',
-    y = alt.Y('count',sort='color', stack='normalize',
-             axis = alt.Axis(format='%')),
-    color = alt.Color('medal:N',sort=['gold','silver','bronze']),
-    order = alt.Order('color_medal_sort_index:Q'), #<<
+    x="nation",
+    y=alt.Y("count", sort="color", stack="normalize", axis=alt.Axis(format="%")),
+    color=alt.Color("medal:N", sort=["gold", "silver", "bronze"]),
+    order=alt.Order("color_medal_sort_index:Q"),  # <<
 ).properties(
     width=200,
-)
+).save('week4_files/alt_stack3.html')
+show_fig2('week4_files/alt_stack3.html')
 
 # %% [markdown]
 # ## Parallel coordinates
@@ -1107,91 +1155,98 @@ alt.Chart(medals).mark_bar().encode(
 # %%
 iris = px.data.iris()
 alt.Chart(iris).transform_window(
-    index='count()',
-).transform_fold( # convert wide data to long data
-    ['sepal_length','sepal_width','petal_length','petal_width']
-).mark_line(opacity=0.3).encode(
-    x = 'key:N',
-    y = 'value:Q',
-    color = 'species',
-    detail = 'index:N',
-).properties(width=400)
+    index="count()",
+).transform_fold(  # convert wide data to long data
+    ["sepal_length", "sepal_width", "petal_length", "petal_width"]
+).mark_line(
+    opacity=0.3
+).encode(
+    x="key:N",
+    y="value:Q",
+    color="species",
+    detail="index:N",
+).properties(
+    width=400
+).save('week4_files/alt_parallel1.html')
+show_fig2('week4_files/alt_parallel1.html')
 
 # %% [markdown]
 # ## Adding layers explicitly
 
 # %%
 from altair import datum
-(alt.Chart(gapm).transform_filter(datum.country=="Egypt").
-     mark_point().
-     encode(
-        x = 'year:O',
-        y = 'lifeExp:Q'
-     )
+
+(
+    alt.Chart(gapm)
+    .transform_filter(datum.country == "Egypt")
+    .mark_point()
+    .encode(x="year:O", y="lifeExp:Q")
+    .save('week4_files/alt_layer1.html')
 )
+show_fig2('week4_files/alt_layer1.html')
 
 # %% [markdown]
 # ## Adding layers explicitly
 
 # %%
-base = (alt.Chart(gapm).transform_filter(datum.country=="Egypt").
-     encode(
-        x = 'year:O',
-        y = 'lifeExp:Q'
-     )
+base = (
+    alt.Chart(gapm)
+    .transform_filter(datum.country == "Egypt")
+    .encode(x="year:O", y="lifeExp:Q")
 )
 
-base.mark_point() + base.mark_line()
+(base.mark_point() + base.mark_line()).save('week4_files/alt_layer2.html')
+show_fig2('week4_files/alt_layer2.html')
 
 # %% [markdown]
 # ## Adding layers explicitly
 
 # %%
-base = (alt.Chart(gapm).transform_filter(datum.country=="Egypt").
-     encode(
-        x = 'year:O',
-        y = 'lifeExp:Q'
-     )
+base = (
+    alt.Chart(gapm)
+    .transform_filter(datum.country == "Egypt")
+    .encode(x="year:O", y="lifeExp:Q")
 )
 
-alt.layer(
-    base.mark_point(), 
-    base.mark_line()
-)
+alt.layer(base.mark_point(), base.mark_line()).save('week4_files/alt_layers3.html')
+show_fig2('week4_files/alt_layers3.html')
 
 # %% [markdown] tags=[]
 # ## Scatter plots + lines
 
 # %%
 base = alt.Chart(penguins).encode(
-    x = alt.X('bill_length_mm:Q',scale=alt.Scale(zero=False)),
-    y = alt.Y('body_mass_g:Q', scale=alt.Scale(zero=False)),
-    color = 'species:N'
+    x=alt.X("bill_length_mm:Q", scale=alt.Scale(zero=False)),
+    y=alt.Y("body_mass_g:Q", scale=alt.Scale(zero=False)),
+    color="species:N",
 )
 
-base.mark_point() + base.transform_regression('bill_length_mm','body_mass_g', groupby=['species']).mark_line(size=4)
+(base.mark_point() + base.transform_regression(
+    "bill_length_mm", "body_mass_g", groupby=["species"]
+).mark_line(size=4)).save('week4_files/alt_layers4.html')
+show_fig2('week4_files/alt_layers4.html')
 
 # %% [markdown] tags=[]
 # ## Scatter plots + lines
 
 # %%
 base = alt.Chart(penguins).encode(
-    x = alt.X('bill_length_mm:Q',scale=alt.Scale(zero=False)),
-    y = alt.Y('body_mass_g:Q', scale=alt.Scale(zero=False)),
-    color = 'species:N'
+    x=alt.X("bill_length_mm:Q", scale=alt.Scale(zero=False)),
+    y=alt.Y("body_mass_g:Q", scale=alt.Scale(zero=False)),
+    color="species:N",
 )
 
-base.mark_point() + base.transform_loess('bill_length_mm','body_mass_g', groupby=['species']).mark_line(size=4)
+(base.mark_point() + base.transform_loess(
+    "bill_length_mm", "body_mass_g", groupby=["species"]
+).mark_line(size=4)).save('week4_files/alt_layers5.html')
+show_fig2('week4_files/alt_layers5.html')
 
 # %% [markdown]
 # ## Facets
 
 # %%
-alt.Chart(mpg).mark_point().encode(
-    x = 'horsepower:Q',
-    y = 'mpg:Q',
-    column = 'origin:N'
-)
+alt.Chart(mpg).mark_point().encode(x="horsepower:Q", y="mpg:Q", column="origin:N").save('week4_files/alt_facets4.html')
+show_fig2('week4_files/alt_facets4.html')
 
 # %% [markdown]
 # ## Facets
@@ -1201,38 +1256,38 @@ alt.Chart(mpg).mark_point().encode(
 
 # %% tags=[]
 alt.Chart(penguins).mark_point().encode(
-    x = alt.X('bill_length_mm:Q',title='Bill length (mm)', scale=alt.Scale(zero=False)),
-    y = alt.Y('body_mass_g:Q',title='Body mass (g)', scale=alt.Scale(zero=False)),
-    column = alt.Column('species:N',title=None),
-    row = alt.Row('island:N',title=None),
-).properties(width=300)
+    x=alt.X("bill_length_mm:Q", title="Bill length (mm)", scale=alt.Scale(zero=False)),
+    y=alt.Y("body_mass_g:Q", title="Body mass (g)", scale=alt.Scale(zero=False)),
+    column=alt.Column("species:N", title=None),
+    row=alt.Row("island:N", title=None),
+).properties(width=300).save('week4_files/alt_facet5.html')
+show_fig2('week4_files/alt_facet5.html')
 
 # %% [markdown]
 # ## Facets
 
 # %% tags=[]
 alt.Chart(penguins).mark_point().encode(
-    x = alt.X('bill_length_mm:Q',title='Bill length (mm)', scale=alt.Scale(zero=False)),
-    y = alt.Y('body_mass_g:Q',title='Body mass (g)', scale=alt.Scale(zero=False)),
-    column = alt.Column('species:N',title=None),
-    row = alt.Row('island:N',title=None),
-).properties(width=300)
+    x=alt.X("bill_length_mm:Q", title="Bill length (mm)", scale=alt.Scale(zero=False)),
+    y=alt.Y("body_mass_g:Q", title="Body mass (g)", scale=alt.Scale(zero=False)),
+    column=alt.Column("species:N", title=None),
+    row=alt.Row("island:N", title=None),
+).properties(width=300).save('week4_files/alt_facet6.html')
+show_fig2('week4_files/alt_facet6.html')
 
 # %% [markdown]
 # ## Scatterplot matrix
 
 # %%
 alt.Chart(penguins).mark_circle().encode(
-    x = alt.X(alt.repeat('column'), type='quantitative', scale=alt.Scale(zero=False)),
-    y = alt.Y(alt.repeat('row'), type='quantitative', scale=alt.Scale(zero=False)),
-    color = 'species:N'
-).properties(
-    width=200,
-    height=200
-).repeat(
-    row=['bill_length_mm','bill_depth_mm','flipper_length_mm'],
-    column = ['bill_length_mm','bill_depth_mm','flipper_length_mm'],
-)
+    x=alt.X(alt.repeat("column"), type="quantitative", scale=alt.Scale(zero=False)),
+    y=alt.Y(alt.repeat("row"), type="quantitative", scale=alt.Scale(zero=False)),
+    color="species:N",
+).properties(width=200, height=200).repeat(
+    row=["bill_length_mm", "bill_depth_mm", "flipper_length_mm"],
+    column=["bill_length_mm", "bill_depth_mm", "flipper_length_mm"],
+).save('week4_files/alt_splom.html')
+show_fig2('week4_files/alt_splom.html')
 
 # %% [markdown]
 # # Putting charts together
@@ -1240,72 +1295,93 @@ alt.Chart(penguins).mark_circle().encode(
 # ## Side-by-side
 
 # %%
-plot1 = alt.Chart(penguins).mark_circle().encode(
-    x = 'bill_length_mm',
-    y = 'body_mass_g',
-    color = 'species'
+plot1 = (
+    alt.Chart(penguins)
+    .mark_circle()
+    .encode(x="bill_length_mm", y="body_mass_g", color="species")
 )
-plot2 = alt.Chart(penguins).mark_circle().encode(
-    x = 'bill_depth_mm',
-    y = 'body_mass_g',
-    color = 'species'
+plot2 = (
+    alt.Chart(penguins)
+    .mark_circle()
+    .encode(x="bill_depth_mm", y="body_mass_g", color="species")
 )
 
-plot1 | plot2
+(plot1 | plot2).save('week4_files/alt_concat1.html')
+show_fig2('week4_files/alt_concat1.html')
 
 # %% [markdown]
 # ## In a column
 
 # %%
-plot1 = alt.Chart(penguins).mark_circle().encode(
-    x = 'bill_length_mm',
-    y = 'body_mass_g',
-    color = 'species'
+plot1 = (
+    alt.Chart(penguins)
+    .mark_circle()
+    .encode(x="bill_length_mm", y="body_mass_g", color="species")
 )
-plot2 = alt.Chart(penguins).mark_circle().encode(
-    x = 'bill_depth_mm',
-    y = 'body_mass_g',
-    color = 'species'
+plot2 = (
+    alt.Chart(penguins)
+    .mark_circle()
+    .encode(x="bill_depth_mm", y="body_mass_g", color="species")
 )
 
-plot1 & plot2
+(plot1 & plot2).save('week4_files/alt_concat2.html')
+show_fig2('week4_files/alt_concat2.html', height=600)
 
 # %% [markdown]
 # ## Composite plots
 
 # %%
 base = alt.Chart(penguins)
-xscale = alt.Scale(zero=False, domain = (32,60))
-yscale = alt.Scale(zero=False, domain = (2500, 6500))
-area_args = {'opacity': 0.4, 'interpolate':'step'}
+xscale = alt.Scale(zero=False, domain=(32, 60))
+yscale = alt.Scale(zero=False, domain=(2500, 6500))
+area_args = {"opacity": 0.4, "interpolate": "step"}
 
 scatter = base.mark_circle().encode(
-    x = alt.X('bill_length_mm',scale=xscale),
-    y = alt.Y('body_mass_g', scale=yscale),
-    color = 'species'
+    x=alt.X("bill_length_mm", scale=xscale),
+    y=alt.Y("body_mass_g", scale=yscale),
+    color="species",
 )
 
-top_hist = base.mark_area(**area_args).encode(
-    x = alt.X('bill_length_mm',
-        bin = alt.Bin(maxbins=50, extent=xscale.domain),
-        stack=None,
-        title='',),
-    y = alt.Y('count()', stack=None, title=''),
-    color='species',
-).properties(height=60)
+top_hist = (
+    base.mark_area(**area_args)
+    .encode(
+        x=alt.X(
+            "bill_length_mm",
+            bin=alt.Bin(maxbins=50, extent=xscale.domain),
+            stack=None,
+            title="",
+        ),
+        y=alt.Y("count()", stack=None, title=""),
+        color="species",
+    )
+    .properties(height=60)
+)
 
-right_hist = base.mark_area(**area_args).encode(
-    y = alt.Y('body_mass_g',
-             bin = alt.Bin(maxbins=50, extent=yscale.domain),
-             stack=None,
-             title=''),
-    x = alt.X('count()', stack=None, title=''),
-    color = 'species',
-).properties(width=60)
+right_hist = (
+    base.mark_area(**area_args)
+    .encode(
+        y=alt.Y(
+            "body_mass_g",
+            bin=alt.Bin(maxbins=50, extent=yscale.domain),
+            stack=None,
+            title="",
+        ),
+        x=alt.X("count()", stack=None, title=""),
+        color="species",
+    )
+    .properties(width=60)
+)
 
-top_hist & ((scatter + 
-             scatter.transform_regression('bill_length_mm','body_mass_g', groupby=['species']).mark_line()) 
-            | right_hist)
+(top_hist & (
+    (
+        scatter
+        + scatter.transform_regression(
+            "bill_length_mm", "body_mass_g", groupby=["species"]
+        ).mark_line()
+    )
+    | right_hist
+)).save('week4_files/alt_joint.html')
+show_fig2('week4_files/alt_joint.html')
 
 # %% [markdown]
 # # Interactivity
@@ -1314,71 +1390,79 @@ top_hist & ((scatter +
 # ## Brushing
 
 # %%
-brush = alt.selection(type='interval')
+brush = alt.selection(type="interval")
 base = alt.Chart(mpg).add_selection(brush)
 
 scatter = base.mark_point().encode(
-    x = alt.X('horsepower:Q', title=''),
-    y = alt.Y('mpg:Q', title=''),
-    color = alt.condition(brush, 'origin:N', alt.value('grey'))
+    x=alt.X("horsepower:Q", title=""),
+    y=alt.Y("mpg:Q", title=""),
+    color=alt.condition(brush, "origin:N", alt.value("grey")),
 )
 
 tick_axis = alt.Axis(labels=False, ticks=False, domain=False)
 x_ticks = base.mark_tick().encode(
-    x = alt.X('horsepower', axis=tick_axis),
-    y = alt.Y('origin',title='', axis=tick_axis),
-    color = alt.condition(brush, 'origin', alt.value('lightgrey')),
+    x=alt.X("horsepower", axis=tick_axis),
+    y=alt.Y("origin", title="", axis=tick_axis),
+    color=alt.condition(brush, "origin", alt.value("lightgrey")),
 )
 y_ticks = base.mark_tick().encode(
-    x = alt.X('origin', title='', axis=tick_axis),
-    y = alt.Y('mpg', title='', axis=tick_axis),
-    color = alt.condition(brush, 'origin', alt.value('lightgrey')),
+    x=alt.X("origin", title="", axis=tick_axis),
+    y=alt.Y("mpg", title="", axis=tick_axis),
+    color=alt.condition(brush, "origin", alt.value("lightgrey")),
 )
 
-y_ticks | (scatter & x_ticks)
+(y_ticks | (scatter & x_ticks)).save('week4_files/alt_brush1.html')
+show_fig2('week4_files/alt_brush1.html')
 
 # %% [markdown]
 # ## Brushing
 
 # %%
-brush = alt.selection(type='interval', resolve='global')
+brush = alt.selection(type="interval", resolve="global")
 
-base = alt.Chart(mpg).mark_circle().encode(
-    y = alt.Y('mpg',title='Miles per Gallon'),
-    color = alt.condition(brush,'origin',alt.value('gray')),
-).add_selection(
-    brush
-).properties(
-    width=200
+base = (
+    alt.Chart(mpg)
+    .mark_circle()
+    .encode(
+        y=alt.Y("mpg", title="Miles per Gallon"),
+        color=alt.condition(brush, "origin", alt.value("gray")),
+    )
+    .add_selection(brush)
+    .properties(width=200)
 )
 
-base.encode(x='horsepower') | base.encode(x='acceleration')
+(base.encode(x="horsepower") | base.encode(x="acceleration")).save('week4_files/alt_brush2.html')
+show_fig2('week4_files/alt_brush2.html')
 
 # %% [markdown]
 # ## Multi-line highlight
 
 # %%
-highlight = alt.selection(type='single',on = 'mouseover', fields=['country'], nearest=True)
+highlight = alt.selection(
+    type="single", on="mouseover", fields=["country"], nearest=True
+)
 
 base = alt.Chart(gapm).encode(
-    x = 'year:O',
-    y = 'lifeExp:Q',
+    x="year:O",
+    y="lifeExp:Q",
 )
-points = base.mark_circle().encode(
-    opacity=alt.value(0),
-    tooltip = ['country', 'year','lifeExp'],
-).add_selection(
-    highlight
-).properties(
-    width=400
+points = (
+    base.mark_circle()
+    .encode(
+        opacity=alt.value(0),
+        tooltip=["country", "year", "lifeExp"],
+    )
+    .add_selection(highlight)
+    .properties(width=400)
 )
 
 lines = base.mark_line().encode(
-    size = alt.condition(~highlight, alt.value(1), alt.value(3)),
-    color = alt.condition(highlight, 'country',alt.value('lightgrey'), legend=None),
+    size=alt.condition(~highlight, alt.value(1), alt.value(3)),
+    color=alt.condition(highlight, "country", alt.value("lightgrey"), legend=None),
 )
 
-points+lines
+(points + lines).save('week4_files/alt_lines1.html')
+show_fig2('week4_files/alt_lines1.html')
 
 # %% [markdown]
 # ## Resources
@@ -1389,3 +1473,7 @@ points+lines
 #
 
 # %%
+# !jupyter nbconvert --to markdown week4.ipynb
+
+# %%
+# !jupyter nbconvert --to html week4.ipynb

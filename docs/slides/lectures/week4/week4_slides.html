@@ -1,8 +1,37 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Statistical data visualizations (interactive)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Abhijit Dasgupta" />
+    <script src="week4_slides_files/header-attrs-2.6/header-attrs.js"></script>
+    <link href="week4_slides_files/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="week4_slides_files/panelset-0.2.3.9000/panelset.css" rel="stylesheet" />
+    <script src="week4_slides_files/panelset-0.2.3.9000/panelset.js"></script>
+    <link href="week4_slides_files/xaringanExtra-extra-styles-0.2.3.9000/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="../css/sfah.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Statistical data visualizations (interactive)
+## BIOF 440
+### Abhijit Dasgupta
+
 ---
-title: "Statistical data visualizations (interactive)"
-subtitle: "BIOF 440"
-author: "Abhijit Dasgupta"
----
+
+
+
+
+
+
+
+
+
+
 
 ```python
 import plotly
@@ -18,6 +47,8 @@ def show_fig2(filename, width="100%", height=500):
 
 ```
 
+---
+
 ## Why dynamic/interactive data visualizations
 
 - Traditional data visualizations have been meant for print
@@ -25,6 +56,8 @@ def show_fig2(filename, width="100%", height=500):
     - Magazines
     - Reports
     - Billboards
+
+---
 
 ## Why dynamic/interactive data visualizations
 
@@ -40,6 +73,8 @@ def show_fig2(filename, width="100%", height=500):
    
 
  
+---
+
 ## Why dynamic/interactive data visualizations
 
 - In 1984, Apple introduced a personal computer operating via graphical interaction and display
@@ -48,14 +83,19 @@ def show_fig2(filename, width="100%", height=500):
 
 .footnote[Stephen Few, [*Data Visualization: Past, Present and Future*](https://www.perceptualedge.com/articles/Whitepapers/Data_Visualization.pdf), 2007]
 
+---
+
+
 ## Visual analytics
 
-- The science of analytical reasoning facilitated by interactive visual interfaces (Thomas & Cook, 2005)
+- The science of analytical reasoning facilitated by interactive visual interfaces (Thomas &amp; Cook, 2005)
 - Helps with visualizing **and analyzing** data
     - Summarize data
     - Dig deeper
     - Provide analytic insights, cause-and-effect
     - Compressing information from large corpuses of data into small spaces
+
+---
 
 ## Visual analytics
 
@@ -67,6 +107,8 @@ def show_fig2(filename, width="100%", height=500):
     - highlight subsets of data across multiple graphs simultaneously. 
     
 .footnote[Tableau, [*Why Visual Analytics?*](https://help.tableau.com/current/blueprint/en-us/bp_why_visual_analytics.htm)]
+
+---
 
 ## Visual analytics
 
@@ -83,11 +125,15 @@ We can add
 - on/off mechanisms
 - facets
 
+---
+
 ## Visual analytics
 
 As a reminder, we'll still use the usual geometries to encode data
 
 ![:scale 70%](images/encodings.png)
+
+---
 
 ## Visual analytics
 
@@ -100,6 +146,8 @@ As a reminder, we'll still use the usual geometries to encode data
 1. Search and filter
 
 .footnote[Jennifer Tidwell]
+
+---
 
 ## Visual analytics
 
@@ -116,6 +164,8 @@ This can be translated as
 1. Give an overview of the data in a single plot
 1. Zoom, select, and move around in the space of the plot
 1. Add information (meta-data), usually through tooltips
+
+---
 
 ## Visual analytics
 
@@ -145,15 +195,17 @@ show_fig(fig, "week4_files/treemap1.html")
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/treemap1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Visual analytics
 
@@ -181,15 +233,17 @@ show_fig(fig, "week4_files/gap1.html", width="100%", height=500)
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/gap1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Visual analytics
 
@@ -197,13 +251,20 @@ The most popular application for dynamic data visualization is [Tableau](https:/
 
 However, using Python, or R, or other programming languages to create these visualizations allows you to unify the data science pipeline that includes description, analysis and visualization
 
+---
+class:middle,center,inverse
+
 # Interactive/dynamic data visualizations in Python
+
+---
 
 ## A caveat
 
 In this module we won't talk about animations, i.e., a sequence of graphics that show a flow of data over time. That is dynamic, but not necessarily interactive. 
 
 We will look briefly at animations later in the term
+
+---
 
 ## Python packages for interactive visualizations
 
@@ -215,11 +276,15 @@ The main packages for interactive visualizations in Python are
 
 In addition, there are several others, including mpld3 (using d3.js), pygal, and holoviews.
 
+---
+
 ## Python packages for interactive graphics
 
 We will explore **plotly** and **altair** in this class. In week 6 we'll provide resources for **bokeh** and using **holoviews** to create graphics using **matplotlib**, **bokeh** and **plotly**
 
 Both **plotly** and **altair** have a coding schema (API) that makes the mappings from the data to the visualization explicit, leading to an easier mental model for creating interactive graphics
+
+---
 
 ## Setting up Python
 
@@ -236,7 +301,12 @@ import plotly.graph_objects as go
 import seaborn as sns
 ```
 
+---
+class:middle,center,inverse
+
 # plotly
+
+---
 
 ## plotly
 
@@ -246,6 +316,8 @@ The company behind **plotly.js** developed both Python and R interfaces to creat
 
 We'll concentrate here on statistical visualizations using **plotly**, but the documentation will show many other kinds of graphics that can be generated.
 
+---
+
 ## plotly
 
 The Python interface to **plotly** includes two tracks
@@ -254,6 +326,8 @@ The Python interface to **plotly** includes two tracks
 - a higher-level interface using `plotly.express`
 
 Often it's easier to start a graphic with `plotly.express`, and then customize it with elements from `plotly.graph_objects`. 
+
+---
 
 ## plotly
 
@@ -268,8 +342,8 @@ penguins.head()
 
 
 
-<div>
-<style scoped>
+&lt;div&gt;
+&lt;style scoped&gt;
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
@@ -281,168 +355,185 @@ penguins.head()
     .dataframe thead th {
         text-align: right;
     }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>species</th>
-      <th>island</th>
-      <th>bill_length_mm</th>
-      <th>bill_depth_mm</th>
-      <th>flipper_length_mm</th>
-      <th>body_mass_g</th>
-      <th>sex</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>39.1</td>
-      <td>18.7</td>
-      <td>181.0</td>
-      <td>3750.0</td>
-      <td>Male</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>39.5</td>
-      <td>17.4</td>
-      <td>186.0</td>
-      <td>3800.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>40.3</td>
-      <td>18.0</td>
-      <td>195.0</td>
-      <td>3250.0</td>
-      <td>Female</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>36.7</td>
-      <td>19.3</td>
-      <td>193.0</td>
-      <td>3450.0</td>
-      <td>Female</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;species&lt;/th&gt;
+      &lt;th&gt;island&lt;/th&gt;
+      &lt;th&gt;bill_length_mm&lt;/th&gt;
+      &lt;th&gt;bill_depth_mm&lt;/th&gt;
+      &lt;th&gt;flipper_length_mm&lt;/th&gt;
+      &lt;th&gt;body_mass_g&lt;/th&gt;
+      &lt;th&gt;sex&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Adelie&lt;/td&gt;
+      &lt;td&gt;Torgersen&lt;/td&gt;
+      &lt;td&gt;39.1&lt;/td&gt;
+      &lt;td&gt;18.7&lt;/td&gt;
+      &lt;td&gt;181.0&lt;/td&gt;
+      &lt;td&gt;3750.0&lt;/td&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Adelie&lt;/td&gt;
+      &lt;td&gt;Torgersen&lt;/td&gt;
+      &lt;td&gt;39.5&lt;/td&gt;
+      &lt;td&gt;17.4&lt;/td&gt;
+      &lt;td&gt;186.0&lt;/td&gt;
+      &lt;td&gt;3800.0&lt;/td&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Adelie&lt;/td&gt;
+      &lt;td&gt;Torgersen&lt;/td&gt;
+      &lt;td&gt;40.3&lt;/td&gt;
+      &lt;td&gt;18.0&lt;/td&gt;
+      &lt;td&gt;195.0&lt;/td&gt;
+      &lt;td&gt;3250.0&lt;/td&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Adelie&lt;/td&gt;
+      &lt;td&gt;Torgersen&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Adelie&lt;/td&gt;
+      &lt;td&gt;Torgersen&lt;/td&gt;
+      &lt;td&gt;36.7&lt;/td&gt;
+      &lt;td&gt;19.3&lt;/td&gt;
+      &lt;td&gt;193.0&lt;/td&gt;
+      &lt;td&gt;3450.0&lt;/td&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
 
 
+
+---
 
 ## plotly
 
 Let's start with a basic scatterplot
 
+.pull-left[
 
 ```python
 fig = px.scatter(
-    data_frame=penguins, x="bill_length_mm", y="body_mass_g", template="simple_white"
+    data_frame=penguins, 
+    x="bill_length_mm", 
+    y="body_mass_g", 
+    template="simple_white"
 )
 
 show_fig(fig, "week4_files/scatter1.html")
 ```
+]
+.pull-right[
 
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
-
+]
 
 Note that we can mouse over points to get some information, in this case, the x- and y-coordinates
+
+---
 
 ## plotly
 
 We'll now add _species_ encoded as color
 
+.pull-left[
 
 ```python
 fig = px.scatter(
     data_frame=penguins,
     x="bill_length_mm",
     y="body_mass_g",
-    color="species",  # <<
+    color="species",  # &lt;&lt;
     template="simple_white",
 )
 show_fig(fig, "week4_files/scatter2.html")
 ```
+]
+.pull-right[
 
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
-
+]
 
 Note that **plotly** provides pan, zoom, on/off, select and tooltips automatically
+
+---
 
 ## plotly
 
 We can also add marginal plots with additional arguments
 
-
-```python
+.pull-left[
+```{{python}
 fig = px.scatter(
     penguins,
     x="bill_length_mm",
     y="body_mass_g",
     color="species",
-    marginal_x="box",  # <<
-    marginal_y="violin",  # <<
+    marginal_x="box",  # &lt;&lt;
+    marginal_y="violin",  # &lt;&lt;
     template="simple_white",
 )
 show_fig(fig, "week4_files/scatter3.html")
 ```
+]
+.pull-right[
 
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter3.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
+]
 
 
+---
 
 ## plotly
 
 Add regression lines
 
+.pull-left[
 
 ```python
 fig = px.scatter(
@@ -452,28 +543,32 @@ fig = px.scatter(
     color="species",
     marginal_x="box",
     marginal_y="violin",
-    trendline="lowess",  # <<
+    trendline="lowess",  # &lt;&lt;
     template="simple_white",
 )
 show_fig(fig, "week4_files/scatter4.html")
 ```
+]
+.pull-right[
 
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter4.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+]
 
+---
 
 ## plotly
 
 Add regression lines
 
+.pull-left[
 
 ```python
 fig = px.scatter(
@@ -483,28 +578,33 @@ fig = px.scatter(
     color="species",
     marginal_x="box",
     marginal_y="violin",
-    trendline="ols",  # <<
+    trendline="ols",  # &lt;&lt;
     template="simple_white",
 )
 show_fig(fig, filename="week4_files/scatter5.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter5.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+]
 
+---
 
 ## plotly
 
 We can also do trellis graphics pretty easily using **plotly**
 
+.pull-left[
+
 
 ```python
 fig = px.scatter(
@@ -512,26 +612,30 @@ fig = px.scatter(
     x="bill_length_mm",
     y="body_mass_g",
     color="species",
-    facet_col="species",  # <<
+    facet_col="species",  # &lt;&lt;
     template="simple_white",
 )
 show_fig(fig, filename="week4_files/scatter6.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter6.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
+]
 
 
+---
 
 ## plotly
 
+.pull-left[
 
 ```python
 fig = px.scatter(
@@ -539,29 +643,33 @@ fig = px.scatter(
     x="bill_length_mm",
     y="body_mass_g",
     color="species",
-    facet_col="species",  # <<
-    facet_col_wrap=2,  # <<
+    facet_col="species",  # &lt;&lt;
+    facet_col_wrap=2,  # &lt;&lt;
     template="simple_white",
 )
 show_fig(fig, filename="week4_files/scatter7.html")
 ```
+]
+.pull-right[
 
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter7.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+]
 
+---
 
 ## plotly
 
 We can clean up the plot
 
+.pull-left[
 
 ```python
 fig = px.scatter(
@@ -570,7 +678,7 @@ fig = px.scatter(
     y="body_mass_g",
     color="species",
     facet_col="species",
-    facet_col_wrap=2,  # <<b
+    facet_col_wrap=2,  # &lt;&lt;b
     template="simple_white",
     labels={
         "body_mass_g": "Body mass (g)",
@@ -580,26 +688,33 @@ fig = px.scatter(
 )
 show_fig(fig, filename="week4_files/scatter8.html")
 ```
+]
+.pull-right[
 
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter8.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+]
+
+---
+class:middle,center,inverse
 
 # Tooltips
+
+---
 
 ## Tooltips
 
 You can add data from column(s) of the DataFrame as tooltips quite easily
 
-
+.pull-left[
 ```python
 fig = px.scatter(
     data_frame=penguins,
@@ -607,35 +722,38 @@ fig = px.scatter(
     y="body_mass_g",
     color="species",
     facet_col="species",
-    facet_col_wrap=2,  # <<b
+    facet_col_wrap=2,  # &lt;&lt;b
     template="simple_white",
     labels={
         "body_mass_g": "Body mass (g)",
         "bill_length_mm": "Bill length (mm)",
         "species": "Species",
     },
-    hover_name="island",  # <<
+    hover_name="island",  # &lt;&lt;
 )
 show_fig(fig, filename="week4_files/scatter9.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter9.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+]
 
+---
 
 ## Tooltips
 
 Choose which variables go into the tooltip
 
-
+.pull-left[
 ```python
 fig = px.scatter(
     data_frame=penguins,
@@ -643,7 +761,7 @@ fig = px.scatter(
     y="body_mass_g",
     color="species",
     facet_col="species",
-    facet_col_wrap=2,  # <<b
+    facet_col_wrap=2,  # &lt;&lt;b
     template="simple_white",
     labels={
         "body_mass_g": "Body mass (g)",
@@ -655,77 +773,101 @@ fig = px.scatter(
         "species": False,
         "bill_length_mm": False,
         "body_mass_g": False,
-    },  # <<
+    },  # &lt;&lt;
 )
 show_fig(fig, filename="week4_files/scatter10.html")
 ```
+]
+.pull-right[
 
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter10.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+]
+
+---
 
 ## Tooltips
 
 You can change the appearance of the tooltip
 
-
+.pull-left[
 ```python
-fig.update_layout(hoverlabel={"bgcolor": "red", "font_family": "Futura"})
-show_fig(fig, filename="week4_files/scatter11.html")
+fig.update_layout(
+  hoverlabel={
+    "bgcolor": "red", 
+    "font_family": "Futura"
+    })
+show_fig(fig, 
+filename="week4_files/scatter11.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter11.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+]
 
+---
 
 ## Tool tips
 
 You can also provide a template for the tooltips
 
-
+.pull-left[
 ```python
 import plotly.express as px
 
-df_2007 = px.data.gapminder().query("year==2007")
+df_2007 = (px.data.gapminder()
+  .query("year==2007"))
 
-fig = px.scatter(df_2007, x="gdpPercap", y="lifeExp", log_x=True, color="continent")
+fig = px.scatter(df_2007, 
+  x="gdpPercap", 
+  y="lifeExp", 
+  log_x=True, 
+  color="continent")
 
-fig.update_traces(hovertemplate="GDP: %{x} <br>Life Expectancy: %{y}")  # <<
+fig.update_traces(
+  hovertemplate="GDP: %{x} &lt;br&gt;Life Expectancy: %{y}")  # &lt;&lt;
 fig.update_traces(
     hovertemplate=None, selector={"name": "Europe"}
 )  # revert to default hover
 show_fig(fig, filename="week4_files/scatter12.html")
 ```
+]
+.pull-right[
 
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/scatter12.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+]
 
+---
+class:middle,center,inverse
 
 # Univariate plots
+
+---
 
 ## Distributional plots
 
@@ -742,16 +884,16 @@ show_fig(fig, filename="week4_files/hist1.html")
 
 
 
-<iframe
+&lt;iframe
     width="100%"
-    height="500"
+    height="400"
     src="week4_files/hist1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
-
+---
 
 ```python
 fig = px.histogram(data_frame=penguins, x="body_mass_g", color="species")
@@ -760,16 +902,16 @@ show_fig(fig, filename="week4_files/hist2.html")
 
 
 
-<iframe
+&lt;iframe
     width="100%"
-    height="500"
+    height="400"
     src="week4_files/hist2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
-
+---
 
 ```python
 fig = px.histogram(
@@ -780,15 +922,17 @@ show_fig(fig, filename="week4_files/hist3.html")
 
 
 
-<iframe
+&lt;iframe
     width="100%"
-    height="500"
+    height="300"
     src="week4_files/hist3.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Density plots
 
@@ -797,21 +941,26 @@ We use a trick to create a density plot from a violin plot
 
 ```python
 fig = px.violin(data_frame=penguins, x="body_mass_g")
-fig.update_traces(orientation="h", side="positive")  # <<
+fig.update_traces(orientation="h", side="positive")  # &lt;&lt;
 show_fig(fig, filename="week4_files/density1.html")
 ```
 
 
+---
 
-<iframe
+## Density plots
+
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/density1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Density plots
 
@@ -833,18 +982,21 @@ fig.update_xaxes(title="Body mass")
 fig.update_layout(showlegend=False, template="simple_white")
 show_fig(fig, filename="week4_files/density2.html")
 ```
+---
 
+## Density plots
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/density2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Frequency bar plots
 
@@ -867,28 +1019,32 @@ fig = px.bar(
     d,
     x="index",
     y="island",
-    text="island",  # <<
+    text="island",  # &lt;&lt;
     labels={"island": "Frequency", "index": "Island"},
     template="simple_white",
 )
 show_fig(fig, filename="week4_files/bar1.html")
 ```
 
+---
 
+## Frequency bar plots
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/bar1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Frequency bar plots
 
-
+.pull-left[
 ```python
 d = penguins.island.value_counts().reset_index()
 
@@ -896,30 +1052,34 @@ fig = px.bar(
     d,
     x="index",
     y="island",
-    text="island",  # <<
-    labels={"island": "Frequency", "index": "Island"},
+    text="island",  # &lt;&lt;
+    labels={"island": "Frequency", 
+      "index": "Island"},
     template="simple_white",
 ).update_layout(
-    xaxis={"categoryorder": "category descending"},  # << Reverse alphabetical order
+    xaxis={"categoryorder": "category descending"},  # &lt;&lt; Reverse alphabetical order
 )
 show_fig(fig, filename="week4_files/bar2.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/bar2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+]
 
+---
 
 ## Frequency bar plots
 
-
+.pull-left[
 ```python
 d = penguins.island.value_counts().reset_index()
 
@@ -927,30 +1087,36 @@ fig = px.bar(
     d,
     x="index",
     y="island",
-    text="island",  # <<
-    labels={"island": "Frequency", "index": "Island"},
+    text="island",  # &lt;&lt;
+    labels={"island": "Frequency", 
+    "index": "Island"},
     template="simple_white",
 ).update_layout(
-    xaxis={"categoryorder": "total ascending"},  # <<  value order
+    xaxis={"categoryorder": 
+      "total ascending"},  # &lt;&lt;  value order
 )
 show_fig(fig, filename="week4_files/bar3.html")
 ```
+]
+.pull-right[
 
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/bar3.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+]
+
+---
 
 ## Frequency bar plots
 
-
+.pull-left[
 ```python
 d = penguins.island.value_counts().reset_index()
 
@@ -958,7 +1124,7 @@ fig = px.bar(
     d,
     x="index",
     y="island",
-    text="island",  # <<
+    text="island",  # &lt;&lt;
     labels={"island": "Frequency", "index": "Island"},
     template="simple_white",
 ).update_layout(
@@ -970,19 +1136,26 @@ fig = px.bar(
 show_fig(fig, filename="week4_files/bar4.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/bar4.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+]
+
+---
+class:middle,center,inverse
 
 # Grouped bar charts
+
+---
 
 ## Stacked bar charts
 
@@ -997,15 +1170,17 @@ show_fig(fig, filename="week4_files/bar5.html")
 
 
 
-<iframe
+&lt;iframe
     width="100%"
-    height="500"
+    height="400"
     src="week4_files/bar5.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Stacked bar charts
 
@@ -1013,7 +1188,7 @@ show_fig(fig, filename="week4_files/bar5.html")
 ```python
 tips_summary = tips.groupby(["day", "sex"])["total_bill"].sum().reset_index()
 ```
-
+.pull-left[
 
 ```python
 fig = px.bar(
@@ -1027,21 +1202,24 @@ fig = px.bar(
 show_fig(fig, filename="week4_files/bar6.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/bar6.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+]
 
+---
 
 ## Grouped bar chart
 
-
+.pull-left[
 ```python
 fig = px.bar(
     data_frame=tips_summary,
@@ -1055,17 +1233,21 @@ fig = px.bar(
 show_fig(fig, filename="week4_files/bar7.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/bar7.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
+
+]
 
 
+---
 
 ## Percent bar chart
 
@@ -1083,8 +1265,8 @@ tips_summary.head()
 
 
 
-<div>
-<style scoped>
+&lt;div&gt;
+&lt;style scoped&gt;
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
@@ -1096,59 +1278,63 @@ tips_summary.head()
     .dataframe thead th {
         text-align: right;
     }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>day</th>
-      <th>sex</th>
-      <th>total_bill</th>
-      <th>Percent</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Fri</td>
-      <td>Female</td>
-      <td>127.31</td>
-      <td>0.390665</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Fri</td>
-      <td>Male</td>
-      <td>198.57</td>
-      <td>0.609335</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Sat</td>
-      <td>Female</td>
-      <td>551.05</td>
-      <td>0.309857</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Sat</td>
-      <td>Male</td>
-      <td>1227.35</td>
-      <td>0.690143</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Sun</td>
-      <td>Female</td>
-      <td>357.70</td>
-      <td>0.219831</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;day&lt;/th&gt;
+      &lt;th&gt;sex&lt;/th&gt;
+      &lt;th&gt;total_bill&lt;/th&gt;
+      &lt;th&gt;Percent&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Fri&lt;/td&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+      &lt;td&gt;127.31&lt;/td&gt;
+      &lt;td&gt;0.390665&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Fri&lt;/td&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;198.57&lt;/td&gt;
+      &lt;td&gt;0.609335&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;Sat&lt;/td&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+      &lt;td&gt;551.05&lt;/td&gt;
+      &lt;td&gt;0.309857&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Sat&lt;/td&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;1227.35&lt;/td&gt;
+      &lt;td&gt;0.690143&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Sun&lt;/td&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+      &lt;td&gt;357.70&lt;/td&gt;
+      &lt;td&gt;0.219831&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
 
 
+---
 
+## Percent bar chart
+
+.pull-left[
 
 ```python
 fig = px.bar(
@@ -1157,23 +1343,28 @@ fig = px.bar(
     y="Percent",
     color="sex",
     template="simple_white",
-    category_orders={"day": ["Thur", "Fri", "Sat", "Sun"], "sex": ["Male", "Female"]},
+    category_orders={"day": ["Thur", "Fri", "Sat", "Sun"], 
+      "sex": ["Male", "Female"]},
 )
 fig.update_layout(yaxis_tickformat="%")
 show_fig(fig, filename="week4_files/bar8.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/bar8.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+]
+
+---
 
 ## plotly
 
@@ -1199,23 +1390,31 @@ fig = px.scatter_matrix(
 show_fig(fig, filename="week4_files/splom.html")
 ```
 
+---
+
+### Scatterplot matrices
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
-    src="week4_files/scatter1.html"
+    src="week4_files/splom.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
+class:middle,center,inverse
 
 # Continuous vs categorical
 
+---
+
 ## Boxplots 
 
-
+.pull-left[
 ```python
 fig = px.box(
     data_frame=penguins,
@@ -1227,21 +1426,24 @@ fig = px.box(
 show_fig(fig, filename="week4_files/box1.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/box1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+]
 
+---
 
 ## Violin plot
 
-
+.pull-left[
 
 ```python
 fig = px.violin(
@@ -1254,21 +1456,25 @@ fig = px.violin(
 show_fig(fig, filename="week4_files/violin1.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/violin1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+]
+
+---
 
 ## Strip plot
 
-
+.pull-left[
 ```python
 fig = px.strip(
     data_frame=penguins,
@@ -1281,37 +1487,48 @@ fig = px.strip(
 show_fig(fig, filename="week4_files/strip1.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/strip1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+]
 
+---
 
 ## Grouped violin plots
 
-
+.pull-left[
 ```python
-fig = px.violin(data_frame=tips, y="tip", x="smoker", color="sex", box=True)
+fig = px.violin(data_frame=tips, 
+  y="tip", 
+  x="smoker", 
+  color="sex", 
+  box=True)
 show_fig(fig, filename="week4_files/violin2.html")
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/violin2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+]
+
+---
 
 ## Parallel coordinates plot
 
@@ -1330,11 +1547,13 @@ penguins.species.astype("category").cat.codes.value_counts(sort=False)
     2    124
     dtype: int64
 
+---
 
+## Parallel coordinates plot
 
 
 ```python
-penguins["species_id"] = penguins.species.astype("category").cat.codes  # <<
+penguins["species_id"] = penguins.species.astype("category").cat.codes  # &lt;&lt;
 fig = px.parallel_coordinates(
     penguins,
     dimensions=["body_mass_g", "bill_length_mm", "bill_depth_mm", "flipper_length_mm"],
@@ -1345,15 +1564,17 @@ show_fig(fig, filename="week4_files/parallel.html")
 
 
 
-<iframe
+&lt;iframe
     width="100%"
-    height="500"
+    height="350"
     src="week4_files/parallel.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+---
 
+## Treemap
 
 
 ```python
@@ -1361,7 +1582,7 @@ df = px.data.gapminder().query("year == 2007")
 df["world"] = "world"  # in order to have a single root node
 fig = px.treemap(
     df,
-    path=["world", "continent", "country"],  # << sets hierarchy
+    path=["world", "continent", "country"],  # &lt;&lt; sets hierarchy
     values="pop",
     color="lifeExp",
     hover_data=["iso_alpha"],
@@ -1371,24 +1592,29 @@ fig = px.treemap(
 show_fig(fig, filename="week4_files/treemap1.html")
 ```
 
+---
+
+## Treemap
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/treemap1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
+class:middle,center,inverse
 
 # More dynamism
 
+---
+
 ## Sliders
-
-
-
 
 ```python
 gapm = px.data.gapminder()
@@ -1396,8 +1622,8 @@ fig = px.scatter(
     gapm,
     x="gdpPercap",
     y="lifeExp",
-    animation_frame="year",  # <<
-    animation_group="country",  # <<
+    animation_frame="year",  # &lt;&lt;
+    animation_group="country",  # &lt;&lt;
     size="pop",
     color="continent",
     hover_name="country",
@@ -1409,19 +1635,26 @@ fig = px.scatter(
 show_fig(fig, filename="week4_files/gap1.html")
 ```
 
+---
 
+## Sliders
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/gap1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
+class:middle,center,inverse
 
 # Altair
+
+---
 
 ## Altair
 
@@ -1430,6 +1663,8 @@ Altair provides a wrapper around the Vega-Lite Javascript library, which is base
 It provides a syntax that explicitly describes the visual encodings that will be put on a plot. 
 
 This syntax is different from plotly, but it is clear in its own way.
+
+---
 
 ## Altair
 
@@ -1445,8 +1680,8 @@ mpg.head()
 
 
 
-<div>
-<style scoped>
+&lt;div&gt;
+&lt;style scoped&gt;
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
@@ -1458,88 +1693,89 @@ mpg.head()
     .dataframe thead th {
         text-align: right;
     }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>mpg</th>
-      <th>cylinders</th>
-      <th>displacement</th>
-      <th>horsepower</th>
-      <th>weight</th>
-      <th>acceleration</th>
-      <th>model_year</th>
-      <th>origin</th>
-      <th>name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>18.0</td>
-      <td>8</td>
-      <td>307.0</td>
-      <td>130.0</td>
-      <td>3504</td>
-      <td>12.0</td>
-      <td>70</td>
-      <td>usa</td>
-      <td>chevrolet chevelle malibu</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>15.0</td>
-      <td>8</td>
-      <td>350.0</td>
-      <td>165.0</td>
-      <td>3693</td>
-      <td>11.5</td>
-      <td>70</td>
-      <td>usa</td>
-      <td>buick skylark 320</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>18.0</td>
-      <td>8</td>
-      <td>318.0</td>
-      <td>150.0</td>
-      <td>3436</td>
-      <td>11.0</td>
-      <td>70</td>
-      <td>usa</td>
-      <td>plymouth satellite</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>16.0</td>
-      <td>8</td>
-      <td>304.0</td>
-      <td>150.0</td>
-      <td>3433</td>
-      <td>12.0</td>
-      <td>70</td>
-      <td>usa</td>
-      <td>amc rebel sst</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>17.0</td>
-      <td>8</td>
-      <td>302.0</td>
-      <td>140.0</td>
-      <td>3449</td>
-      <td>10.5</td>
-      <td>70</td>
-      <td>usa</td>
-      <td>ford torino</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;mpg&lt;/th&gt;
+      &lt;th&gt;cylinders&lt;/th&gt;
+      &lt;th&gt;displacement&lt;/th&gt;
+      &lt;th&gt;horsepower&lt;/th&gt;
+      &lt;th&gt;weight&lt;/th&gt;
+      &lt;th&gt;acceleration&lt;/th&gt;
+      &lt;th&gt;model_year&lt;/th&gt;
+      &lt;th&gt;origin&lt;/th&gt;
+      &lt;th&gt;name&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;18.0&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;307.0&lt;/td&gt;
+      &lt;td&gt;130.0&lt;/td&gt;
+      &lt;td&gt;3504&lt;/td&gt;
+      &lt;td&gt;12.0&lt;/td&gt;
+      &lt;td&gt;70&lt;/td&gt;
+      &lt;td&gt;usa&lt;/td&gt;
+      &lt;td&gt;chevrolet chevelle malibu&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;15.0&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;350.0&lt;/td&gt;
+      &lt;td&gt;165.0&lt;/td&gt;
+      &lt;td&gt;3693&lt;/td&gt;
+      &lt;td&gt;11.5&lt;/td&gt;
+      &lt;td&gt;70&lt;/td&gt;
+      &lt;td&gt;usa&lt;/td&gt;
+      &lt;td&gt;buick skylark 320&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;18.0&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;318.0&lt;/td&gt;
+      &lt;td&gt;150.0&lt;/td&gt;
+      &lt;td&gt;3436&lt;/td&gt;
+      &lt;td&gt;11.0&lt;/td&gt;
+      &lt;td&gt;70&lt;/td&gt;
+      &lt;td&gt;usa&lt;/td&gt;
+      &lt;td&gt;plymouth satellite&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;16.0&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;304.0&lt;/td&gt;
+      &lt;td&gt;150.0&lt;/td&gt;
+      &lt;td&gt;3433&lt;/td&gt;
+      &lt;td&gt;12.0&lt;/td&gt;
+      &lt;td&gt;70&lt;/td&gt;
+      &lt;td&gt;usa&lt;/td&gt;
+      &lt;td&gt;amc rebel sst&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;17.0&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;302.0&lt;/td&gt;
+      &lt;td&gt;140.0&lt;/td&gt;
+      &lt;td&gt;3449&lt;/td&gt;
+      &lt;td&gt;10.5&lt;/td&gt;
+      &lt;td&gt;70&lt;/td&gt;
+      &lt;td&gt;usa&lt;/td&gt;
+      &lt;td&gt;ford torino&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
 
 
+---
 
 
 ```python
@@ -1554,13 +1790,13 @@ show_fig2('week4_files/alt_scatter1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_scatter1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
 
@@ -1573,13 +1809,13 @@ show_fig2('week4_files/alt_scatter2.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_scatter2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
 
@@ -1591,13 +1827,13 @@ show_fig2('week4_files/alt_scatter3.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_scatter3.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
 
@@ -1612,13 +1848,13 @@ show_fig2('week4_files/alt_scatter4.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_scatter4.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
 
@@ -1634,15 +1870,17 @@ show_fig2('week4_files/alt_scatter5.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_scatter5.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Automatic aggregations
 
@@ -1654,13 +1892,13 @@ show_fig2('week4_files/alt_agg1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_agg1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
 
@@ -1672,15 +1910,17 @@ show_fig2('week4_files/alt_agg2.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_agg2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Aggregation
 
@@ -1697,13 +1937,13 @@ show_fig2('week4_files/alt_agg3.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_agg3.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
 
@@ -1718,13 +1958,13 @@ show_fig2('week4_files/alt_agg4.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_agg4.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
 
@@ -1739,17 +1979,22 @@ show_fig2('week4_files/alt_agg6.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_agg6.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
+class:middle,center,inverse
 
 # Univariate plots
+
+---
 
 ## Histograms
 
@@ -1764,15 +2009,17 @@ show_fig2('week4_files/alt_hist1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_hist1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Density plots
 
@@ -1789,15 +2036,17 @@ show_fig2('week4_files/alt_density1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_density1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Frequency bar plots
 
@@ -1808,10 +2057,12 @@ d.head()
 ```
 
 
+---
 
+## Frequency bar plots
 
-<div>
-<style scoped>
+&lt;div&gt;
+&lt;style scoped&gt;
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
@@ -1823,80 +2074,80 @@ d.head()
     .dataframe thead th {
         text-align: right;
     }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>country</th>
-      <th>continent</th>
-      <th>year</th>
-      <th>lifeExp</th>
-      <th>pop</th>
-      <th>gdpPercap</th>
-      <th>iso_alpha</th>
-      <th>iso_num</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>528</th>
-      <td>France</td>
-      <td>Europe</td>
-      <td>1952</td>
-      <td>67.41</td>
-      <td>42459667</td>
-      <td>7029.809327</td>
-      <td>FRA</td>
-      <td>250</td>
-    </tr>
-    <tr>
-      <th>529</th>
-      <td>France</td>
-      <td>Europe</td>
-      <td>1957</td>
-      <td>68.93</td>
-      <td>44310863</td>
-      <td>8662.834898</td>
-      <td>FRA</td>
-      <td>250</td>
-    </tr>
-    <tr>
-      <th>530</th>
-      <td>France</td>
-      <td>Europe</td>
-      <td>1962</td>
-      <td>70.51</td>
-      <td>47124000</td>
-      <td>10560.485530</td>
-      <td>FRA</td>
-      <td>250</td>
-    </tr>
-    <tr>
-      <th>531</th>
-      <td>France</td>
-      <td>Europe</td>
-      <td>1967</td>
-      <td>71.55</td>
-      <td>49569000</td>
-      <td>12999.917660</td>
-      <td>FRA</td>
-      <td>250</td>
-    </tr>
-    <tr>
-      <th>532</th>
-      <td>France</td>
-      <td>Europe</td>
-      <td>1972</td>
-      <td>72.38</td>
-      <td>51732000</td>
-      <td>16107.191710</td>
-      <td>FRA</td>
-      <td>250</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;country&lt;/th&gt;
+      &lt;th&gt;continent&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;lifeExp&lt;/th&gt;
+      &lt;th&gt;pop&lt;/th&gt;
+      &lt;th&gt;gdpPercap&lt;/th&gt;
+      &lt;th&gt;iso_alpha&lt;/th&gt;
+      &lt;th&gt;iso_num&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;528&lt;/th&gt;
+      &lt;td&gt;France&lt;/td&gt;
+      &lt;td&gt;Europe&lt;/td&gt;
+      &lt;td&gt;1952&lt;/td&gt;
+      &lt;td&gt;67.41&lt;/td&gt;
+      &lt;td&gt;42459667&lt;/td&gt;
+      &lt;td&gt;7029.809327&lt;/td&gt;
+      &lt;td&gt;FRA&lt;/td&gt;
+      &lt;td&gt;250&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;529&lt;/th&gt;
+      &lt;td&gt;France&lt;/td&gt;
+      &lt;td&gt;Europe&lt;/td&gt;
+      &lt;td&gt;1957&lt;/td&gt;
+      &lt;td&gt;68.93&lt;/td&gt;
+      &lt;td&gt;44310863&lt;/td&gt;
+      &lt;td&gt;8662.834898&lt;/td&gt;
+      &lt;td&gt;FRA&lt;/td&gt;
+      &lt;td&gt;250&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;530&lt;/th&gt;
+      &lt;td&gt;France&lt;/td&gt;
+      &lt;td&gt;Europe&lt;/td&gt;
+      &lt;td&gt;1962&lt;/td&gt;
+      &lt;td&gt;70.51&lt;/td&gt;
+      &lt;td&gt;47124000&lt;/td&gt;
+      &lt;td&gt;10560.485530&lt;/td&gt;
+      &lt;td&gt;FRA&lt;/td&gt;
+      &lt;td&gt;250&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;531&lt;/th&gt;
+      &lt;td&gt;France&lt;/td&gt;
+      &lt;td&gt;Europe&lt;/td&gt;
+      &lt;td&gt;1967&lt;/td&gt;
+      &lt;td&gt;71.55&lt;/td&gt;
+      &lt;td&gt;49569000&lt;/td&gt;
+      &lt;td&gt;12999.917660&lt;/td&gt;
+      &lt;td&gt;FRA&lt;/td&gt;
+      &lt;td&gt;250&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;532&lt;/th&gt;
+      &lt;td&gt;France&lt;/td&gt;
+      &lt;td&gt;Europe&lt;/td&gt;
+      &lt;td&gt;1972&lt;/td&gt;
+      &lt;td&gt;72.38&lt;/td&gt;
+      &lt;td&gt;51732000&lt;/td&gt;
+      &lt;td&gt;16107.191710&lt;/td&gt;
+      &lt;td&gt;FRA&lt;/td&gt;
+      &lt;td&gt;250&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
 
 
 
@@ -1916,17 +2167,22 @@ show_fig2('week4_files/alt_bar1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_bar1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
+class:middle,center,inverse
 
 # Bivariate plots
+
+---
 
 ## Scatter plots
 
@@ -1948,15 +2204,17 @@ show_fig2('week4_files/alt_points1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
-    height="500"
+    height="350"
     src="week4_files/alt_points1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Boxplots
 
@@ -1974,15 +2232,17 @@ show_fig2('week4_files/alt_box1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_box1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Violin plots
 
@@ -2021,17 +2281,21 @@ Violin plots, like density plots, are a little trickier, since you have to manua
 show_fig2('week4_files/alt_violin1.html')
 ```
 
+---
 
+## Violin plots
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_violin1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Strip plots
 
@@ -2043,17 +2307,22 @@ show_fig2('week4_files/alt_strip1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_strip1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
+class:middle,center,inverse
 
 # Adding layers
+
+---
 
 ## Scatter plots
 
@@ -2065,19 +2334,21 @@ show_fig2('week4_files/alt_points_layers1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_points_layers1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Scatter plots
 
-
+.pull-left[
 ```python
 alt.Chart(gapm).mark_circle().encode(
     x=alt.X(
@@ -2090,21 +2361,24 @@ alt.Chart(gapm).mark_circle().encode(
 show_fig2('week4_files/alt_gap1.html')
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_gap1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
+]
 
 
+---
 
 ## Scatter plots + tooltip
 
-
+.pull-left[
 ```python
 alt.Chart(gapm).mark_circle().encode(
     x=alt.X(
@@ -2118,21 +2392,24 @@ alt.Chart(gapm).mark_circle().encode(
 show_fig2('week4_files/alt_gap2.html')
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_gap2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
+]
 
+---
 
 ## Scatter plots + tooltip
 
-
+pull-left[
 ```python
 alt.Chart(gapm).mark_circle().encode(
     x=alt.X(
@@ -2151,19 +2428,22 @@ alt.Chart(gapm).mark_circle().encode(
 show_fig2('week4_files/alt_gap3.html')
 ```
 
+]
+.pull-right[
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_gap3.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
-
+]
 
 See [here](https://github.com/d3/d3-format#locale_format) for details on formatting
+
+---
 
 ## Bar plots
 
@@ -2171,10 +2451,8 @@ See [here](https://github.com/d3/d3-format#locale_format) for details on formatt
 ```python
 medals = px.data.medals_long()
 alt.Chart(medals).mark_bar().encode(
-    x="medal",
-    y="sum(count):Q",
-    color="medal:N",
-    column="nation:N",
+    x="medal", y="sum(count):Q",
+    color="medal:N",column="nation:N",
 ).properties(
     width=250,
 ).save('week4_files/alt_facet1.html')
@@ -2183,42 +2461,42 @@ show_fig2('week4_files/alt_facet1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
-    height="500"
+    height="400"
     src="week4_files/alt_facet1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Bar plots
 
 
 ```python
 alt.Chart(medals).mark_bar().encode(
-    x=alt.X("medal", sort=["gold", "silver", "bronze"]),
-    y="sum(count):Q",
-    color=alt.Color("medal:N", sort=["gold", "silver", "bronze"]),
-    column="nation:N",
-).properties(
-    width=250,
-).save('week4_files/alt_facet2.html')
+    x=alt.X("medal", sort=["gold", "silver", "bronze"]), y="sum(count):Q",
+    color=alt.Color("medal:N", sort=["gold", "silver", "bronze"]), column="nation:N",
+).properties(width=250).save('week4_files/alt_facet2.html')
 show_fig2('week4_files/alt_facet2.html')
 ```
 
 
 
-<iframe
+&lt;iframe
     width="100%"
-    height="500"
+    height="400"
     src="week4_files/alt_facet2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Stacked bar charts
 
@@ -2236,15 +2514,17 @@ show_fig2('week4_files/alt_stack1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_stack1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Stacked bar charts
 
@@ -2262,26 +2542,28 @@ show_fig2('week4_files/alt_stack2.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_stack2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Stacked bar charts
 
 
 ```python
-medal_order = ["gold", "silver", "bronze"]  # <<
+medal_order = ["gold", "silver", "bronze"]  # &lt;&lt;
 alt.Chart(medals).mark_bar().encode(
     x="nation",
     y=alt.Y("count", sort="color", stack="normalize", axis=alt.Axis(format="%")),
     color=alt.Color("medal:N", sort=["gold", "silver", "bronze"]),
-    order=alt.Order("color_medal_sort_index:Q"),  # <<
+    order=alt.Order("color_medal_sort_index:Q"),  # &lt;&lt;
 ).properties(
     width=200,
 ).save('week4_files/alt_stack3.html')
@@ -2290,15 +2572,17 @@ show_fig2('week4_files/alt_stack3.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
-    height="500"
+    height="300"
     src="week4_files/alt_stack3.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Parallel coordinates
 
@@ -2322,17 +2606,21 @@ alt.Chart(iris).transform_window(
 show_fig2('week4_files/alt_parallel1.html')
 ```
 
+---
 
+## Parallel coordinates
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_parallel1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Adding layers explicitly
 
@@ -2352,15 +2640,17 @@ show_fig2('week4_files/alt_layer1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_layer1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Adding layers explicitly
 
@@ -2378,15 +2668,17 @@ show_fig2('week4_files/alt_layer2.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_layer2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Adding layers explicitly
 
@@ -2404,15 +2696,17 @@ show_fig2('week4_files/alt_layers3.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_layers3.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Scatter plots + lines
 
@@ -2432,15 +2726,17 @@ show_fig2('week4_files/alt_layers4.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_layers4.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Scatter plots + lines
 
@@ -2460,15 +2756,17 @@ show_fig2('week4_files/alt_layers5.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_layers5.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Facets
 
@@ -2480,17 +2778,19 @@ show_fig2('week4_files/alt_facets4.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_facets4.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
 
-## Facets
+---
+
+
 
 ## Facets
 
@@ -2507,39 +2807,17 @@ show_fig2('week4_files/alt_facet5.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_facet5.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
 
-## Facets
-
-
-```python
-alt.Chart(penguins).mark_point().encode(
-    x=alt.X("bill_length_mm:Q", title="Bill length (mm)", scale=alt.Scale(zero=False)),
-    y=alt.Y("body_mass_g:Q", title="Body mass (g)", scale=alt.Scale(zero=False)),
-    column=alt.Column("species:N", title=None),
-    row=alt.Row("island:N", title=None),
-).properties(width=300).save('week4_files/alt_facet6.html')
-show_fig2('week4_files/alt_facet6.html')
-```
-
-
-
-<iframe
-    width="100%"
-    height="500"
-    src="week4_files/alt_facet6.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+---
 
 
 ## Scatterplot matrix
@@ -2559,17 +2837,22 @@ show_fig2('week4_files/alt_splom.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_splom.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
+class:middle,center,inverse
 
 # Putting charts together
+
+---
 
 ## Side-by-side
 
@@ -2592,46 +2875,57 @@ show_fig2('week4_files/alt_concat1.html')
 
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_concat1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## In a column
 
-
+.pull-left[
 ```python
 plot1 = (
     alt.Chart(penguins)
     .mark_circle()
-    .encode(x="bill_length_mm", y="body_mass_g", color="species")
+    .encode(x="bill_length_mm", 
+    y="body_mass_g", 
+    color="species")
 )
 plot2 = (
     alt.Chart(penguins)
     .mark_circle()
-    .encode(x="bill_depth_mm", y="body_mass_g", color="species")
+    .encode(
+      x="bill_depth_mm", 
+      y="body_mass_g", 
+      color="species")
 )
 
-(plot1 & plot2).save('week4_files/alt_concat2.html')
+(plot1 &amp; plot2).save('week4_files/alt_concat2.html')
 show_fig2('week4_files/alt_concat2.html', height=600)
 ```
+]
+.pull-right[
 
 
-
-<iframe
+&lt;iframe
     width="100%"
     height="600"
     src="week4_files/alt_concat2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+]
+
+---
 
 ## Composite plots
 
@@ -2678,7 +2972,7 @@ right_hist = (
     .properties(width=60)
 )
 
-(top_hist & (
+(top_hist &amp; (
     (
         scatter
         + scatter.transform_regression(
@@ -2690,19 +2984,26 @@ right_hist = (
 show_fig2('week4_files/alt_joint.html')
 ```
 
+---
 
+## Composite plots
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_joint.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
+class:middle,center,inverse
 
 # Interactivity
+
+---
 
 ## Brushing
 
@@ -2729,21 +3030,26 @@ y_ticks = base.mark_tick().encode(
     color=alt.condition(brush, "origin", alt.value("lightgrey")),
 )
 
-(y_ticks | (scatter & x_ticks)).save('week4_files/alt_brush1.html')
+(y_ticks | (scatter &amp; x_ticks)).save('week4_files/alt_brush1.html')
 show_fig2('week4_files/alt_brush1.html')
 ```
 
+---
+
+## Brushing
 
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_brush1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Brushing
 
@@ -2766,17 +3072,21 @@ base = (
 show_fig2('week4_files/alt_brush2.html')
 ```
 
+---
 
+## Brushing
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_brush2.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Multi-line highlight
 
@@ -2809,17 +3119,21 @@ lines = base.mark_line().encode(
 show_fig2('week4_files/alt_lines1.html')
 ```
 
+---
 
+## Multi-line highlight
 
-<iframe
+&lt;iframe
     width="100%"
     height="500"
     src="week4_files/alt_lines1.html"
     frameborder="0"
     allowfullscreen
-></iframe>
+&gt;&lt;/iframe&gt;
 
 
+
+---
 
 ## Resources
 
@@ -2829,19 +3143,130 @@ show_fig2('week4_files/alt_lines1.html')
 
 
 
-```python
-!jupyter nbconvert --to markdown week4.ipynb
-```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../js/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLanguage": "r",
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
 
-    [NbConvertApp] Converting notebook week4.ipynb to markdown
-    [NbConvertApp] Writing 51884 bytes to week4.md
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
 
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
-
-```python
-!jupyter nbconvert --to html week4.ipynb
-```
-
-    [NbConvertApp] Converting notebook week4.ipynb to html
-    [NbConvertApp] Writing 847721 bytes to week4.html
-
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
