@@ -33,19 +33,7 @@ class: center, middle, inverse, title-slide
 
 
 
-```python
-import plotly
-from IPython.display import IFrame, display_html
 
-
-def show_fig(fig, filename, width="100%", height=500):
-    plotly.offline.plot(fig, filename=filename, auto_open=False, auto_play=False)
-    display_html(IFrame(filename, height=height, width=width))
-
-def show_fig2(filename, width="100%", height=500):
-    display_html(IFrame(filename, width=width, height=height))
-
-```
 
 ---
 

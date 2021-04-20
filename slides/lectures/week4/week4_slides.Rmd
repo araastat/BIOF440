@@ -11,7 +11,7 @@ author: "Abhijit Dasgupta"
 knitr::opts_chunk$set(cache=FALSE, echo=T, eval=F)
 ```
 
-```python
+```{python, echo=F, eval=F}
 import plotly
 from IPython.display import IFrame, display_html
 
