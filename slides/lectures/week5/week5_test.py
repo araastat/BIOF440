@@ -49,12 +49,10 @@ import kaplanmeier as km #<<
 imgdir = 'img'
 
 from IPython.display import IFrame
-# %%
-
+# %% [markdown]
 # ## Visualizing survival data
-# 
-# We will first look at the nature of survival data through a visualization. 
 #
+# We will first look at the nature of survival data through a visualization. 
 # We will use some sample data from the _kaplanmeier_ package
 #
 # %% Example km code
@@ -64,8 +62,7 @@ time_event = df['time'] # Time to event
 censoring = df['Died'] # Whether subject died (1) or was censored (2)
 labx = df['group'] # a grouping variable
 
-# %%
-
+# %% [markdown]
 # ## Visualizing survival data
 #
 # We can plot the subjects' over time, indicating who died (red) and who were censored (blue)
@@ -79,22 +76,22 @@ ax = lfl.plotting.plot_lifetimes(time_event, censoring,
 ax.set_xlabel('Time')
 ax.vlines(1000, 0,200,linestyles='--');
 plt.show()
-# %%
+# %% [markdown]
 
 # ## Survival data
-# 
+
 # You could look at survival summaries based on this plot, to see how many people died by a certain time
-#
+
 # However, to look overall at the survival pattern for this group, we have to account for censoring
-#
+
 # The standard way of doing this is using a Kaplan-Meier curve
-#
+
 # ## Kaplan Meier curve in Python
-#
+
 # We can compute and plot the Kaplan Meier curve using either the _kaplanmeier_ package or the _lifelines_ package.
-#
+
 # ## Kaplan-Meier curve using _kaplanmeier_
-#
+
 # This plot includes a table that tells you how many subjects are at risk, how many are dead,
 # and how many are censored at a select set of time points
 # %% Plotting
