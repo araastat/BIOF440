@@ -1,3 +1,11 @@
+
+---
+class: middle,inverse,center
+
+# Geopandas
+
+---
+
 ## Geopandas
 
 [Geopandas](https://geopandas.org/index.html) is a tidy way to store geographic location data within
@@ -5,11 +13,13 @@ a pandas DataFrame object, much like in the R tibble. It typically adds a "colum
 to the DataFrame that holds geometry information about the geographic location structures, like points, 
 areas and polygons. 
 
-![](img/geodataframe.png)
+![:scale 65%](img/geodataframe.png)
 
 This structure allows the easy(er) merging of geographic data with other data about the geography
 using pandas merges, as we will see. For this class we will use the _geopandas_ structures operationally,
 and not go too deeply into how to manipulate this data.
+
+---
 
 ## Plotting with geopandas
 
@@ -30,79 +40,7 @@ gdf = geopandas.read_file(path_to_data)
 gdf
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>BoroCode</th>
-      <th>BoroName</th>
-      <th>Shape_Leng</th>
-      <th>Shape_Area</th>
-      <th>geometry</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>5</td>
-      <td>Staten Island</td>
-      <td>330470.010332</td>
-      <td>1.623820e+09</td>
-      <td>MULTIPOLYGON (((970217.022 145643.332, 970227....</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>4</td>
-      <td>Queens</td>
-      <td>896344.047763</td>
-      <td>3.045213e+09</td>
-      <td>MULTIPOLYGON (((1029606.077 156073.814, 102957...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>Brooklyn</td>
-      <td>741080.523166</td>
-      <td>1.937479e+09</td>
-      <td>MULTIPOLYGON (((1021176.479 151374.797, 102100...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1</td>
-      <td>Manhattan</td>
-      <td>359299.096471</td>
-      <td>6.364715e+08</td>
-      <td>MULTIPOLYGON (((981219.056 188655.316, 980940....</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2</td>
-      <td>Bronx</td>
-      <td>464392.991824</td>
-      <td>1.186925e+09</td>
-      <td>MULTIPOLYGON (((1012821.806 229228.265, 101278...</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
+![:scale 60%](img/nybb.png)
 
 
 Note the structure of the last column `gdf['geometry']`. It is a _MULTIPOLYGON_ structure, which
@@ -116,6 +54,8 @@ gdf = gdf.set_index('BoroName')
 gdf['area'] = gdf.area
 ```
 
+---
+
 ## Plotting with geopandas
 
 
@@ -126,10 +66,12 @@ gdf.plot('area');
 
 
     
-![png](output_5_0.png)
+![:scale 40%](img/output_5_0.png)
     
 
 
+
+---
 
 ## Plotting with geopandas: layers
 
@@ -144,10 +86,12 @@ gdf['centroid'].plot(ax=ax, color='red');
 
 
     
-![png](output_7_0.png)
+![:scale 40%](img/output_7_0.png)
     
 
 
+
+---
 
 ## Map projections
 
@@ -157,7 +101,9 @@ view maps. You may have heard of Mercator projections, and others.
 We can specify different map projections for the same geometry; geopandas takes care of the 
 transformations from the provided geometry
 
+---
 
+## Map projections
 
 ```python
 gdf = gdf.set_geometry('geometry')
@@ -169,12 +115,14 @@ ax.set_ylabel('Latitude');
 
 
     
-![png](output_9_0.png)
+![:scale 30%](img/output_9_0.png)
     
 
 
 .footnote[Note that the axes text changed to the traditional longitude and latitude]
 
+
+---
 
 ## Map projections
 
@@ -202,6 +150,8 @@ boroughs_4326.crs
 
 
 
+
+---
 
 ## Larger geographies
 
@@ -295,24 +245,20 @@ world.head()
 
 
 
+---
+
+## Larger geographies
 
 ```python
 world.plot()
 ```
 
 
-
-
-    <AxesSubplot:>
-
-
-
-
     
-![png](output_15_1.png)
+![:scale 50%](img/output_15_1.png)
     
 
-
+---
 
 ```python
 
@@ -326,9 +272,11 @@ world.plot(column='pop_est',
 
 
     
-![png](output_16_0.png)
+![:scale 50%](img/output_16_0.png)
     
 
+
+---
 
 ## Layering maps
 
@@ -344,17 +292,12 @@ cities.plot(ax = base, marker = 'o', color = 'red', markersize = 5)
 ```
 
 
-
-
-    <AxesSubplot:>
-
-
-
-
     
-![png](output_18_1.png)
+![:scale 50%](img/output_18_1.png)
     
 
+
+---
 
 ## Layering maps
 
@@ -371,9 +314,11 @@ plt.show()
 
 
     
-![png](output_20_0.png)
+![:scale 50%](img/output_20_0.png)
     
 
+
+---
 
 ## Layering maps
 
@@ -387,9 +332,11 @@ world.plot(ax= ax);
 
 
     
-![png](output_22_0.png)
+![:scale 50%](img/output_22_0.png)
     
 
+
+---
 
 ## Layering maps
 
@@ -403,9 +350,11 @@ world.plot(ax= ax);
 
 
     
-![png](output_24_0.png)
+![:scale 50%](img/output_24_0.png)
     
 
+
+---
 
 ## Creating geographic aggregates
 
@@ -415,6 +364,8 @@ Sometimes we need to aggregate the geographies. For example, we might have count
 to show just the continents
 
 The key to this is the `dissolve` function
+
+---
 
 ## Creating geographic aggregates
 
@@ -427,9 +378,11 @@ continents.plot(edgecolor = 'white');
 
 
     
-![png](output_27_0.png)
+![:scale 50%](img/output_27_0.png)
     
 
+
+---
 
 ## Creating geographic aggregates
 
@@ -444,11 +397,7 @@ continent.plot(column = 'pop_est', cmap = 'YlOrRd');
 
 
     
-![png](output_29_0.png)
+![:scale 50%](img/output_29_0.png)
     
 
 
-
-```python
-
-```

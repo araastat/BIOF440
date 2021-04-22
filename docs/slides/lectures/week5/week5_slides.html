@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Some specialized visualizations</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Abhijit Dasgupta" />
+    <script src="week5_slides_files/header-attrs-2.6/header-attrs.js"></script>
+    <link href="week5_slides_files/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="week5_slides_files/panelset-0.2.3.9000/panelset.css" rel="stylesheet" />
+    <script src="week5_slides_files/panelset-0.2.3.9000/panelset.js"></script>
+    <link href="week5_slides_files/xaringanExtra-extra-styles-0.2.3.9000/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="../css/sfah.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Some specialized visualizations
+## BIOF 440
+### Abhijit Dasgupta
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Survival data
+
+Survival, or time-to-event, data is common data in biomedical research
+
+We follow subjects over time, and stop either when an event, like death, occurs, or when we stop the study or the subject leaves the study (censoring)
+
+So the response we record are 
+
+1. The time to event or censoring, whichever is earlier
+1. Whether we observed the event (1) or the subject was censored (0)
+
+For survival data, we need to install the _lifelines_ and _kaplanmeier_ packages
+
+&gt; You can open the Anaconda console (Win) or a terminal (Mac) and type the following code
+
+```
+conda activate biof440
+conda install -c conda-forge lifelines
+pip install kaplanmeier
+```
+
+---
+
+## The Python setup
+
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+import lifelines as lfl #&lt;&lt;
+import kaplanmeier as km #&lt;&lt;
+imgdir = 'img'
+
+from IPython.display import IFrame
+```
+
+---
+
+## Visualizing survival data
+
+We will first look at the nature of survival data through a visualization. 
+We will use some sample data from the _kaplanmeier_ package
+
+
+
+```python
+
+df = km.example_data()
+time_event = df['time'] # Time to event
+censoring = df['Died'] # Whether subject died (1) or was censored (2)
+labx = df['group'] # a grouping variable
+```
+
+
+---
+
+## Visualizing survival data
+
+We can plot the subjects' over time, indicating who died (red) and who were censored (blue)
+
+The _lifelines_ package in Python provides most tools for looking at survival data
+
+```python
+ax = lfl.plotting.plot_lifetimes(time_event, censoring,
+    event_observed_color='red', event_censored_color='blue',
+    sort_by_duration=True)
+ax.set_xlabel('Time')
+ax.vlines(1000, 0,200,linestyles='--');
+plt.show()
+```
+    
+![:scale 40%](week5_test_files/week5_test_5_1.png)
+    
+
+
+---
+## Survival data
+
+You could look at survival summaries based on this plot, to see how many people died by a certain time
+
+However, to look overall at the survival pattern for this group, we have to account for censoring
+
+The standard way of doing this is using a Kaplan-Meier curve
+
+---
+
+## Kaplan Meier curve in Python
+
+We can compute and plot the Kaplan Meier curve using either the _kaplanmeier_ package or the _lifelines_ package.
+
+---
+
+## Kaplan-Meier curve using _kaplanmeier_
+
+This plot includes a table that tells you how many subjects are at risk, how many are dead,
+
+
+```python
+out = km.fit(time_event, censoring, labx) # Direct grouped lines
+km.plot(out)
+```
+
+
+    
+![:scale 40%](week5_test_files/week5_test_7_0.png)
+    
+
+---
+## Kaplan-Meier curve using _lifelines_
+
+We can have greater control over the KM curve using the _lifelines_ package. This package follows the 
+coding style of packages like _scikit-learn_ in that we first start a fitting object, then we 
+fit the model to the data and then plot it
+
+This plotting uses a matplotlib backend
+
+.pull-left[
+```python
+
+from lifelines import KaplanMeierFitter 
+
+kmf = KaplanMeierFitter() # Kaplan Meier fitting object
+kmf.fit(time_event, event_observed=censoring) # Fit model to data
+
+kmf.plot(at_risk_counts=False) # No table at first
+plt.title('Kaplan-Meier Curve')
+plt.show();
+```
+]
+.pull-right[
+![](week5_test_files/week5_test_9_0.png)
+    
+]
+
+---
+
+## Kaplan-Meier curve using _lifelines_
+
+We can clean this curve up a bit.
+
+.pull-left[
+```python
+ax = kmf.plot()
+ax.set_xlabel('days')
+ax.set_ylabel('Probability of survival')
+ax.get_legend().remove()
+ax.set_title('Kaplan-Meier estimates')
+plt.show();
+```
+]
+.pull-right[
+    
+![](week5_test_files/week5_test_11_0.png)
+    
+]
+
+
+---
+
+## Kaplan-Meier curve using _lifelines
+
+We can also add the table of deaths below the curve.
+
+
+```python
+
+ax = kmf.plot( at_risk_counts=True, legend=False)
+ax.set_label('days')
+ax.set_ylabel('Probability of survival')
+plt.show();
+```
+
+
+    
+![:scale 50%](week5_test_files/week5_test_13_0.png)
+    
+
+
+
+---
+
+## Kaplan-Meier curve using _lifelines
+
+We can also add the table of deaths below the curve, even in grouped data
+
+.pull-left[
+```python
+from lifelines.plotting import add_at_risk_counts
+
+T1 = df.query('group==1')['time']
+T2 = df.query('group==2')['time']
+
+C1 = df.query('group==1')['Died']
+C2 = df.query('group==2')['Died']
+
+fig, ax = plt.subplots()
+kmf1 = KaplanMeierFitter()
+kmf1.fit(T1, C1,label='Group 1',)
+kmf2 = KaplanMeierFitter()
+kmf2.fit(T2, C2,label = 'Group 2',)
+
+ax = kmf1.plot_survival_function(ax = ax,  
+  ci_show=False)
+ax = kmf2.plot_survival_function(ax = ax, 
+  label = 'Group 2', ci_show=False)
+add_at_risk_counts(kmf1, kmf2, ax=ax)
+
+plt.tight_layout();
+```
+]
+.pull-right[
+
+    
+![](week5_test_files/week5_test_15_0.png)
+    
+]
+
+---
+
+## Kaplan-Meier curve using _lifelines_
+
+We can also format the axes to show percentages rather than proportions. 
+
+We'll demo this with a single KM curve
+
+.pull-left[
+```python
+import matplotlib.ticker as mtick
+
+ax = kmf.plot()
+ax.set_xlabel('days')
+ax.set_ylabel('Probability of survival')
+ax.get_legend().remove()
+ax.set_title('Kaplan-Meier estimates')
+fmt = "%0.0f%%"
+ticks = mtick.PercentFormatter(xmax=1, 
+    symbol='%', 
+    decimals=None) # formats axis as percents
+ax.yaxis.set_major_formatter(ticks)
+ax.set_ylabel('Percent survived');
+
+plt.tight_layout();
+```
+]
+.pull-right[
+
+    
+![](week5_test_files/week5_test_17_0.png)
+]
+    
+
+
+
+
+
+---
+class: middle,inverse,center
+
+# Geopandas
+
+---
+
+## Geopandas
+
+[Geopandas](https://geopandas.org/index.html) is a tidy way to store geographic location data within
+a pandas DataFrame object, much like in the R tibble. It typically adds a "column" named _geometry_
+to the DataFrame that holds geometry information about the geographic location structures, like points, 
+areas and polygons. 
+
+![:scale 65%](img/geodataframe.png)
+
+This structure allows the easy(er) merging of geographic data with other data about the geography
+using pandas merges, as we will see. For this class we will use the _geopandas_ structures operationally,
+and not go too deeply into how to manipulate this data.
+
+---
+
+## Plotting with geopandas
+
+Geopandas DataFrame objects have a `plot` method built in, so we can create basic maps and 
+choropleths in short order. These use the **matplotlib** package.
+
+First lets get some data.
+
+
+```python
+
+import geopandas
+import matplotlib.pyplot as plt
+
+path_to_data = geopandas.datasets.get_path('nybb') # NYC boroughs
+gdf = geopandas.read_file(path_to_data)
+
+gdf
+```
+
+![:scale 60%](img/nybb.png)
+
+
+Note the structure of the last column `gdf['geometry']`. It is a _MULTIPOLYGON_ structure, which
+is a way to specify the geometry of each boroughs as a set of disjoint polygons. 
+
+We will compute the area of each borough using geopandas, for the plotting
+
+
+```python
+gdf = gdf.set_index('BoroName')
+gdf['area'] = gdf.area
+```
+
+---
+
+## Plotting with geopandas
+
+
+
+```python
+gdf.plot('area');
+```
+
+
+    
+![:scale 40%](img/output_5_0.png)
+    
+
+
+
+---
+
+## Plotting with geopandas: layers
+
+
+
+```python
+gdf['centroid'] = gdf.centroid
+
+ax = gdf['geometry'].plot(color = 'lightblue') #&lt;&lt; draw the map in monochrome
+gdf['centroid'].plot(ax=ax, color='red');
+```
+
+
+    
+![:scale 40%](img/output_7_0.png)
+    
+
+
+
+---
+
+## Map projections
+
+There are different ways of projecting the earth's surface onto a 2-D map, as we traditionally
+view maps. You may have heard of Mercator projections, and others.
+
+We can specify different map projections for the same geometry; geopandas takes care of the 
+transformations from the provided geometry
+
+---
+
+## Map projections
+
+```python
+gdf = gdf.set_geometry('geometry')
+boroughs_4326 = gdf.to_crs('EPSG:4326')
+ax = boroughs_4326.plot()
+ax.set_xlabel('Longitude') #&lt;&lt; Using matplotlib functions
+ax.set_ylabel('Latitude');
+```
+
+
+    
+![:scale 30%](img/output_9_0.png)
+    
+
+
+.footnote[Note that the axes text changed to the traditional longitude and latitude]
+
+
+---
+
+## Map projections
+
+We can see the projection specification as well
+
+
+```python
+boroughs_4326.crs
+```
+
+
+
+
+    &lt;Geographic 2D CRS: EPSG:4326&gt;
+    Name: WGS 84
+    Axis Info [ellipsoidal]:
+    - Lat[north]: Geodetic latitude (degree)
+    - Lon[east]: Geodetic longitude (degree)
+    Area of Use:
+    - name: World.
+    - bounds: (-180.0, -90.0, 180.0, 90.0)
+    Datum: World Geodetic System 1984
+    - Ellipsoid: WGS 84
+    - Prime Meridian: Greenwich
+
+
+
+
+---
+
+## Larger geographies
+
+
+
+```python
+world = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
+cities = geopandas.read_file(geopandas.datasets.get_path('naturalearth_cities'))
+
+world.head()
+```
+
+
+
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;pop_est&lt;/th&gt;
+      &lt;th&gt;continent&lt;/th&gt;
+      &lt;th&gt;name&lt;/th&gt;
+      &lt;th&gt;iso_a3&lt;/th&gt;
+      &lt;th&gt;gdp_md_est&lt;/th&gt;
+      &lt;th&gt;geometry&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;920938&lt;/td&gt;
+      &lt;td&gt;Oceania&lt;/td&gt;
+      &lt;td&gt;Fiji&lt;/td&gt;
+      &lt;td&gt;FJI&lt;/td&gt;
+      &lt;td&gt;8374.0&lt;/td&gt;
+      &lt;td&gt;MULTIPOLYGON (((180.00000 -16.06713, 180.00000...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;53950935&lt;/td&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;Tanzania&lt;/td&gt;
+      &lt;td&gt;TZA&lt;/td&gt;
+      &lt;td&gt;150600.0&lt;/td&gt;
+      &lt;td&gt;POLYGON ((33.90371 -0.95000, 34.07262 -1.05982...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;603253&lt;/td&gt;
+      &lt;td&gt;Africa&lt;/td&gt;
+      &lt;td&gt;W. Sahara&lt;/td&gt;
+      &lt;td&gt;ESH&lt;/td&gt;
+      &lt;td&gt;906.5&lt;/td&gt;
+      &lt;td&gt;POLYGON ((-8.66559 27.65643, -8.66512 27.58948...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;35623680&lt;/td&gt;
+      &lt;td&gt;North America&lt;/td&gt;
+      &lt;td&gt;Canada&lt;/td&gt;
+      &lt;td&gt;CAN&lt;/td&gt;
+      &lt;td&gt;1674000.0&lt;/td&gt;
+      &lt;td&gt;MULTIPOLYGON (((-122.84000 49.00000, -122.9742...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;326625791&lt;/td&gt;
+      &lt;td&gt;North America&lt;/td&gt;
+      &lt;td&gt;United States of America&lt;/td&gt;
+      &lt;td&gt;USA&lt;/td&gt;
+      &lt;td&gt;18560000.0&lt;/td&gt;
+      &lt;td&gt;MULTIPOLYGON (((-122.84000 49.00000, -120.0000...&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+
+
+---
+
+## Larger geographies
+
+```python
+world.plot()
+```
+
+
+    
+![:scale 50%](img/output_15_1.png)
+    
+
+---
+
+```python
+
+fig, ax = plt.subplots()
+world.plot(column='pop_est',
+           ax=ax,
+           legend=True,
+           legend_kwds={'label': "Population by Country",
+                        'orientation': "horizontal"});
+```
+
+
+    
+![:scale 50%](img/output_16_0.png)
+    
+
+
+---
+
+## Layering maps
+
+We will layer ciites on top of the world map. First make sure that the geometry data are using 
+the same CRS (projection)
+
+
+```python
+cities = cities.to_crs(world.crs) #&lt;&lt;
+
+base = world.plot(color = 'white', edgecolor = 'black')
+cities.plot(ax = base, marker = 'o', color = 'red', markersize = 5)
+```
+
+
+    
+![:scale 50%](img/output_18_1.png)
+    
+
+
+---
+
+## Layering maps
+
+You can also use matplotlib methods to layer maps as well
+
+
+```python
+fig,ax = plt.subplots(1,1)
+ax.set_aspect('equal') # makes sure things are on the same aspect
+world.plot(ax=ax, color = 'white', edgecolor = 'black')
+cities.plot(ax = ax, marker = 'o', color = 'red', markersize = 5)
+plt.show()
+```
+
+
+    
+![:scale 50%](img/output_20_0.png)
+    
+
+
+---
+
+## Layering maps
+
+Note that the order in which you put layers will affect the final map, just like in matplotlib or plotly
+
+
+```python
+ax = cities.plot(color = 'black')
+world.plot(ax= ax);
+```
+
+
+    
+![:scale 50%](img/output_22_0.png)
+    
+
+
+---
+
+## Layering maps
+
+We can specify the order even if our code is out of order, with the `zorder` argument
+
+
+```python
+ax = cities.plot(color = 'black', zorder=2)
+world.plot(ax= ax);
+```
+
+
+    
+![:scale 50%](img/output_24_0.png)
+    
+
+
+---
+
+## Creating geographic aggregates
+
+If we have regular data, we can aggregate in pandas using `groupby`. 
+
+Sometimes we need to aggregate the geographies. For example, we might have country data and want
+to show just the continents
+
+The key to this is the `dissolve` function
+
+---
+
+## Creating geographic aggregates
+
+
+```python
+world1 = world[['continent','geometry']]
+continents = world.dissolve(by = 'continent')
+continents.plot(edgecolor = 'white');
+```
+
+
+    
+![:scale 50%](img/output_27_0.png)
+    
+
+
+---
+
+## Creating geographic aggregates
+
+If we also want to aggregate data to the same scale, we can add arguments to the `dissolve` function
+
+
+```python
+world2 = world[['continent','pop_est', 'geometry']]
+continent = world2.dissolve(by = 'continent', aggfunc = 'sum')
+continent.plot(column = 'pop_est', cmap = 'YlOrRd');
+```
+
+
+    
+![:scale 50%](img/output_29_0.png)
+    
+
+
+
+
+
+
+---
+class:middle,center,inverse
+
+# Using plotly for maps
+
+---
+
+## Using plotly with geopandas
+
+geopandas provides a nice way to keep data and geometries together. 
+
+plotly accepts the geometry column in a geopandas GeoDataFrame to draw maps like choropleths
+
+We'll use data provided by plotly on the 2013 Montreal mayoral election
+
+---
+
+## Using plotly with geopandas
+
+
+```python
+import plotly.express as px
+import plotly
+import geopandas as gpd
+from IPython.display import IFrame, display_html
+def show_fig(fig, filename, width="100%", height=500):
+    plotly.offline.plot(fig, filename=filename, auto_open=False, auto_play=False)
+    display_html(IFrame(filename, height=height, width=width))
+
+dat = px.data.election()
+dat.head()
+```
+
+
+
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;district&lt;/th&gt;
+      &lt;th&gt;Coderre&lt;/th&gt;
+      &lt;th&gt;Bergeron&lt;/th&gt;
+      &lt;th&gt;Joly&lt;/th&gt;
+      &lt;th&gt;total&lt;/th&gt;
+      &lt;th&gt;winner&lt;/th&gt;
+      &lt;th&gt;result&lt;/th&gt;
+      &lt;th&gt;district_id&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;101-Bois-de-Liesse&lt;/td&gt;
+      &lt;td&gt;2481&lt;/td&gt;
+      &lt;td&gt;1829&lt;/td&gt;
+      &lt;td&gt;3024&lt;/td&gt;
+      &lt;td&gt;7334&lt;/td&gt;
+      &lt;td&gt;Joly&lt;/td&gt;
+      &lt;td&gt;plurality&lt;/td&gt;
+      &lt;td&gt;101&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;102-Cap-Saint-Jacques&lt;/td&gt;
+      &lt;td&gt;2525&lt;/td&gt;
+      &lt;td&gt;1163&lt;/td&gt;
+      &lt;td&gt;2675&lt;/td&gt;
+      &lt;td&gt;6363&lt;/td&gt;
+      &lt;td&gt;Joly&lt;/td&gt;
+      &lt;td&gt;plurality&lt;/td&gt;
+      &lt;td&gt;102&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;11-Sault-au-Récollet&lt;/td&gt;
+      &lt;td&gt;3348&lt;/td&gt;
+      &lt;td&gt;2770&lt;/td&gt;
+      &lt;td&gt;2532&lt;/td&gt;
+      &lt;td&gt;8650&lt;/td&gt;
+      &lt;td&gt;Coderre&lt;/td&gt;
+      &lt;td&gt;plurality&lt;/td&gt;
+      &lt;td&gt;11&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;111-Mile-End&lt;/td&gt;
+      &lt;td&gt;1734&lt;/td&gt;
+      &lt;td&gt;4782&lt;/td&gt;
+      &lt;td&gt;2514&lt;/td&gt;
+      &lt;td&gt;9030&lt;/td&gt;
+      &lt;td&gt;Bergeron&lt;/td&gt;
+      &lt;td&gt;majority&lt;/td&gt;
+      &lt;td&gt;111&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;112-DeLorimier&lt;/td&gt;
+      &lt;td&gt;1770&lt;/td&gt;
+      &lt;td&gt;5933&lt;/td&gt;
+      &lt;td&gt;3044&lt;/td&gt;
+      &lt;td&gt;10747&lt;/td&gt;
+      &lt;td&gt;Bergeron&lt;/td&gt;
+      &lt;td&gt;majority&lt;/td&gt;
+      &lt;td&gt;112&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+---
+## Using plotly with geopandas
+
+We will grab the geometry data as a GeoJSON object and merge it in
+
+
+```python
+geom = px.data.election_geojson()
+geo_df = gpd.GeoDataFrame.from_features(
+    geom['features']
+).merge(dat, on = 'district').set_index('district')
+geo_df.head()
+```
+
+
+
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;geometry&lt;/th&gt;
+      &lt;th&gt;Coderre&lt;/th&gt;
+      &lt;th&gt;Bergeron&lt;/th&gt;
+      &lt;th&gt;Joly&lt;/th&gt;
+      &lt;th&gt;total&lt;/th&gt;
+      &lt;th&gt;winner&lt;/th&gt;
+      &lt;th&gt;result&lt;/th&gt;
+      &lt;th&gt;district_id&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;district&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;11-Sault-au-Récollet&lt;/th&gt;
+      &lt;td&gt;MULTIPOLYGON (((-73.63632 45.57592, -73.63628 ...&lt;/td&gt;
+      &lt;td&gt;3348&lt;/td&gt;
+      &lt;td&gt;2770&lt;/td&gt;
+      &lt;td&gt;2532&lt;/td&gt;
+      &lt;td&gt;8650&lt;/td&gt;
+      &lt;td&gt;Coderre&lt;/td&gt;
+      &lt;td&gt;plurality&lt;/td&gt;
+      &lt;td&gt;11&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;12-Saint-Sulpice&lt;/th&gt;
+      &lt;td&gt;POLYGON ((-73.62175 45.55448, -73.62350 45.553...&lt;/td&gt;
+      &lt;td&gt;3252&lt;/td&gt;
+      &lt;td&gt;2521&lt;/td&gt;
+      &lt;td&gt;2543&lt;/td&gt;
+      &lt;td&gt;8316&lt;/td&gt;
+      &lt;td&gt;Coderre&lt;/td&gt;
+      &lt;td&gt;plurality&lt;/td&gt;
+      &lt;td&gt;12&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;13-Ahuntsic&lt;/th&gt;
+      &lt;td&gt;POLYGON ((-73.65132 45.55457, -73.65687 45.545...&lt;/td&gt;
+      &lt;td&gt;2979&lt;/td&gt;
+      &lt;td&gt;3430&lt;/td&gt;
+      &lt;td&gt;2873&lt;/td&gt;
+      &lt;td&gt;9282&lt;/td&gt;
+      &lt;td&gt;Bergeron&lt;/td&gt;
+      &lt;td&gt;plurality&lt;/td&gt;
+      &lt;td&gt;13&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;14-Bordeaux-Cartierville&lt;/th&gt;
+      &lt;td&gt;POLYGON ((-73.70430 45.54419, -73.70421 45.543...&lt;/td&gt;
+      &lt;td&gt;3612&lt;/td&gt;
+      &lt;td&gt;1554&lt;/td&gt;
+      &lt;td&gt;2081&lt;/td&gt;
+      &lt;td&gt;7247&lt;/td&gt;
+      &lt;td&gt;Coderre&lt;/td&gt;
+      &lt;td&gt;plurality&lt;/td&gt;
+      &lt;td&gt;14&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;21-Ouest&lt;/th&gt;
+      &lt;td&gt;POLYGON ((-73.55769 45.59322, -73.56942 45.597...&lt;/td&gt;
+      &lt;td&gt;2184&lt;/td&gt;
+      &lt;td&gt;691&lt;/td&gt;
+      &lt;td&gt;1076&lt;/td&gt;
+      &lt;td&gt;3951&lt;/td&gt;
+      &lt;td&gt;Coderre&lt;/td&gt;
+      &lt;td&gt;majority&lt;/td&gt;
+      &lt;td&gt;21&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+
+
+Note that we now have a `geometry` column in our data set
+
+---
+
+## Using plotly with geopandas
+
+.pull-left[
+```python
+fig = px.choropleth(
+    geo_df,
+    geojson = geo_df['geometry'],
+    locations = geo_df.index, #&lt;&lt; we put district 
+      #names in the index of the dataframe
+    color = 'Joly', # Votes that candidate Joly received
+    projection = 'mercator'
+)
+fig.update_geos(fitbounds = 'locations', visible = False)
+show_fig(fig, 'img/plt_nybb1.html')
+```
+]
+.pull-right[
+
+
+&lt;iframe
+    width="100%"
+    height="500"
+    src="img/plt_nybb1.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+]
+
+---
+
+## Using built in geographies in plotly
+
+plotly comes with geometry data on US states and countries from the Natural Earth dataset.
+
+We'll create a choropleth using the gapminder data we've used before.
+
+---
+
+## Using built in geographies in plotly
+
+
+
+```python
+gapm_2007 = px.data.gapminder().query('year == 2007')
+fig = px.choropleth(
+    gapm_2007,
+    color = 'lifeExp',
+    hover_name='country',
+    locations = 'iso_alpha',
+    color_continuous_scale=px.colors.sequential.Plasma 
+)
+show_fig(fig, 'img/plt_lifeexp.html')
+```
+
+
+
+&lt;iframe
+    width="100%"
+    height="400"
+    src="img/plt_lifeexp.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+---
+
+## Logarithmic scales for color
+We can plot colors on the logarithmic scale, but we need to do a bit of customizing on the colorbar
+to ensure that the ticks are shown on the original scale
+
+
+```python
+import numpy as np
+fig = px.choropleth(
+    gapm_2007, color = np.log10(gapm_2007['pop']), hover_name='country',
+    locations = 'iso_alpha', color_continuous_scale=px.colors.sequential.Plasma 
+)
+fig.update_layout(
+    coloraxis_colorbar = dict(title='population',
+    tickvals = [6,7,8,9], ticktext = ['1M','10M','100M','1B'],
+))
+show_fig(fig, 'img/plt_le_log.html')
+```
+
+---
+
+&lt;iframe
+    width="100%"
+    height="500"
+    src="img/plt_le_log.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+---
+
+## Logarithmic scales for color
+We can also update the hover data to reflect the original scales
+
+
+```python
+import numpy as np
+import pandas as pd
+
+gapm_2007['text'] = "Population: "+ pd.Series(np.round(gapm_2007['pop']/1e6,2)).astype(str)+" M"
+
+fig = px.choropleth(
+    gapm_2007, color = np.log10(gapm_2007['pop']), hover_name='country',
+    hover_data = {'pop':':.2s', 'iso_alpha':False},
+    locations = 'iso_alpha', color_continuous_scale=px.colors.sequential.Plasma,
+)
+fig.update_layout(
+    coloraxis_colorbar = dict(title='population',
+    tickvals = [6,7,8,9], ticktext = ['1M','10M','100M','1B'],
+))
+
+show_fig(fig, 'img/plt_le_hover.html')
+```
+
+---
+
+&lt;iframe
+    width="100%"
+    height="500"
+    src="img/plt_le_hover.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+---
+
+## US states using plotly
+
+You have to add the argument `location-mode="USA-states"` to display US states using the default map data
+
+
+
+```python
+import pandas as pd
+df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv')
+df['total exports'] = df['total exports'].astype(float)
+fig = px.choropleth(
+    df,
+    color = 'total exports',
+    hover_name = 'state',
+    locations = 'code',
+    locationmode='USA-states',
+)
+fig.update_layout(
+    title_text = '2011 US Agriculture exports by state',
+    geo_scope = 'usa',
+    coloraxis_colorbar = {'title':'Millions (USD)'}
+)
+show_fig(fig, 'img/plt_ag.html')
+```
+
+---
+
+&lt;iframe
+    width="100%"
+    height="500"
+    src="img/plt_ag.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+---
+
+## Representing data as bubbles
+
+We can represent the life expectancy of each country as bubbles on a map
+
+
+```python
+fig = px.scatter_geo(
+    gapm_2007,
+    locations="iso_alpha", 
+    color="continent",
+    hover_name="country", 
+    size="gdpPercap",
+    projection="natural earth"
+    )
+show_fig(fig, 'img/plt_bubble.html')
+```
+
+
+
+&lt;iframe
+    width="100%"
+    height="400"
+    src="img/plt_bubble.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+---
+class:middle,center,inverse
+
+# Dropping down to plotly graphobjects
+
+---
+
+## plotly graphobjects
+
+plotly has a more granular API that can provide more flexibility in plotting
+
+We'll look at a more complex example with some flight data
+
+---
+
+## Flight paths
+
+
+```python
+import plotly.graph_objects as go
+
+df_airports = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_february_us_airport_traffic.csv')
+df_flight_paths = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_february_aa_flight_paths.csv')
+
+fig = go.Figure()
+fig.add_trace(go.Scattergeo(
+    locationmode = 'USA-states',
+    lon = df_airports['long'], lat = df_airports['lat'],
+    hoverinfo = 'text', text = df_airports['airport'],
+    mode = 'markers',
+    marker = dict(size = 2,color = 'rgb(255, 0, 0)',
+        line = dict(width = 3,color = 'rgba(68, 68, 68, 0)')
+    )))
+plotly.offline.plot(fig, show_link=False, auto_open=False)
+```
+
+
+
+
+    'temp-plot.html'
+
+
+
+---
+
+## plotly graphobjects
+
+Now we put the flight paths on the map
+
+
+```python
+flight_paths = []
+for i in range(len(df_flight_paths)):
+    fig.add_trace(
+        go.Scattergeo(
+            locationmode = 'USA-states',
+            lon = [df_flight_paths['start_lon'][i], df_flight_paths['end_lon'][i]],
+            lat = [df_flight_paths['start_lat'][i], df_flight_paths['end_lat'][i]],
+            mode = 'lines',
+            line = dict(width = 1,color = 'red'),
+            opacity = float(df_flight_paths['cnt'][i]) / float(df_flight_paths['cnt'].max()),
+        )
+    )
+    fig.update_layout(
+    title_text = 'Feb. 2011 American Airline flight paths&lt;br&gt;(Hover for airport names)',
+    showlegend = False,
+    geo = dict(
+        scope = 'north america', projection_type = 'azimuthal equal area',
+        showland = True, landcolor = 'rgb(243, 243, 243)',
+        countrycolor = 'rgb(204, 204, 204)',
+    ),
+)
+```
+
+---
+
+## plotly graphobjects
+
+The final product
+
+
+```python
+show_fig(fig, 'img/plt_flights.html')
+```
+
+
+
+&lt;iframe
+    width="100%"
+    height="500"
+    src="img/plt_flights.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+
+```python
+
+```
+
+
+
+
+---
+class:middle,center,inverse
+
+# Folium
+
+
+---
+
+## Folium
+
+Folium is a Python program that allows the creation of geographic maps using 
+leaflet.js, the same javascript package behind R's _leaflet_ package
+
+---
+
+## Folium
+
+We'll first start by making a map and adding a marker to it, based on position
+
+
+```python
+import folium
+
+m = folium.Map(location = [39.001757066565695, -77.10466742137453], zoom_start = 14) # NIH
+
+folium.Marker([39.001757066565695, -77.10466742137453], 
+    popup = "&lt;b&gt;NIH Main Campus&lt;/b&gt;", 
+    tooltip='Click Me!').add_to(m)
+
+m.save('img/nih_map1.html')
+display_html(IFrame('img/nih_map1.html', width='100%', height=450))
+```
+
+---
+
+&lt;iframe
+    width="100%"
+    height="450"
+    src="img/nih_map1.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+---
+
+## Folium
+
+We can also add circles to a map to show a region
+
+
+```python
+m = folium.Map(location = [39.001757066565695, -77.10466742137453], zoom_start = 11) # NIH
+folium.Circle(radius = 1000, # in meters
+     location = [39.001757066565695, -77.10466742137453], # center
+     tooltip = 'NIH Campus',
+     fill = True,
+     fill_color = 'blue',
+     color = 'blue').add_to(m)
+m.save('img/folium_circle.html')
+display_html(IFrame('img/folium_circle.html', width="100%", height=450))
+```
+
+---
+
+&lt;iframe
+    width="100%"
+    height="450"
+    src="img/folium_circle.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+---
+
+## Folium: Choropleths
+
+We can also create choropleth maps using Folium. 
+
+- Link geographic data (GeoJSON/TopoJSON formats) with pandas DataFrame
+- These data are merged internally
+    - specify key in geography data in JSON variable format
+    - the first column of the pandas DataFrame is assumed to be the key to merge with. This cannot be
+      specified
+
+---
+
+```python
+
+import pandas as pd
+
+url = (
+    "https://raw.githubusercontent.com/python-visualization/folium/master/examples/data"
+)
+state_geo = f"{url}/us-states.json"
+state_unemployment = f"{url}/US_Unemployment_Oct2012.csv"
+state_data = pd.read_csv(state_unemployment)
+
+bins = list(state_data["Unemployment"]
+    .quantile([0, 0.25, 0.5, 0.75, 1])) #&lt;&lt; Bins for different colors
+
+m = folium.Map(location=[48, -102], zoom_start=3)
+
+folium.Choropleth(
+    geo_data=state_geo,
+    name="choropleth",
+    data=state_data,
+    columns=["State", "Unemployment"], #&lt;&lt; first column is merging key
+    key_on="feature.id", #&lt;&lt; key in geography data
+    fill_color="YlGn",
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name="Unemployment Rate (%)",
+    bins = bins, #&lt;&lt;
+).add_to(m)
+
+folium.LayerControl().add_to(m)
+
+m.save('img/unemployment.html')
+display_html(IFrame('img/unemployment.html', width="100%", height=450))
+```
+
+---
+
+&lt;iframe
+    width="100%"
+    height="450"
+    src="img/unemployment.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+
+---
+
+## Folium with geopandas
+
+We can also use folium with geopandas.com
+
+Here we will use the gapminder dataset and draw a choropleth of life expectancy around the world in 2007
+
+
+
+---
+
+## Folium with geopandas
+
+
+```python
+import plotly.express as px
+import folium
+import geopandas as gpd
+
+gapm_2007 = px.data.gapminder().query('year == 2007')
+world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+
+# Replace United States of America to United States to fit the naming in the table
+world = world.replace('United States of America', 'United States')
+
+tab = world.merge(gapm_2007, how="left", left_on=['name'], right_on=['country'])
+tab = tab.dropna(subset = ['lifeExp'])
+
+m = folium.Map()
+folium.Choropleth(
+    geo_data=tab,
+    name='choropleth',
+    data=tab,
+    columns=['country', 'lifeExp'],
+    key_on='feature.properties.name',
+    fill_color='YlGn',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='Life expectancy in 2007',
+).add_to(m)
+m.save('img/folium_lifeexp.html')
+display_html(IFrame('img/folium_lifeexp.html', width='100%', height=450))
+```
+
+---
+
+&lt;iframe
+    width="100%"
+    height="450"
+    src="img/folium_lifeexp.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+
+---
+
+## Folium with geopandas
+
+We'll add some interactivity by adding a layer to the map using folium's GeoJSON capabilities
+
+
+```python
+style_function = lambda x: {'fillColor': '#ffffff', 
+                            'color':'#000000', 
+                            'fillOpacity': 0.1, 
+                            'weight': 0.1}
+highlight_function = lambda x: {'fillColor': '#000000', 
+                                'color':'#000000', 
+                                'fillOpacity': 0.50, 
+                                'weight': 0.1}
+
+le = folium.features.GeoJson(
+    tab,
+    style_function=style_function, 
+    control=False,
+    highlight_function=highlight_function, 
+    tooltip=folium.features.GeoJsonTooltip(
+        fields=['name','lifeExp','pop'],
+        aliases=['Country','Life expectancy: ','Population: '],
+     )
+)
+m.add_child(le)
+m.keep_in_front(le)
+folium.LayerControl().add_to(m)
+m.save('img/folium_lifeexp2.html')
+```
+
+---
+
+## Folium with geopandas
+
+
+```python
+display_html(IFrame('img/folium_lifeexp2.html', width='100%', height=450))
+```
+
+
+
+&lt;iframe
+    width="100%"
+    height="450"
+    src="img/folium_lifeexp2.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../js/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLanguage": "r",
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

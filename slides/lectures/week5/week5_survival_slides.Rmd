@@ -1,4 +1,9 @@
+---
+class:middle,center,inverse
+
 # Survival plots in Python
+
+---
 
 ## Survival data
 
@@ -9,16 +14,19 @@ We follow subjects over time, and stop either when an event, like death, occurs,
 So the response we record are 
 
 1. The time to event or censoring, whichever is earlier
-1. Whether we obseverd the event (1) or the subject was censored (0)
+1. Whether we observed the event (1) or the subject was censored (0)
 
 For survival data, we need to install the _lifelines_ and _kaplanmeier_ packages
 
 > You can open the Anaconda console (Win) or a terminal (Mac) and type the following code
-> ```
-> conda activate biof440
-> conda install -c conda-forge lifelines
-> pip install kaplanmeier
->```
+
+```
+conda activate biof440
+conda install -c conda-forge lifelines
+pip install kaplanmeier
+```
+
+---
 
 ## The Python setup
 
@@ -34,6 +42,8 @@ imgdir = 'img'
 
 from IPython.display import IFrame
 ```
+
+---
 
 ## Visualizing survival data
 
@@ -51,13 +61,13 @@ labx = df['group'] # a grouping variable
 ```
 
 
+---
+
 ## Visualizing survival data
 
 We can plot the subjects' over time, indicating who died (red) and who were censored (blue)
 
 The _lifelines_ package in Python provides most tools for looking at survival data
-
-
 
 ```python
 ax = lfl.plotting.plot_lifetimes(time_event, censoring,
@@ -67,37 +77,31 @@ ax.set_xlabel('Time')
 ax.vlines(1000, 0,200,linestyles='--');
 plt.show()
 ```
-
-    /Users/abhijit/opt/anaconda3/envs/biof440/lib/python3.8/site-packages/lifelines/plotting.py:702: UserWarning: For less visual clutter, you may want to subsample to less than 25 individuals.
-      warnings.warn("For less visual clutter, you may want to subsample to less than 25 individuals.")
-
-
-
     
-![png](week5_test_files/week5_test_5_1.png)
+![:scale 40%](week5_test_files/week5_test_5_1.png)
     
 
 
+---
+## Survival data
 
-```python
+You could look at survival summaries based on this plot, to see how many people died by a certain time
 
-# ## Survival data
-# 
-# You could look at survival summaries based on this plot, to see how many people died by a certain time
-#
-# However, to look overall at the survival pattern for this group, we have to account for censoring
-#
-# The standard way of doing this is using a Kaplan-Meier curve
-#
-# ## Kaplan Meier curve in Python
-#
-# We can compute and plot the Kaplan Meier curve using either the _kaplanmeier_ package or the _lifelines_ package.
-#
-# ## Kaplan-Meier curve using _kaplanmeier_
-#
-# This plot includes a table that tells you how many subjects are at risk, how many are dead,
-# and how many are censored at a select set of time points
-```
+However, to look overall at the survival pattern for this group, we have to account for censoring
+
+The standard way of doing this is using a Kaplan-Meier curve
+
+---
+
+## Kaplan Meier curve in Python
+
+We can compute and plot the Kaplan Meier curve using either the _kaplanmeier_ package or the _lifelines_ package.
+
+---
+
+## Kaplan-Meier curve using _kaplanmeier_
+
+This plot includes a table that tells you how many subjects are at risk, how many are dead,
 
 
 ```python
@@ -107,11 +111,11 @@ km.plot(out)
 
 
     
-![png](week5_test_files/week5_test_7_0.png)
+![:scale 40%](week5_test_files/week5_test_7_0.png)
     
 
-
-# Kaplan-Meier curve using _lifelines_
+---
+## Kaplan-Meier curve using _lifelines_
 
 We can have greater control over the KM curve using the _lifelines_ package. This package follows the 
 coding style of packages like _scikit-learn_ in that we first start a fitting object, then we 
@@ -119,7 +123,7 @@ fit the model to the data and then plot it
 
 This plotting uses a matplotlib backend
 
-
+.pull-left[
 ```python
 
 from lifelines import KaplanMeierFitter 
@@ -131,18 +135,19 @@ kmf.plot(at_risk_counts=False) # No table at first
 plt.title('Kaplan-Meier Curve')
 plt.show();
 ```
-
-
+]
+.pull-right[
+![](week5_test_files/week5_test_9_0.png)
     
-![png](week5_test_files/week5_test_9_0.png)
-    
+]
 
+---
 
-# Kaplan-Meier curve using _lifelines_
+## Kaplan-Meier curve using _lifelines_
 
 We can clean this curve up a bit.
 
-
+.pull-left[
 ```python
 ax = kmf.plot()
 ax.set_xlabel('days')
@@ -151,13 +156,15 @@ ax.get_legend().remove()
 ax.set_title('Kaplan-Meier estimates')
 plt.show();
 ```
-
-
+]
+.pull-right[
     
-![png](week5_test_files/week5_test_11_0.png)
+![](week5_test_files/week5_test_11_0.png)
     
+]
 
 
+---
 
 ## Kaplan-Meier curve using _lifelines
 
@@ -174,16 +181,18 @@ plt.show();
 
 
     
-![png](week5_test_files/week5_test_13_0.png)
+![:scale 50%](week5_test_files/week5_test_13_0.png)
     
 
 
+
+---
 
 ## Kaplan-Meier curve using _lifelines
 
 We can also add the table of deaths below the curve, even in grouped data
 
-
+.pull-left[
 ```python
 from lifelines.plotting import add_at_risk_counts
 
@@ -199,19 +208,23 @@ kmf1.fit(T1, C1,label='Group 1',)
 kmf2 = KaplanMeierFitter()
 kmf2.fit(T2, C2,label = 'Group 2',)
 
-ax = kmf1.plot_survival_function(ax = ax,  ci_show=False)
+ax = kmf1.plot_survival_function(ax = ax,  
+  ci_show=False)
 ax = kmf2.plot_survival_function(ax = ax, 
-    label = 'Group 2', ci_show=False)
+  label = 'Group 2', ci_show=False)
 add_at_risk_counts(kmf1, kmf2, ax=ax)
 
 plt.tight_layout();
 ```
-
+]
+.pull-right[
 
     
-![png](week5_test_files/week5_test_15_0.png)
+![](week5_test_files/week5_test_15_0.png)
     
+]
 
+---
 
 ## Kaplan-Meier curve using _lifelines_
 
@@ -219,7 +232,7 @@ We can also format the axes to show percentages rather than proportions.
 
 We'll demo this with a single KM curve
 
-
+.pull-left[
 ```python
 import matplotlib.ticker as mtick
 
@@ -237,9 +250,11 @@ ax.set_ylabel('Percent survived');
 
 plt.tight_layout();
 ```
-
+]
+.pull-right[
 
     
-![png](week5_test_files/week5_test_17_0.png)
+![](week5_test_files/week5_test_17_0.png)
+]
     
 
