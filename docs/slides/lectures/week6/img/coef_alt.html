@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.8.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": "point", "encoding": {"x": {"type": "quantitative", "field": "coef"}, "y": {"type": "nominal", "field": "variables"}}}, {"mark": "errorbar", "encoding": {"color": {"condition": {"value": "red", "test": "(datum['P>|t|'] < 0.05)"}, "value": "blue"}, "x": {"type": "quantitative", "field": "lcb"}, "x2": {"field": "ucb"}, "y": {"type": "nominal", "field": "variables"}}}, {"data": {"name": "data-75e2f3a6d5a3b7fa0f66510dd6a01f4b"}, "mark": {"type": "rule", "color": "green", "strokeDash": [5, 5]}, "encoding": {"x": {"type": "quantitative", "field": "threshold"}}}], "data": {"name": "data-84f45128a92ec6c4fd3519f7469b1b2d"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-84f45128a92ec6c4fd3519f7469b1b2d": [{"variables": "driveway[T.yes]", "coef": 6687.7789, "std err": 2045.246, "t": 3.27, "P>|t|": 0.001, "lcb": 2670.065, "ucb": 10700.0, "indic": "red"}, {"variables": "recreation[T.yes]", "coef": 4511.2838, "std err": 1899.958, "t": 2.374, "P>|t|": 0.018, "lcb": 778.976, "ucb": 8243.592, "indic": "red"}, {"variables": "fullbase[T.yes]", "coef": 5452.3855, "std err": 1588.024, "t": 3.433, "P>|t|": 0.001, "lcb": 2332.845, "ucb": 8571.926, "indic": "red"}, {"variables": "gasheat[T.yes]", "coef": 12830.0, "std err": 3217.597, "t": 3.988, "P>|t|": 0.0, "lcb": 6510.706, "ucb": 19200.0, "indic": "red"}, {"variables": "aircon[T.yes]", "coef": 12630.0, "std err": 1555.021, "t": 8.124, "P>|t|": 0.0, "lcb": 9578.182, "ucb": 15700.0, "indic": "red"}, {"variables": "prefer[T.yes]", "coef": 9369.5132, "std err": 1669.091, "t": 5.614, "P>|t|": 0.0, "lcb": 6090.724, "ucb": 12600.0, "indic": "red"}, {"variables": "lotsize1", "coef": 354.6303, "std err": 35.03, "t": 10.124, "P>|t|": 0.0, "lcb": 285.817, "ucb": 423.444, "indic": "red"}, {"variables": "bedrooms", "coef": 1832.0035, "std err": 1047.0, "t": 1.75, "P>|t|": 0.081, "lcb": -224.741, "ucb": 3888.748, "indic": "blue"}, {"variables": "bathrooms", "coef": 14340.0, "std err": 1489.921, "t": 9.622, "P>|t|": 0.0, "lcb": 11400.0, "ucb": 17300.0, "indic": "red"}, {"variables": "stories", "coef": 6556.9457, "std err": 925.29, "t": 7.086, "P>|t|": 0.0, "lcb": 4739.291, "ucb": 8374.6, "indic": "red"}, {"variables": "garage", "coef": 4244.829, "std err": 840.544, "t": 5.05, "P>|t|": 0.0, "lcb": 2593.65, "ucb": 5896.008, "indic": "red"}], "data-75e2f3a6d5a3b7fa0f66510dd6a01f4b": [{"threshold": 0}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

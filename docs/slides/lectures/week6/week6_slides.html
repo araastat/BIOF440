@@ -1,0 +1,2496 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Analytic visualizations</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Abhijit Dasgupta" />
+    <script src="week6_slides_files/header-attrs-2.6/header-attrs.js"></script>
+    <link href="week6_slides_files/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="week6_slides_files/panelset-0.2.3.9000/panelset.css" rel="stylesheet" />
+    <script src="week6_slides_files/panelset-0.2.3.9000/panelset.js"></script>
+    <link href="week6_slides_files/xaringanExtra-extra-styles-0.2.3.9000/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="../css/sfah.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Analytic visualizations
+## BIOF 440
+### Abhijit Dasgupta
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Visual display of analytic data 
+
+Often times analytic results are better displayed visually to provide a digestible summary of results.
+
+We'll go through some examples to show how this can be done
+
+---
+
+## Setup
+
+In this section we will use two very common analytic packages in Python, viz., `statsmodels` and `scikit-learn` to develop some examples from 
+which visualizations will be created. We will not go through how to develop models for data science using these packages here. BIOF309 provides an introduction to Python and these packages
+
+
+
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly
+import plotly.express as px
+import altair as alt
+
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+import sklearn as sk
+
+from IPython.display import IFrame, display_html
+def show_fig(fig, filename, width="100%", height=500):
+    plotly.offline.plot(fig, filename=filename, auto_open=False, auto_play=False)
+    display_html(IFrame(filename, height=height, width=width))
+
+def show_fig2(filename, width="100%", height=500):
+    display_html(IFrame(filename, width=width, height=height))
+```
+
+---
+
+## Simple linear regression
+
+We'll start with an linear regression (OLS) using the mpg dataset. We first load the data into Python
+
+
+```python
+tips = sns.load_dataset('tips')
+tips.head()
+```
+
+
+
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;total_bill&lt;/th&gt;
+      &lt;th&gt;tip&lt;/th&gt;
+      &lt;th&gt;sex&lt;/th&gt;
+      &lt;th&gt;smoker&lt;/th&gt;
+      &lt;th&gt;day&lt;/th&gt;
+      &lt;th&gt;time&lt;/th&gt;
+      &lt;th&gt;size&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;16.99&lt;/td&gt;
+      &lt;td&gt;1.01&lt;/td&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Sun&lt;/td&gt;
+      &lt;td&gt;Dinner&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;10.34&lt;/td&gt;
+      &lt;td&gt;1.66&lt;/td&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Sun&lt;/td&gt;
+      &lt;td&gt;Dinner&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;21.01&lt;/td&gt;
+      &lt;td&gt;3.50&lt;/td&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Sun&lt;/td&gt;
+      &lt;td&gt;Dinner&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;23.68&lt;/td&gt;
+      &lt;td&gt;3.31&lt;/td&gt;
+      &lt;td&gt;Male&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Sun&lt;/td&gt;
+      &lt;td&gt;Dinner&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;24.59&lt;/td&gt;
+      &lt;td&gt;3.61&lt;/td&gt;
+      &lt;td&gt;Female&lt;/td&gt;
+      &lt;td&gt;No&lt;/td&gt;
+      &lt;td&gt;Sun&lt;/td&gt;
+      &lt;td&gt;Dinner&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+
+
+---
+
+## Simple linear regression
+
+We'll fit a simple linear model using the _formula interface_ available in **statsmodels**
+
+
+```python
+model = smf.ols(formula= 'tip ~ total_bill', data=tips)
+results = model.fit()
+print(results.summary2())
+```
+
+                     Results: Ordinary least squares
+    =================================================================
+    Model:              OLS              Adj. R-squared:     0.454   
+    Dependent Variable: tip              AIC:                705.0762
+    Date:               2021-04-26 15:43 BIC:                712.0705
+    No. Observations:   244              Log-Likelihood:     -350.54 
+    Df Model:           1                F-statistic:        203.4   
+    Df Residuals:       242              Prob (F-statistic): 6.69e-34
+    R-squared:          0.457            Scale:              1.0446  
+    -------------------------------------------------------------------
+                 Coef.    Std.Err.      t      P&gt;|t|    [0.025   0.975]
+    -------------------------------------------------------------------
+    Intercept    0.9203     0.1597    5.7612   0.0000   0.6056   1.2349
+    total_bill   0.1050     0.0074   14.2604   0.0000   0.0905   0.1195
+    -----------------------------------------------------------------
+    Omnibus:              20.185       Durbin-Watson:          2.151 
+    Prob(Omnibus):        0.000        Jarque-Bera (JB):       37.750
+    Skew:                 0.443        Prob(JB):               0.000 
+    Kurtosis:             4.711        Condition No.:          53    
+    =================================================================
+    
+
+
+---
+
+## Simple linear regression
+
+We can extract model information from the model into a _DataFrame_
+
+
+
+```python
+t1 = results.summary().tables[1]
+```
+
+
+```python
+bl = t1.as_html()
+d = pd.read_html(bl, header=0, index_col=0)[0]
+```
+
+
+```python
+d.reset_index().rename(columns={'index':'variables'})
+```
+
+
+
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;variables&lt;/th&gt;
+      &lt;th&gt;coef&lt;/th&gt;
+      &lt;th&gt;std err&lt;/th&gt;
+      &lt;th&gt;t&lt;/th&gt;
+      &lt;th&gt;P&amp;gt;|t|&lt;/th&gt;
+      &lt;th&gt;[0.025&lt;/th&gt;
+      &lt;th&gt;0.975]&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Intercept&lt;/td&gt;
+      &lt;td&gt;0.9203&lt;/td&gt;
+      &lt;td&gt;0.160&lt;/td&gt;
+      &lt;td&gt;5.761&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.606&lt;/td&gt;
+      &lt;td&gt;1.235&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;total_bill&lt;/td&gt;
+      &lt;td&gt;0.1050&lt;/td&gt;
+      &lt;td&gt;0.007&lt;/td&gt;
+      &lt;td&gt;14.260&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.091&lt;/td&gt;
+      &lt;td&gt;0.120&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+
+
+---
+
+## Multiple linear regression
+
+We'll expand the regression model to include multipe predictors, where some are categorical and some are continuous. 
+
+We'll use a data set of housing prices in Windsor, Canada in 1987
+
+
+```python
+housing = sm.datasets.get_rdataset('HousePrices','AER').data # Housing prices in Windsor, Canada in summer, 1987
+housing.head()
+```
+
+
+
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;price&lt;/th&gt;
+      &lt;th&gt;lotsize&lt;/th&gt;
+      &lt;th&gt;bedrooms&lt;/th&gt;
+      &lt;th&gt;bathrooms&lt;/th&gt;
+      &lt;th&gt;stories&lt;/th&gt;
+      &lt;th&gt;driveway&lt;/th&gt;
+      &lt;th&gt;recreation&lt;/th&gt;
+      &lt;th&gt;fullbase&lt;/th&gt;
+      &lt;th&gt;gasheat&lt;/th&gt;
+      &lt;th&gt;aircon&lt;/th&gt;
+      &lt;th&gt;garage&lt;/th&gt;
+      &lt;th&gt;prefer&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;42000.0&lt;/td&gt;
+      &lt;td&gt;5850&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;38500.0&lt;/td&gt;
+      &lt;td&gt;4000&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;49500.0&lt;/td&gt;
+      &lt;td&gt;3060&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;60500.0&lt;/td&gt;
+      &lt;td&gt;6650&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;61000.0&lt;/td&gt;
+      &lt;td&gt;6360&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+
+
+---
+
+## Multiple linear regression
+
+
+```python
+housing['lotsize1'] = housing.lotsize/100 # Coefficient will now be change in price per 100 sq.ft. change in lot size
+model = smf.ols('price ~ lotsize1 + bedrooms + bathrooms + stories + driveway + recreation + fullbase + gasheat + aircon + garage + prefer', data = housing).fit()
+print(model.summary())
+```
+
+                                OLS Regression Results                            
+    ==============================================================================
+    Dep. Variable:                  price   R-squared:                       0.673
+    Model:                            OLS   Adj. R-squared:                  0.666
+    Method:                 Least Squares   F-statistic:                     99.97
+    Date:                Tue, 27 Apr 2021   Prob (F-statistic):          6.18e-122
+    Time:                        13:18:07   Log-Likelihood:                -6034.1
+    No. Observations:                 546   AIC:                         1.209e+04
+    Df Residuals:                     534   BIC:                         1.214e+04
+    Df Model:                          11                                         
+    Covariance Type:            nonrobust                                         
+    =====================================================================================
+                            coef    std err          t      P&gt;|t|      [0.025      0.975]
+    -------------------------------------------------------------------------------------
+    Intercept         -4038.3504   3409.471     -1.184      0.237   -1.07e+04    2659.271
+    driveway[T.yes]    6687.7789   2045.246      3.270      0.001    2670.065    1.07e+04
+    recreation[T.yes]  4511.2838   1899.958      2.374      0.018     778.976    8243.592
+    fullbase[T.yes]    5452.3855   1588.024      3.433      0.001    2332.845    8571.926
+    gasheat[T.yes]     1.283e+04   3217.597      3.988      0.000    6510.706    1.92e+04
+    aircon[T.yes]      1.263e+04   1555.021      8.124      0.000    9578.182    1.57e+04
+    prefer[T.yes]      9369.5132   1669.091      5.614      0.000    6090.724    1.26e+04
+    lotsize1            354.6303     35.030     10.124      0.000     285.817     423.444
+    bedrooms           1832.0035   1047.000      1.750      0.081    -224.741    3888.748
+    bathrooms          1.434e+04   1489.921      9.622      0.000    1.14e+04    1.73e+04
+    stories            6556.9457    925.290      7.086      0.000    4739.291    8374.600
+    garage             4244.8290    840.544      5.050      0.000    2593.650    5896.008
+    ==============================================================================
+    Omnibus:                       93.454   Durbin-Watson:                   1.604
+    Prob(Omnibus):                  0.000   Jarque-Bera (JB):              247.620
+    Skew:                           0.853   Prob(JB):                     1.70e-54
+    Kurtosis:                       5.824   Cond. No.                         308.
+    ==============================================================================
+    
+    Notes:
+    [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+---
+
+## Multiple linear regression
+
+We can look at the distribution of the outcome (_price_) to see if it's close to the Gaussian distribution
+
+
+```python
+sns.displot(data=housing, x = 'price');
+```
+
+
+    
+![svg](week6_analytic_results_files/week6_analytic_results_15_0.svg)
+    
+
+
+---
+
+## Multiple linear regression
+
+We will extract some results of the model into a _DataFrame_, which will help us visualize the model fit.
+
+
+```python
+D = pd.DataFrame({
+    'fitted': model.fittedvalues,
+    'actual' : housing['price'],
+    'resid': model.resid
+})
+fig, ax=plt.subplots(figsize=(4,3))
+sns.regplot(data=D, x = 'actual',y='fitted', lowess=True, ax=ax, line_kws={'color':'red'});
+sm.graphics.abline_plot(0,1, ax=ax, color='green');
+```
+
+
+    
+![svg](week6_analytic_results_files/week6_analytic_results_17_0.svg)
+    
+
+
+We see that the predicted values don't match the actual values well (red line), especially for higher prices
+
+---
+
+## Multiple linear regression
+
+We can also look at a residual plot, i.e., the relationship between residuals and fitted values. We expect, for a well-fit model, there to be no relationship between the two
+
+
+```python
+fig,ax = plt.subplots(figsize=(4,3))
+sns.regplot(data=D, x = 'fitted', y = 'resid', lowess=True, ax=ax, line_kws={'color':'red'}, scatter_kws={'alpha': 0.6});
+sm.graphics.abline_plot(0,0, ax=ax, color='red', linestyle='--');
+```
+
+
+    
+![svg](week6_analytic_results_files/week6_analytic_results_19_0.svg)
+    
+
+
+It looks like there is a bit of curvature (red solid line) compared to what we would have expected (red dashed line)
+
+---
+
+## Multiple linear regression
+
+We can extract the parameter estimates and display them in a figure for better understanding
+
+
+```python
+tmp = model.summary().tables[1].as_html()
+coefs = pd.read_html(tmp, index_col=0, header=0)[0].reset_index().rename(columns={'index':'variables'}).query('variables != "Intercept"')
+coefs
+
+```
+
+
+
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;variables&lt;/th&gt;
+      &lt;th&gt;coef&lt;/th&gt;
+      &lt;th&gt;std err&lt;/th&gt;
+      &lt;th&gt;t&lt;/th&gt;
+      &lt;th&gt;P&amp;gt;|t|&lt;/th&gt;
+      &lt;th&gt;[0.025&lt;/th&gt;
+      &lt;th&gt;0.975]&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;driveway[T.yes]&lt;/td&gt;
+      &lt;td&gt;6687.7789&lt;/td&gt;
+      &lt;td&gt;2045.246&lt;/td&gt;
+      &lt;td&gt;3.270&lt;/td&gt;
+      &lt;td&gt;0.001&lt;/td&gt;
+      &lt;td&gt;2670.065&lt;/td&gt;
+      &lt;td&gt;10700.000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;recreation[T.yes]&lt;/td&gt;
+      &lt;td&gt;4511.2838&lt;/td&gt;
+      &lt;td&gt;1899.958&lt;/td&gt;
+      &lt;td&gt;2.374&lt;/td&gt;
+      &lt;td&gt;0.018&lt;/td&gt;
+      &lt;td&gt;778.976&lt;/td&gt;
+      &lt;td&gt;8243.592&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;fullbase[T.yes]&lt;/td&gt;
+      &lt;td&gt;5452.3855&lt;/td&gt;
+      &lt;td&gt;1588.024&lt;/td&gt;
+      &lt;td&gt;3.433&lt;/td&gt;
+      &lt;td&gt;0.001&lt;/td&gt;
+      &lt;td&gt;2332.845&lt;/td&gt;
+      &lt;td&gt;8571.926&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;gasheat[T.yes]&lt;/td&gt;
+      &lt;td&gt;12830.0000&lt;/td&gt;
+      &lt;td&gt;3217.597&lt;/td&gt;
+      &lt;td&gt;3.988&lt;/td&gt;
+      &lt;td&gt;0.000&lt;/td&gt;
+      &lt;td&gt;6510.706&lt;/td&gt;
+      &lt;td&gt;19200.000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5&lt;/th&gt;
+      &lt;td&gt;aircon[T.yes]&lt;/td&gt;
+      &lt;td&gt;12630.0000&lt;/td&gt;
+      &lt;td&gt;1555.021&lt;/td&gt;
+      &lt;td&gt;8.124&lt;/td&gt;
+      &lt;td&gt;0.000&lt;/td&gt;
+      &lt;td&gt;9578.182&lt;/td&gt;
+      &lt;td&gt;15700.000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6&lt;/th&gt;
+      &lt;td&gt;prefer[T.yes]&lt;/td&gt;
+      &lt;td&gt;9369.5132&lt;/td&gt;
+      &lt;td&gt;1669.091&lt;/td&gt;
+      &lt;td&gt;5.614&lt;/td&gt;
+      &lt;td&gt;0.000&lt;/td&gt;
+      &lt;td&gt;6090.724&lt;/td&gt;
+      &lt;td&gt;12600.000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;7&lt;/th&gt;
+      &lt;td&gt;lotsize1&lt;/td&gt;
+      &lt;td&gt;354.6303&lt;/td&gt;
+      &lt;td&gt;35.030&lt;/td&gt;
+      &lt;td&gt;10.124&lt;/td&gt;
+      &lt;td&gt;0.000&lt;/td&gt;
+      &lt;td&gt;285.817&lt;/td&gt;
+      &lt;td&gt;423.444&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;8&lt;/th&gt;
+      &lt;td&gt;bedrooms&lt;/td&gt;
+      &lt;td&gt;1832.0035&lt;/td&gt;
+      &lt;td&gt;1047.000&lt;/td&gt;
+      &lt;td&gt;1.750&lt;/td&gt;
+      &lt;td&gt;0.081&lt;/td&gt;
+      &lt;td&gt;-224.741&lt;/td&gt;
+      &lt;td&gt;3888.748&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;9&lt;/th&gt;
+      &lt;td&gt;bathrooms&lt;/td&gt;
+      &lt;td&gt;14340.0000&lt;/td&gt;
+      &lt;td&gt;1489.921&lt;/td&gt;
+      &lt;td&gt;9.622&lt;/td&gt;
+      &lt;td&gt;0.000&lt;/td&gt;
+      &lt;td&gt;11400.000&lt;/td&gt;
+      &lt;td&gt;17300.000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;10&lt;/th&gt;
+      &lt;td&gt;stories&lt;/td&gt;
+      &lt;td&gt;6556.9457&lt;/td&gt;
+      &lt;td&gt;925.290&lt;/td&gt;
+      &lt;td&gt;7.086&lt;/td&gt;
+      &lt;td&gt;0.000&lt;/td&gt;
+      &lt;td&gt;4739.291&lt;/td&gt;
+      &lt;td&gt;8374.600&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;11&lt;/th&gt;
+      &lt;td&gt;garage&lt;/td&gt;
+      &lt;td&gt;4244.8290&lt;/td&gt;
+      &lt;td&gt;840.544&lt;/td&gt;
+      &lt;td&gt;5.050&lt;/td&gt;
+      &lt;td&gt;0.000&lt;/td&gt;
+      &lt;td&gt;2593.650&lt;/td&gt;
+      &lt;td&gt;5896.008&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+
+
+---
+
+## Multiple linear regression
+
+For each predictor we're plotting the point estimate and confidence interval, with color determining statistical significance at 5% significance level (red)
+
+.pull-left[
+```python
+coefs['indic'] = np.where(coefs['P&gt;|t|'] &lt;= 0.05, 
+  'red','blue') # Find which predictors are "significant"
+fig, ax = plt.subplots()
+sns.scatterplot(data=coefs, x = 'coef', y = 'variables', 
+  palette = ['red','blue'],
+  hue = 'indic',ax=ax, legend=None);
+ax.hlines(y = coefs.variables, xmin = coefs['[0.025'], 
+  xmax = coefs['0.975]'], colors=coefs.indic);
+ax.set_ylabel('predictors'); 
+ax.set_xlabel('Change in price for unit change in predictor')
+ax.axvline(0, linestyle=':', color = 'green');
+```
+]
+.pull-right[
+
+    
+![svg](week6_analytic_results_files/week6_analytic_results_23_0.svg)
+    
+]
+
+---
+
+## Multiple linear regression
+
+We can also look at how well the residuals follow a theoretical Gaussian distribution using a Q-Q plot. For this, we will use functions from the **scipy** package
+
+
+```python
+import statsmodels
+from sklearn import preprocessing
+statsmodels.graphics.gofplots.qqplot(preprocessing.scale(D['resid']), line = '45');
+```
+
+
+
+.pull-left[
+    
+![svg](week6_analytic_results_files/week6_analytic_results_25_1.svg)
+]
+.pull-right[
+
+We see that there is quite a bit of deviation from the Gaussian distribution on the right (high) side of the distribution, but it's pretty good otherwise
+]
+
+---
+
+## Variable importance plots
+
+Variable importance plots are often used in machine learning to see the degree to which a predictor is truly predictive. It does this by comparing model performance of the model to one where the variable is replaced by a random permutation of that variable's data. 
+
+We will use a random forest model on the housing data to demonstrate this
+
+
+```python
+y = housing.pop('price').values
+X = pd.get_dummies(housing) # This creates numeric dummy variables for each level of each categorical variable
+```
+
+
+```python
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.inspection import permutation_importance
+from sklearn.model_selection import train_test_split
+import shap
+```
+
+
+```python
+X_train,X_test,  y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=12 )
+rf = RandomForestRegressor(n_estimators=500)
+rf.fit(X_train, y_train);
+```
+
+
+---
+
+## Variable importance plots
+
+We can now plot the variable importances extracted from the model object as a bar plot
+
+
+```python
+imps = pd.DataFrame({'variables': X.columns, 'importance': rf.feature_importances_})
+sns.barplot(data=imps, x = 'importance', y = 'variables', );
+```
+
+
+    
+![svg](week6_analytic_results_files/week6_analytic_results_32_0.svg)
+    
+
+
+---
+
+## Variable importance plots
+
+It's better if we sort the variables in increasing order for visualization
+
+
+```python
+sorted_indx = rf.feature_importances_.argsort()
+sns.barplot(data = imps.iloc[sorted_indx,:], x = 'importance', y = 'variables');
+```
+
+
+    
+![svg](week6_analytic_results_files/week6_analytic_results_34_0.svg)
+    
+
+
+---
+
+## Shapley values for explainable ML
+
+Shapley values are a method for understanding how outcome depends on each predictor in a machine learning model. It is based on game theoretic considerations and allows us to see how different values of a predictor impacts the outcome. 
+
+.pull-left[
+```python
+ex = shap.TreeExplainer(rf, X_train)
+shap_values = ex(X_train)
+```
+
+```python
+shap.plots.bar(shap_values);
+```
+
+]
+.pull-right[
+    
+![svg](week6_analytic_results_files/week6_analytic_results_37_0.svg)
+    
+]
+
+We see that, much like variable importance plots, the Shapley values indicate that lotsize and number of bathrooms have the most predictive power for house price.
+
+---
+
+## Shapley values
+
+We can also look at the Shapley values in a heatmap, where each row is a predictor, each column is an observation, and we see how different predictors _together_ contribute to changes in house price.
+
+.pull-left[
+```python
+shap.plots.heatmap(shap_values)
+```
+]
+.pull-right[
+
+    
+![svg](week6_analytic_results_files/week6_analytic_results_39_0.svg)
+    
+]
+
+---
+
+## Shapley values
+
+Finally we can look at how the Shapley values for a predictor change with the value of the predictor, giving indications of potentially non-linear relationships between predictor and outcome.
+
+.pull-left[
+```python
+shap.plots.scatter(shap_values[:,'lotsize'])
+```
+]
+.pull-right[
+
+    
+![svg](week6_analytic_results_files/week6_analytic_results_41_0.svg)
+    
+]
+
+---
+
+## Prediction accuracy
+
+For the random forest model, we see that the predictive accuracy is much higher than the linear regression model.
+
+
+```python
+fig,ax = plt.subplots()
+sns.regplot(rf.predict(X_test), y_test, ax=ax);
+sm.graphics.abline_plot(0,1, ax=ax, color='red', linestyle='--')
+fig.savefig('img/rf_predict.png')
+show_fig2('img/rf_predict.png')
+```
+
+
+&lt;iframe
+    width="100%"
+    height="400"
+    src="img/rf_predict.png"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+
+    
+![svg](week6_analytic_results_files/week6_analytic_results_43_2.svg)
+    
+
+
+---
+
+## Prediction plot: altair
+
+We'll first look at the prediction accuracy of the linear regression model. We remind ourselves what we had captured from the model fit
+
+
+```python
+D.head()
+```
+
+
+
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;fitted&lt;/th&gt;
+      &lt;th&gt;actual&lt;/th&gt;
+      &lt;th&gt;resid&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;66037.975672&lt;/td&gt;
+      &lt;td&gt;42000.0&lt;/td&gt;
+      &lt;td&gt;-24037.975672&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;41391.151457&lt;/td&gt;
+      &lt;td&gt;38500.0&lt;/td&gt;
+      &lt;td&gt;-2891.151457&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;39889.630131&lt;/td&gt;
+      &lt;td&gt;49500.0&lt;/td&gt;
+      &lt;td&gt;9610.369869&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;63689.087331&lt;/td&gt;
+      &lt;td&gt;60500.0&lt;/td&gt;
+      &lt;td&gt;-3189.087331&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;49760.426466&lt;/td&gt;
+      &lt;td&gt;61000.0&lt;/td&gt;
+      &lt;td&gt;11239.573534&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+
+
+---
+
+## Prediction plot: altair
+
+We can plot the actual vs the fitted values, with a lowess line showing the observed pattern in the data (red) to compare to the 45 degree line (green) that we would like.
+
+.pull-left[
+```python
+chart = alt.Chart(D).mark_point().encode(
+    x = 'actual',
+    y = 'fitted',
+    tooltip = ['actual','fitted'],
+)
+abline = (alt.Chart(pd.DataFrame({'x': [0,160000], 'y':[0,160000]}))
+  .mark_line(color='green')
+  .encode(x='x', y='y'))
+(chart + abline + 
+  chart.transform_loess('actual','fitted')
+    .mark_line(color='red')
+    .save('img/predict_alt1.html'))
+show_fig2('img/predict_alt1.html')
+```
+
+]
+.pull-right[
+
+&lt;iframe
+    width="100%"
+    height="500"
+    src="img/predict_alt1.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+]
+
+---
+
+## Prediction plot: plotly
+
+.pull-left[
+```python
+fig = px.scatter(data_frame=D, 
+  x = 'actual', y='fitted', 
+  trendline='lowess', 
+  trendline_color_override='red', 
+  template='simple_white')
+fig.add_shape(type='line',
+    x0=0, y0=0, 
+    x1=160000, y1=160000, 
+    line = dict(color='green',width=3))
+show_fig(fig, 'img/prediction_plotly.html')
+```
+]
+.pull-right[
+
+
+&lt;iframe
+    width="100%"
+    height="500"
+    src="img/prediction_plotly.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+]
+
+---
+
+## Coefficient plot: altair
+
+
+```python
+coefs = coefs.rename(columns={'[0.025' : 'lcb', '0.975]':'ucb'})
+lines = alt.Chart(coefs).mark_errorbar().encode(y = 'variables', x = 'lcb', x2 = 'ucb',
+    color = alt.condition(
+        alt.datum['P&gt;|t|'] &lt;0.05,
+        alt.value('red'),
+        alt.value('blue'),
+    ))
+ref = pd.DataFrame([{'threshold':0}])
+points = alt.Chart(coefs).mark_point().encode(x = 'coef', y = 'variables')
+(points + lines + (alt.Chart(ref).mark_rule(color = 'green', strokeDash=[5,5])
+  .encode(x = 'threshold'))).save('img/coef_alt.html')
+show_fig2('img/coef_alt.html')
+```
+
+
+
+&lt;iframe
+    width="100%"
+    height="400"
+    src="img/coef_alt.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+
+```python
+coefs.head()
+```
+
+
+
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;variables&lt;/th&gt;
+      &lt;th&gt;coef&lt;/th&gt;
+      &lt;th&gt;std err&lt;/th&gt;
+      &lt;th&gt;t&lt;/th&gt;
+      &lt;th&gt;P&amp;gt;|t|&lt;/th&gt;
+      &lt;th&gt;lcb&lt;/th&gt;
+      &lt;th&gt;ucb&lt;/th&gt;
+      &lt;th&gt;indic&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;driveway[T.yes]&lt;/td&gt;
+      &lt;td&gt;6687.7789&lt;/td&gt;
+      &lt;td&gt;2045.246&lt;/td&gt;
+      &lt;td&gt;3.270&lt;/td&gt;
+      &lt;td&gt;0.001&lt;/td&gt;
+      &lt;td&gt;2670.065&lt;/td&gt;
+      &lt;td&gt;10700.000&lt;/td&gt;
+      &lt;td&gt;red&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;recreation[T.yes]&lt;/td&gt;
+      &lt;td&gt;4511.2838&lt;/td&gt;
+      &lt;td&gt;1899.958&lt;/td&gt;
+      &lt;td&gt;2.374&lt;/td&gt;
+      &lt;td&gt;0.018&lt;/td&gt;
+      &lt;td&gt;778.976&lt;/td&gt;
+      &lt;td&gt;8243.592&lt;/td&gt;
+      &lt;td&gt;red&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;fullbase[T.yes]&lt;/td&gt;
+      &lt;td&gt;5452.3855&lt;/td&gt;
+      &lt;td&gt;1588.024&lt;/td&gt;
+      &lt;td&gt;3.433&lt;/td&gt;
+      &lt;td&gt;0.001&lt;/td&gt;
+      &lt;td&gt;2332.845&lt;/td&gt;
+      &lt;td&gt;8571.926&lt;/td&gt;
+      &lt;td&gt;red&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;gasheat[T.yes]&lt;/td&gt;
+      &lt;td&gt;12830.0000&lt;/td&gt;
+      &lt;td&gt;3217.597&lt;/td&gt;
+      &lt;td&gt;3.988&lt;/td&gt;
+      &lt;td&gt;0.000&lt;/td&gt;
+      &lt;td&gt;6510.706&lt;/td&gt;
+      &lt;td&gt;19200.000&lt;/td&gt;
+      &lt;td&gt;red&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5&lt;/th&gt;
+      &lt;td&gt;aircon[T.yes]&lt;/td&gt;
+      &lt;td&gt;12630.0000&lt;/td&gt;
+      &lt;td&gt;1555.021&lt;/td&gt;
+      &lt;td&gt;8.124&lt;/td&gt;
+      &lt;td&gt;0.000&lt;/td&gt;
+      &lt;td&gt;9578.182&lt;/td&gt;
+      &lt;td&gt;15700.000&lt;/td&gt;
+      &lt;td&gt;red&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+
+
+---
+
+## Coefficient plot: plotly
+
+
+```python
+coefs['e'] = 1.96*coefs['std err']
+fig = px.scatter(coefs, x = 'coef', y = 'variables', error_x = 'e', error_x_minus='e', template='simple_white',
+    color = np.where(coefs['P&gt;|t|'] &lt; 0.05, 'signif','not signif'),
+    color_discrete_map = {'signif': 'red', 'not signif': 'blue'},)
+fig.update_layout(showlegend=False)
+fig.add_vline(x = 0.0, line=dict(color='green', width=3, dash='dash'))
+
+show_fig(fig, 'img/coef_plotly.html')
+```
+
+
+
+&lt;iframe
+    width="100%"
+    height="500"
+    src="img/coef_plotly.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class:middle,center,inverse
+
+# Heatmaps
+
+---
+
+## Heatmaps
+
+Heatmaps are a common 2-dimensional colored grid that is used for visualizing intensity or level of a variable across levels of two other variables.
+
+It is commonly used in bioinformatics to display expression levels of genes across samples, often in conjunction with some cluster analysis to put
+like genes/samples next to each other for visualization purposes
+
+Heatmaps can be drawn using all the packages we have seen in this class. 
+
+
+---
+
+## Example data
+
+We'll use average monthly temperatures in Washington, DC in 1971-2020, obtained from the National Weather Service ([link](https://w2.weather.gov/climate/xmacis.php?wfo=lwx)).
+
+.footnote[This data was extracted using the R package `datapasta`]
+
+
+```python
+import pandas as pd
+
+dc_weather = pd.read_csv('data/dc_weather.csv')
+dc_weather.drop('Annual', axis=1, inplace=True) # Remove the 'Annual' column
+dc_weather.set_index('Year', inplace=True)
+dc_weather = dc_weather.T
+dc_weather.index.name='Month'
+```
+
+---
+
+## Weather data: Seaborn
+
+
+```python
+fig, ax = plt.subplots(figsize = (15,5))
+sns.heatmap(dc_weather, cmap="inferno", cbar_kws={'shrink':0.8, 'label': 'Degrees (F)'}, ax=ax);
+
+ax.set_yticklabels(ax.get_yticklabels(), rotation = 0, horizontalalignment='right');
+ax.set_xticklabels(ax.get_xticklabels(), rotation = 45, horizontalalignment='right');
+ax.set_title('Average monthly temperature in Washington DC (1971-2020)', loc='left');
+fig.savefig('img/temp_sns.html')
+show_fig2('img/temp_sns.html')
+
+
+```
+
+
+    
+![svg](week6_heatmap_files/week6_heatmap_5_0.svg)
+    
+
+
+---
+
+## Weather data: matplotlib
+
+
+```python
+fig, ax = plt.subplots(figsize=(15,5))
+im= ax.imshow(dc_weather.values, cmap='inferno')
+cbar = ax.figure.colorbar(im, ax=ax)
+cbar.ax.set_ylabel('Degrees (F)', rotation=90, va='bottom');
+ax.set_xticks(np.arange(dc_weather.shape[1]))
+ax.set_yticks(np.arange(dc_weather.shape[0]))
+ax.set_xticklabels(dc_weather.columns.values, rotation=45, horizontalalignment='right')
+ax.set_yticklabels(dc_weather.index.values);
+ax.set_title('Average monthly temperature in Washington DC (1971-2020)', loc='left');
+fig.savefig('img/temp_mpl.html')
+show_fig2('img/temp_mpl.html')
+```
+
+
+    
+![svg](week6_heatmap_files/week6_heatmap_7_0.svg)
+    
+
+
+---
+
+## Weather data: Plotly express
+
+
+```python
+fig = px.imshow(dc_weather, labels = dict(color='Temperature (F)'))
+show_fig(fig, 'img/temp_plotly.html')
+```
+
+&lt;iframe src = "img/temp_plotly.html" width="100%" height=400&gt;&lt;/iframe&gt;
+
+---
+
+## Weather data: altair
+
+
+```python
+D = dc_weather.reset_index().melt(id_vars='Month', value_name='Avg Temp')
+D['Month'] = pd.Categorical(D['Month'], categories = dc_weather.index)
+alt.Chart(D).mark_rect().encode(
+    x = 'Year:N', # Make year nominal so it is treated as a discrete variable
+    y = alt.Y('Month:N', bin=False, sort=None),
+    color = alt.Color('Avg Temp:Q', scale = alt.Scale(scheme='inferno')),
+    tooltip = ['Month','Year','Avg Temp']
+).save('img/temp_alt.html')
+show_fig2('img/temp_alt.html')
+```
+
+
+
+
+
+&lt;iframe src='img/temp_alt.html' width="100%" height=400&gt;&lt;/iframe&gt;
+
+
+---
+class:middle,center,inverse
+
+# Adding clustering
+
+---
+
+## Re-ordering rows and columns
+
+In many contexts, especially bioinformatics, heatmaps are used to display similarities between units, using cluster analysis. Typically hierarchical clustering is used.
+
+We will use a breast cancer data set, and look to see if there are individuals who have similar profiles across the variables recorded, and if that might be related to outcome.
+
+
+
+```python
+from sklearn.datasets import load_breast_cancer
+bc_data = load_breast_cancer()
+data = pd.DataFrame(bc_data.data, columns = bc_data.feature_names)
+data.head()
+```
+
+
+
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;mean radius&lt;/th&gt;
+      &lt;th&gt;mean texture&lt;/th&gt;
+      &lt;th&gt;mean perimeter&lt;/th&gt;
+      &lt;th&gt;mean area&lt;/th&gt;
+      &lt;th&gt;mean smoothness&lt;/th&gt;
+      &lt;th&gt;mean compactness&lt;/th&gt;
+      &lt;th&gt;mean concavity&lt;/th&gt;
+      &lt;th&gt;mean concave points&lt;/th&gt;
+      &lt;th&gt;mean symmetry&lt;/th&gt;
+      &lt;th&gt;mean fractal dimension&lt;/th&gt;
+      &lt;th&gt;radius error&lt;/th&gt;
+      &lt;th&gt;texture error&lt;/th&gt;
+      &lt;th&gt;perimeter error&lt;/th&gt;
+      &lt;th&gt;area error&lt;/th&gt;
+      &lt;th&gt;smoothness error&lt;/th&gt;
+      &lt;th&gt;compactness error&lt;/th&gt;
+      &lt;th&gt;concavity error&lt;/th&gt;
+      &lt;th&gt;concave points error&lt;/th&gt;
+      &lt;th&gt;symmetry error&lt;/th&gt;
+      &lt;th&gt;fractal dimension error&lt;/th&gt;
+      &lt;th&gt;worst radius&lt;/th&gt;
+      &lt;th&gt;worst texture&lt;/th&gt;
+      &lt;th&gt;worst perimeter&lt;/th&gt;
+      &lt;th&gt;worst area&lt;/th&gt;
+      &lt;th&gt;worst smoothness&lt;/th&gt;
+      &lt;th&gt;worst compactness&lt;/th&gt;
+      &lt;th&gt;worst concavity&lt;/th&gt;
+      &lt;th&gt;worst concave points&lt;/th&gt;
+      &lt;th&gt;worst symmetry&lt;/th&gt;
+      &lt;th&gt;worst fractal dimension&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;17.99&lt;/td&gt;
+      &lt;td&gt;10.38&lt;/td&gt;
+      &lt;td&gt;122.80&lt;/td&gt;
+      &lt;td&gt;1001.0&lt;/td&gt;
+      &lt;td&gt;0.11840&lt;/td&gt;
+      &lt;td&gt;0.27760&lt;/td&gt;
+      &lt;td&gt;0.3001&lt;/td&gt;
+      &lt;td&gt;0.14710&lt;/td&gt;
+      &lt;td&gt;0.2419&lt;/td&gt;
+      &lt;td&gt;0.07871&lt;/td&gt;
+      &lt;td&gt;1.0950&lt;/td&gt;
+      &lt;td&gt;0.9053&lt;/td&gt;
+      &lt;td&gt;8.589&lt;/td&gt;
+      &lt;td&gt;153.40&lt;/td&gt;
+      &lt;td&gt;0.006399&lt;/td&gt;
+      &lt;td&gt;0.04904&lt;/td&gt;
+      &lt;td&gt;0.05373&lt;/td&gt;
+      &lt;td&gt;0.01587&lt;/td&gt;
+      &lt;td&gt;0.03003&lt;/td&gt;
+      &lt;td&gt;0.006193&lt;/td&gt;
+      &lt;td&gt;25.38&lt;/td&gt;
+      &lt;td&gt;17.33&lt;/td&gt;
+      &lt;td&gt;184.60&lt;/td&gt;
+      &lt;td&gt;2019.0&lt;/td&gt;
+      &lt;td&gt;0.1622&lt;/td&gt;
+      &lt;td&gt;0.6656&lt;/td&gt;
+      &lt;td&gt;0.7119&lt;/td&gt;
+      &lt;td&gt;0.2654&lt;/td&gt;
+      &lt;td&gt;0.4601&lt;/td&gt;
+      &lt;td&gt;0.11890&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;20.57&lt;/td&gt;
+      &lt;td&gt;17.77&lt;/td&gt;
+      &lt;td&gt;132.90&lt;/td&gt;
+      &lt;td&gt;1326.0&lt;/td&gt;
+      &lt;td&gt;0.08474&lt;/td&gt;
+      &lt;td&gt;0.07864&lt;/td&gt;
+      &lt;td&gt;0.0869&lt;/td&gt;
+      &lt;td&gt;0.07017&lt;/td&gt;
+      &lt;td&gt;0.1812&lt;/td&gt;
+      &lt;td&gt;0.05667&lt;/td&gt;
+      &lt;td&gt;0.5435&lt;/td&gt;
+      &lt;td&gt;0.7339&lt;/td&gt;
+      &lt;td&gt;3.398&lt;/td&gt;
+      &lt;td&gt;74.08&lt;/td&gt;
+      &lt;td&gt;0.005225&lt;/td&gt;
+      &lt;td&gt;0.01308&lt;/td&gt;
+      &lt;td&gt;0.01860&lt;/td&gt;
+      &lt;td&gt;0.01340&lt;/td&gt;
+      &lt;td&gt;0.01389&lt;/td&gt;
+      &lt;td&gt;0.003532&lt;/td&gt;
+      &lt;td&gt;24.99&lt;/td&gt;
+      &lt;td&gt;23.41&lt;/td&gt;
+      &lt;td&gt;158.80&lt;/td&gt;
+      &lt;td&gt;1956.0&lt;/td&gt;
+      &lt;td&gt;0.1238&lt;/td&gt;
+      &lt;td&gt;0.1866&lt;/td&gt;
+      &lt;td&gt;0.2416&lt;/td&gt;
+      &lt;td&gt;0.1860&lt;/td&gt;
+      &lt;td&gt;0.2750&lt;/td&gt;
+      &lt;td&gt;0.08902&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;19.69&lt;/td&gt;
+      &lt;td&gt;21.25&lt;/td&gt;
+      &lt;td&gt;130.00&lt;/td&gt;
+      &lt;td&gt;1203.0&lt;/td&gt;
+      &lt;td&gt;0.10960&lt;/td&gt;
+      &lt;td&gt;0.15990&lt;/td&gt;
+      &lt;td&gt;0.1974&lt;/td&gt;
+      &lt;td&gt;0.12790&lt;/td&gt;
+      &lt;td&gt;0.2069&lt;/td&gt;
+      &lt;td&gt;0.05999&lt;/td&gt;
+      &lt;td&gt;0.7456&lt;/td&gt;
+      &lt;td&gt;0.7869&lt;/td&gt;
+      &lt;td&gt;4.585&lt;/td&gt;
+      &lt;td&gt;94.03&lt;/td&gt;
+      &lt;td&gt;0.006150&lt;/td&gt;
+      &lt;td&gt;0.04006&lt;/td&gt;
+      &lt;td&gt;0.03832&lt;/td&gt;
+      &lt;td&gt;0.02058&lt;/td&gt;
+      &lt;td&gt;0.02250&lt;/td&gt;
+      &lt;td&gt;0.004571&lt;/td&gt;
+      &lt;td&gt;23.57&lt;/td&gt;
+      &lt;td&gt;25.53&lt;/td&gt;
+      &lt;td&gt;152.50&lt;/td&gt;
+      &lt;td&gt;1709.0&lt;/td&gt;
+      &lt;td&gt;0.1444&lt;/td&gt;
+      &lt;td&gt;0.4245&lt;/td&gt;
+      &lt;td&gt;0.4504&lt;/td&gt;
+      &lt;td&gt;0.2430&lt;/td&gt;
+      &lt;td&gt;0.3613&lt;/td&gt;
+      &lt;td&gt;0.08758&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;11.42&lt;/td&gt;
+      &lt;td&gt;20.38&lt;/td&gt;
+      &lt;td&gt;77.58&lt;/td&gt;
+      &lt;td&gt;386.1&lt;/td&gt;
+      &lt;td&gt;0.14250&lt;/td&gt;
+      &lt;td&gt;0.28390&lt;/td&gt;
+      &lt;td&gt;0.2414&lt;/td&gt;
+      &lt;td&gt;0.10520&lt;/td&gt;
+      &lt;td&gt;0.2597&lt;/td&gt;
+      &lt;td&gt;0.09744&lt;/td&gt;
+      &lt;td&gt;0.4956&lt;/td&gt;
+      &lt;td&gt;1.1560&lt;/td&gt;
+      &lt;td&gt;3.445&lt;/td&gt;
+      &lt;td&gt;27.23&lt;/td&gt;
+      &lt;td&gt;0.009110&lt;/td&gt;
+      &lt;td&gt;0.07458&lt;/td&gt;
+      &lt;td&gt;0.05661&lt;/td&gt;
+      &lt;td&gt;0.01867&lt;/td&gt;
+      &lt;td&gt;0.05963&lt;/td&gt;
+      &lt;td&gt;0.009208&lt;/td&gt;
+      &lt;td&gt;14.91&lt;/td&gt;
+      &lt;td&gt;26.50&lt;/td&gt;
+      &lt;td&gt;98.87&lt;/td&gt;
+      &lt;td&gt;567.7&lt;/td&gt;
+      &lt;td&gt;0.2098&lt;/td&gt;
+      &lt;td&gt;0.8663&lt;/td&gt;
+      &lt;td&gt;0.6869&lt;/td&gt;
+      &lt;td&gt;0.2575&lt;/td&gt;
+      &lt;td&gt;0.6638&lt;/td&gt;
+      &lt;td&gt;0.17300&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;20.29&lt;/td&gt;
+      &lt;td&gt;14.34&lt;/td&gt;
+      &lt;td&gt;135.10&lt;/td&gt;
+      &lt;td&gt;1297.0&lt;/td&gt;
+      &lt;td&gt;0.10030&lt;/td&gt;
+      &lt;td&gt;0.13280&lt;/td&gt;
+      &lt;td&gt;0.1980&lt;/td&gt;
+      &lt;td&gt;0.10430&lt;/td&gt;
+      &lt;td&gt;0.1809&lt;/td&gt;
+      &lt;td&gt;0.05883&lt;/td&gt;
+      &lt;td&gt;0.7572&lt;/td&gt;
+      &lt;td&gt;0.7813&lt;/td&gt;
+      &lt;td&gt;5.438&lt;/td&gt;
+      &lt;td&gt;94.44&lt;/td&gt;
+      &lt;td&gt;0.011490&lt;/td&gt;
+      &lt;td&gt;0.02461&lt;/td&gt;
+      &lt;td&gt;0.05688&lt;/td&gt;
+      &lt;td&gt;0.01885&lt;/td&gt;
+      &lt;td&gt;0.01756&lt;/td&gt;
+      &lt;td&gt;0.005115&lt;/td&gt;
+      &lt;td&gt;22.54&lt;/td&gt;
+      &lt;td&gt;16.67&lt;/td&gt;
+      &lt;td&gt;152.20&lt;/td&gt;
+      &lt;td&gt;1575.0&lt;/td&gt;
+      &lt;td&gt;0.1374&lt;/td&gt;
+      &lt;td&gt;0.2050&lt;/td&gt;
+      &lt;td&gt;0.4000&lt;/td&gt;
+      &lt;td&gt;0.1625&lt;/td&gt;
+      &lt;td&gt;0.2364&lt;/td&gt;
+      &lt;td&gt;0.07678&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+
+
+---
+
+## breast cancer: creating the heatmap
+
+In **seaborn**, the `clustermap` function takes care of the clustering for us. Note that we are scaling the rows so that they have mean 0 and variance 1, to enable a better view of the differences in patterns. We are also using the correlation metric (1 - correlation) to cluster rows and columns.
+
+.pull-left[
+```python
+fig = sns.clustermap(data, 
+  standard_scale=1, metric='correlation', 
+  method='average',cmap='RdBu',);
+fig.savefig('img/heatmap_cluster1.png')
+show_fig2('img/heatmap_cluster1.png')
+```
+]
+.pull-right[
+
+&lt;iframe
+    width="100%"
+    height="500"
+    src="img/heatmap_cluster1.png"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+]
+
+    
+![svg](week6_heatmap_files/week6_heatmap_15_2.svg)
+    
+
+
+---
+
+## breast cancer: adding to the heatmap
+
+We will add a column to the heatmap that color-codes the outcomes, so we can see if the clustering aligns with the outcomes.
+
+
+```python
+color_dict = dict(zip(np.unique(bc_data.target), np.array(['g','skyblue'])))
+target_df = pd.DataFrame({'target': bc_data.target})
+row_colors = target_df.target.map(color_dict)
+```
+
+---
+
+## breast cancer: adding to the heatmap
+
+.pull-left[
+```python
+sns.clustermap(data, standard_scale=1, 
+  metric='correlation', method='average', 
+  cmap = 'RdBu',row_colors=row_colors);
+```
+]
+.pull-right[
+    
+![svg](week6_heatmap_files/week6_heatmap_19_1.svg)
+    
+]
+
+---
+class:middle,center,inverse
+
+# Embellishing the heatmap
+
+---
+
+## Adding marginal histograms and annotation
+
+We will use a data set of measles cases in the US from 1930 to 2000 to demonstrate how to create marginal histograms around a heatmap. 
+
+We can first read in the data and do a bit of data munging.
+
+
+```python
+measles = pd.read_csv('data/measles.csv')
+measles['state'] = measles['state'].str.title().str.replace('.', ' ')
+measles = measles.set_index('state')
+measles.head()
+```
+
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;1930&lt;/th&gt;
+      &lt;th&gt;1931&lt;/th&gt;
+      &lt;th&gt;1932&lt;/th&gt;
+      &lt;th&gt;1933&lt;/th&gt;
+      &lt;th&gt;1934&lt;/th&gt;
+      &lt;th&gt;1935&lt;/th&gt;
+      &lt;th&gt;1936&lt;/th&gt;
+      &lt;th&gt;1937&lt;/th&gt;
+      &lt;th&gt;1938&lt;/th&gt;
+      &lt;th&gt;1939&lt;/th&gt;
+      &lt;th&gt;1940&lt;/th&gt;
+      &lt;th&gt;1941&lt;/th&gt;
+      &lt;th&gt;1942&lt;/th&gt;
+      &lt;th&gt;1943&lt;/th&gt;
+      &lt;th&gt;1944&lt;/th&gt;
+      &lt;th&gt;1945&lt;/th&gt;
+      &lt;th&gt;1946&lt;/th&gt;
+      &lt;th&gt;1947&lt;/th&gt;
+      &lt;th&gt;1948&lt;/th&gt;
+      &lt;th&gt;1949&lt;/th&gt;
+      &lt;th&gt;1950&lt;/th&gt;
+      &lt;th&gt;1951&lt;/th&gt;
+      &lt;th&gt;1952&lt;/th&gt;
+      &lt;th&gt;1953&lt;/th&gt;
+      &lt;th&gt;1954&lt;/th&gt;
+      &lt;th&gt;1955&lt;/th&gt;
+      &lt;th&gt;1956&lt;/th&gt;
+      &lt;th&gt;1957&lt;/th&gt;
+      &lt;th&gt;1958&lt;/th&gt;
+      &lt;th&gt;1959&lt;/th&gt;
+      &lt;th&gt;1960&lt;/th&gt;
+      &lt;th&gt;1961&lt;/th&gt;
+      &lt;th&gt;1962&lt;/th&gt;
+      &lt;th&gt;1963&lt;/th&gt;
+      &lt;th&gt;1964&lt;/th&gt;
+      &lt;th&gt;1965&lt;/th&gt;
+      &lt;th&gt;1966&lt;/th&gt;
+      &lt;th&gt;1967&lt;/th&gt;
+      &lt;th&gt;1968&lt;/th&gt;
+      &lt;th&gt;1969&lt;/th&gt;
+      &lt;th&gt;1970&lt;/th&gt;
+      &lt;th&gt;1971&lt;/th&gt;
+      &lt;th&gt;1972&lt;/th&gt;
+      &lt;th&gt;1973&lt;/th&gt;
+      &lt;th&gt;1974&lt;/th&gt;
+      &lt;th&gt;1975&lt;/th&gt;
+      &lt;th&gt;1976&lt;/th&gt;
+      &lt;th&gt;1977&lt;/th&gt;
+      &lt;th&gt;1978&lt;/th&gt;
+      &lt;th&gt;1979&lt;/th&gt;
+      &lt;th&gt;1980&lt;/th&gt;
+      &lt;th&gt;1981&lt;/th&gt;
+      &lt;th&gt;1982&lt;/th&gt;
+      &lt;th&gt;1983&lt;/th&gt;
+      &lt;th&gt;1984&lt;/th&gt;
+      &lt;th&gt;1985&lt;/th&gt;
+      &lt;th&gt;1986&lt;/th&gt;
+      &lt;th&gt;1987&lt;/th&gt;
+      &lt;th&gt;1988&lt;/th&gt;
+      &lt;th&gt;1989&lt;/th&gt;
+      &lt;th&gt;1990&lt;/th&gt;
+      &lt;th&gt;1991&lt;/th&gt;
+      &lt;th&gt;1992&lt;/th&gt;
+      &lt;th&gt;1993&lt;/th&gt;
+      &lt;th&gt;1994&lt;/th&gt;
+      &lt;th&gt;1995&lt;/th&gt;
+      &lt;th&gt;1996&lt;/th&gt;
+      &lt;th&gt;1997&lt;/th&gt;
+      &lt;th&gt;1998&lt;/th&gt;
+      &lt;th&gt;1999&lt;/th&gt;
+      &lt;th&gt;2000&lt;/th&gt;
+      &lt;th&gt;2001&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;state&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Alabama&lt;/th&gt;
+      &lt;td&gt;4389&lt;/td&gt;
+      &lt;td&gt;8934&lt;/td&gt;
+      &lt;td&gt;270&lt;/td&gt;
+      &lt;td&gt;1735&lt;/td&gt;
+      &lt;td&gt;15849&lt;/td&gt;
+      &lt;td&gt;7214&lt;/td&gt;
+      &lt;td&gt;572&lt;/td&gt;
+      &lt;td&gt;620&lt;/td&gt;
+      &lt;td&gt;13511&lt;/td&gt;
+      &lt;td&gt;4381&lt;/td&gt;
+      &lt;td&gt;3052&lt;/td&gt;
+      &lt;td&gt;8696&lt;/td&gt;
+      &lt;td&gt;3564&lt;/td&gt;
+      &lt;td&gt;3865&lt;/td&gt;
+      &lt;td&gt;7199&lt;/td&gt;
+      &lt;td&gt;339&lt;/td&gt;
+      &lt;td&gt;3986&lt;/td&gt;
+      &lt;td&gt;3693&lt;/td&gt;
+      &lt;td&gt;2058&lt;/td&gt;
+      &lt;td&gt;11066&lt;/td&gt;
+      &lt;td&gt;1503&lt;/td&gt;
+      &lt;td&gt;3144&lt;/td&gt;
+      &lt;td&gt;11878&lt;/td&gt;
+      &lt;td&gt;2799&lt;/td&gt;
+      &lt;td&gt;8451&lt;/td&gt;
+      &lt;td&gt;2061&lt;/td&gt;
+      &lt;td&gt;7117&lt;/td&gt;
+      &lt;td&gt;9264&lt;/td&gt;
+      &lt;td&gt;7664&lt;/td&gt;
+      &lt;td&gt;3467&lt;/td&gt;
+      &lt;td&gt;2075&lt;/td&gt;
+      &lt;td&gt;2588&lt;/td&gt;
+      &lt;td&gt;2379&lt;/td&gt;
+      &lt;td&gt;1165&lt;/td&gt;
+      &lt;td&gt;18140&lt;/td&gt;
+      &lt;td&gt;2346&lt;/td&gt;
+      &lt;td&gt;1813&lt;/td&gt;
+      &lt;td&gt;1345&lt;/td&gt;
+      &lt;td&gt;158&lt;/td&gt;
+      &lt;td&gt;12&lt;/td&gt;
+      &lt;td&gt;486&lt;/td&gt;
+      &lt;td&gt;2086&lt;/td&gt;
+      &lt;td&gt;142&lt;/td&gt;
+      &lt;td&gt;19&lt;/td&gt;
+      &lt;td&gt;21&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;79&lt;/td&gt;
+      &lt;td&gt;60&lt;/td&gt;
+      &lt;td&gt;94&lt;/td&gt;
+      &lt;td&gt;22&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;14&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Alaska&lt;/th&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;1487&lt;/td&gt;
+      &lt;td&gt;536&lt;/td&gt;
+      &lt;td&gt;2511&lt;/td&gt;
+      &lt;td&gt;958&lt;/td&gt;
+      &lt;td&gt;1259&lt;/td&gt;
+      &lt;td&gt;1829&lt;/td&gt;
+      &lt;td&gt;1456&lt;/td&gt;
+      &lt;td&gt;1002&lt;/td&gt;
+      &lt;td&gt;1406&lt;/td&gt;
+      &lt;td&gt;1849&lt;/td&gt;
+      &lt;td&gt;1169&lt;/td&gt;
+      &lt;td&gt;215&lt;/td&gt;
+      &lt;td&gt;641&lt;/td&gt;
+      &lt;td&gt;148&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;22&lt;/td&gt;
+      &lt;td&gt;73&lt;/td&gt;
+      &lt;td&gt;40&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;11&lt;/td&gt;
+      &lt;td&gt;49&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;18&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;American Samoa&lt;/th&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Arizona&lt;/th&gt;
+      &lt;td&gt;2107&lt;/td&gt;
+      &lt;td&gt;2135&lt;/td&gt;
+      &lt;td&gt;86&lt;/td&gt;
+      &lt;td&gt;1261&lt;/td&gt;
+      &lt;td&gt;1022&lt;/td&gt;
+      &lt;td&gt;586&lt;/td&gt;
+      &lt;td&gt;2378&lt;/td&gt;
+      &lt;td&gt;3793&lt;/td&gt;
+      &lt;td&gt;604&lt;/td&gt;
+      &lt;td&gt;479&lt;/td&gt;
+      &lt;td&gt;2078&lt;/td&gt;
+      &lt;td&gt;2929&lt;/td&gt;
+      &lt;td&gt;3813&lt;/td&gt;
+      &lt;td&gt;1002&lt;/td&gt;
+      &lt;td&gt;4641&lt;/td&gt;
+      &lt;td&gt;332&lt;/td&gt;
+      &lt;td&gt;3274&lt;/td&gt;
+      &lt;td&gt;1464&lt;/td&gt;
+      &lt;td&gt;4303&lt;/td&gt;
+      &lt;td&gt;3795&lt;/td&gt;
+      &lt;td&gt;2389&lt;/td&gt;
+      &lt;td&gt;10454&lt;/td&gt;
+      &lt;td&gt;2515&lt;/td&gt;
+      &lt;td&gt;4934&lt;/td&gt;
+      &lt;td&gt;4959&lt;/td&gt;
+      &lt;td&gt;10086&lt;/td&gt;
+      &lt;td&gt;6785&lt;/td&gt;
+      &lt;td&gt;7659&lt;/td&gt;
+      &lt;td&gt;9845&lt;/td&gt;
+      &lt;td&gt;9067&lt;/td&gt;
+      &lt;td&gt;4305&lt;/td&gt;
+      &lt;td&gt;7868&lt;/td&gt;
+      &lt;td&gt;6350&lt;/td&gt;
+      &lt;td&gt;8878&lt;/td&gt;
+      &lt;td&gt;6328&lt;/td&gt;
+      &lt;td&gt;1593&lt;/td&gt;
+      &lt;td&gt;5536&lt;/td&gt;
+      &lt;td&gt;1022&lt;/td&gt;
+      &lt;td&gt;243&lt;/td&gt;
+      &lt;td&gt;561&lt;/td&gt;
+      &lt;td&gt;1006&lt;/td&gt;
+      &lt;td&gt;515&lt;/td&gt;
+      &lt;td&gt;868&lt;/td&gt;
+      &lt;td&gt;11&lt;/td&gt;
+      &lt;td&gt;21&lt;/td&gt;
+      &lt;td&gt;83&lt;/td&gt;
+      &lt;td&gt;233&lt;/td&gt;
+      &lt;td&gt;242&lt;/td&gt;
+      &lt;td&gt;58&lt;/td&gt;
+      &lt;td&gt;84&lt;/td&gt;
+      &lt;td&gt;327&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+      &lt;td&gt;16&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;38&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;61&lt;/td&gt;
+      &lt;td&gt;52&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;9&lt;/td&gt;
+      &lt;td&gt;12&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;9&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Arkansas&lt;/th&gt;
+      &lt;td&gt;996&lt;/td&gt;
+      &lt;td&gt;849&lt;/td&gt;
+      &lt;td&gt;99&lt;/td&gt;
+      &lt;td&gt;5438&lt;/td&gt;
+      &lt;td&gt;7222&lt;/td&gt;
+      &lt;td&gt;1518&lt;/td&gt;
+      &lt;td&gt;107&lt;/td&gt;
+      &lt;td&gt;322&lt;/td&gt;
+      &lt;td&gt;6690&lt;/td&gt;
+      &lt;td&gt;1724&lt;/td&gt;
+      &lt;td&gt;1096&lt;/td&gt;
+      &lt;td&gt;5474&lt;/td&gt;
+      &lt;td&gt;4542&lt;/td&gt;
+      &lt;td&gt;2867&lt;/td&gt;
+      &lt;td&gt;3780&lt;/td&gt;
+      &lt;td&gt;1098&lt;/td&gt;
+      &lt;td&gt;3266&lt;/td&gt;
+      &lt;td&gt;2414&lt;/td&gt;
+      &lt;td&gt;3824&lt;/td&gt;
+      &lt;td&gt;12313&lt;/td&gt;
+      &lt;td&gt;1739&lt;/td&gt;
+      &lt;td&gt;7625&lt;/td&gt;
+      &lt;td&gt;2910&lt;/td&gt;
+      &lt;td&gt;13079&lt;/td&gt;
+      &lt;td&gt;2619&lt;/td&gt;
+      &lt;td&gt;2983&lt;/td&gt;
+      &lt;td&gt;8637&lt;/td&gt;
+      &lt;td&gt;1358&lt;/td&gt;
+      &lt;td&gt;3002&lt;/td&gt;
+      &lt;td&gt;816&lt;/td&gt;
+      &lt;td&gt;1596&lt;/td&gt;
+      &lt;td&gt;1684&lt;/td&gt;
+      &lt;td&gt;1438&lt;/td&gt;
+      &lt;td&gt;1453&lt;/td&gt;
+      &lt;td&gt;1108&lt;/td&gt;
+      &lt;td&gt;1195&lt;/td&gt;
+      &lt;td&gt;1379&lt;/td&gt;
+      &lt;td&gt;1269&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;33&lt;/td&gt;
+      &lt;td&gt;447&lt;/td&gt;
+      &lt;td&gt;13&lt;/td&gt;
+      &lt;td&gt;37&lt;/td&gt;
+      &lt;td&gt;14&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;20&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;18&lt;/td&gt;
+      &lt;td&gt;10&lt;/td&gt;
+      &lt;td&gt;9&lt;/td&gt;
+      &lt;td&gt;14&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;9&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;244&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+
+
+
+```python
+measles2 = measles.reset_index().melt(id_vars = 'state',var_name='Year', value_name='count') # Tidying the data
+bl = measles2.groupby('state')['count'].sum()
+ind = bl.argsort() # Find index order that makes the states ordered by total case
+```
+
+
+```python
+---
+class:middle,center,inverse
+
+# Creating marginal frequency distributions
+d1 = measles2.groupby('Year').sum().reset_index()
+d2 = measles2.groupby('state').sum().reset_index().sort_values(by='count', ascending=False)
+```
+
+---
+
+## measles: seaborn
+
+
+```python
+g = sns.JointGrid(ratio=8, height=10)
+sns.heatmap(measles.iloc[ind[::-1],:], cmap='YlOrRd', linewidth=0.1,ax=g.ax_joint, cbar=False)
+sns.barplot(x='count', y ='state', data=d2, color = 'yellow', ax = g.ax_marg_y)
+sns.barplot(y='count', x = 'Year', data=d1, color='yellow', ax = g.ax_marg_x)
+g.ax_joint.axvline(np.where(measles.columns=='1961'), linestyle='--')
+g.ax_joint.set_xticks(np.arange(0,80,10))
+g.ax_joint.set_xticklabels(np.arange(1930, 2005,10),rotation=45);
+g.ax_joint.set_ylabel('');
+g.ax_marg_x.text(31,100,'Vaccine introduced', horizontalalignment='center', fontsize='x-large');
+g.fig.subplots_adjust(top=0.9)
+g.fig.suptitle("Measles cases in the US, 1930-2001", fontsize='xx-large');   
+g.fig.savefig('img/measles_sns.png')
+```
+
+---
+
+## measles: seaborn
+    
+![svg](week6_heatmap_files/week6_heatmap_25_0.svg)
+    
+---
+
+## measles: plotly
+
+```python
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+fig1 = make_subplots(rows=2, cols=2, column_widths=[0.8, 0.2], row_heights=[0.2,0.8], horizontal_spacing=0.05, vertical_spacing=0.05)
+fig1.add_trace(
+    go.Heatmap(z = measles_px.values, x = measles_px.columns, y = measles_px.index, colorscale='ylorrd', showscale=False),
+    row=2, col=1
+)
+fig1.add_trace(
+    go.Bar(x = d1.Year, y = d1['count'].values, marker_color='orange')
+)
+fig1.add_trace(
+    go.Bar(x = d2['count'].values, y = d2.state, orientation='h', marker_color='orange'),
+    row=2,col=2,
+)
+fig1.add_shape(go.layout.Shape(type='line', x0=31, x1=31, y0 = -1, y1=56, line=dict(color='green', width=3, dash='dash')),row=2, col = 1, )
+fig1.add_annotation(xref='x domain', yref='y domain', x = 0.45, y = 0.05, text = 'Vaccine available', showarrow=False, row=2, col=1,)
+fig1.update_xaxes(showticklabels=False, row=1, col=1)
+fig1.update_yaxes(showticklabels=False, row=2, col=2)
+fig1.update_yaxes(row=2, col=1, autorange='reversed')
+fig1.update_yaxes(row=2, col=2, autorange='reversed')
+fig1.update_layout(showlegend=False, template = 'simple_white')
+show_fig(fig1, 'img/measles_plotly.html')
+```
+
+
+
+&lt;iframe
+    width="100%"
+    height="500"
+    src="img/measles_plotly.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+---
+
+## measles: altair
+
+
+```python
+top_bar = alt.Chart(d1).mark_bar().encode(
+    x = alt.X('Year', axis = alt.Axis(labels=False, title=None)),
+    y = alt.Y('count', axis = alt.Axis(title=None, format='s')),
+    tooltip = ['Year', alt.Tooltip('count', title="N", format='.3s')],
+).properties(width=600, height=200).interactive()
+side_bar = alt.Chart(d2).mark_bar().encode(
+    y = alt.Y('state', sort=d2.state.values, axis = alt.Axis(labels=False, title=None)),
+    x = alt.X('count', axis = alt.Axis(title=None, format='s')),
+    tooltip = ['state',alt.Tooltip('count', title="N",format='.3s')],
+).properties(width=200, height=600).interactive()
+
+heatmap = alt.Chart(measles2).mark_rect().encode(
+    x = 'Year', 
+    y = alt.Y('state', sort = d2.state.values),
+    color = alt.Color('count', scale=alt.Scale( scheme='yelloworangered')), 
+    tooltip = [alt.Tooltip('state', title='State'),
+            alt.Tooltip('Year', title='Year'),
+            alt.Tooltip('count', title='N', format='.3s')],
+).properties(width=600, height=600).interactive()
+(top_bar &amp; (heatmap | side_bar)).save('img/measles_alt.html')
+
+```
+
+---
+
+## measles: altair
+
+
+
+
+&lt;iframe
+    width="100%"
+    height="80%"
+    src="img/measles_alt.html"
+    frameborder="0"
+    allowfullscreen
+&gt;&lt;/iframe&gt;
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../js/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightLanguage": "r",
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
