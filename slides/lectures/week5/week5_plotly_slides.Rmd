@@ -469,6 +469,19 @@ We'll look at a more complex example with some flight data
 ## Flight paths
 
 
+<iframe
+    width="100%"
+    height="500"
+    src="img/plt_flights.html"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
+---
+
+## Flight paths
+
+
 ```python
 import plotly.graph_objects as go
 
@@ -486,12 +499,6 @@ fig.add_trace(go.Scattergeo(
     )))
 plotly.offline.plot(fig, show_link=False, auto_open=False)
 ```
-
-
-
-
-    'temp-plot.html'
-
 
 
 ---
@@ -525,30 +532,4 @@ for i in range(len(df_flight_paths)):
 )
 ```
 
----
 
-## plotly graphobjects
-
-The final product
-
-
-```python
-show_fig(fig, 'img/plt_flights.html')
-```
-
-
-
-<iframe
-    width="100%"
-    height="500"
-    src="img/plt_flights.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
-
-```python
-
-```

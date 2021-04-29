@@ -2121,21 +2121,24 @@ d.head()
 </div>
 
 
+---
 
-
+.pull-left[
 ```python
 (
     alt.Chart(d)
     .mark_bar()
     .encode(
         y="year:O",
-        x=alt.X("lifeExp:Q", title="Life expectancy"),
+        x=alt.X("lifeExp:Q", 
+          title="Life expectancy"),
     )
     .save('week4_files/alt_bar1.html')
 )
 show_fig2('week4_files/alt_bar1.html')
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -2146,7 +2149,7 @@ show_fig2('week4_files/alt_bar1.html')
     allowfullscreen
 ></iframe>
 
-
+]
 
 ---
 class:middle,center,inverse
@@ -2157,22 +2160,28 @@ class:middle,center,inverse
 
 ## Scatter plots
 
-
+.pull-left[
 ```python
 (
     alt.Chart(penguins)
     .mark_point()
     .encode(  # Points
         x=alt.X(
-            "bill_length_mm", title="Bill length (mm)", scale=alt.Scale(zero=False)
+            "bill_length_mm", 
+            title="Bill length (mm)", 
+            scale=alt.Scale(zero=False)
         ),
-        y=alt.Y("body_mass_g", title="Body mass (g)", scale=alt.Scale(zero=False)),
+        y=alt.Y(
+          "body_mass_g", 
+          title="Body mass (g)", 
+          scale=alt.Scale(zero=False)),
     )
     .save('week4_files/alt_points1.html')
 )
 show_fig2('week4_files/alt_points1.html')
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -2183,24 +2192,27 @@ show_fig2('week4_files/alt_points1.html')
     allowfullscreen
 ></iframe>
 
-
+]
 
 ---
 
 ## Boxplots
 
-
+.pull-left[
 ```python
 (
     alt.Chart(penguins)
     .mark_boxplot()
-    .encode(x="species:O", y="bill_length_mm:Q")
+    .encode(
+      x="species:O", 
+        y="bill_length_mm:Q")
     .properties(width=500, height=250)
     .save('week4_files/alt_box1.html')
 )
 show_fig2('week4_files/alt_box1.html')
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -2211,7 +2223,7 @@ show_fig2('week4_files/alt_box1.html')
     allowfullscreen
 ></iframe>
 
-
+]
 
 ---
 
@@ -2219,7 +2231,7 @@ show_fig2('week4_files/alt_box1.html')
 
 Violin plots, like density plots, are a little trickier, since you have to manually compute the density using the `transform_density` function
 
-
+.small[
 ```python
 (
     alt.Chart(mpg)
@@ -2251,6 +2263,7 @@ Violin plots, like density plots, are a little trickier, since you have to manua
 )
 show_fig2('week4_files/alt_violin1.html')
 ```
+]
 
 ---
 
@@ -2270,12 +2283,21 @@ show_fig2('week4_files/alt_violin1.html')
 
 ## Strip plots
 
-
+pull-left[
 ```python
-alt.Chart(mpg).mark_tick().encode(x="horsepower:Q", y="cylinders:O").save('week4_files/alt_strip1.html')
+(
+  alt.Chart(mpg)
+    .mark_tick()
+    .encode(
+      x="horsepower:Q", 
+      y="cylinders:O"
+    )
+  .save('week4_files/alt_strip1.html')
+)
 show_fig2('week4_files/alt_strip1.html')
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -2286,7 +2308,7 @@ show_fig2('week4_files/alt_strip1.html')
     allowfullscreen
 ></iframe>
 
-
+]
 
 ---
 class:middle,center,inverse
@@ -2380,7 +2402,7 @@ show_fig2('week4_files/alt_gap2.html')
 
 ## Scatter plots + tooltip
 
-pull-left[
+.pull-left[
 ```python
 alt.Chart(gapm).mark_circle().encode(
     x=alt.X(
@@ -2418,7 +2440,7 @@ See [here](https://github.com/d3/d3-format#locale_format) for details on formatt
 
 ## Bar plots
 
-
+.pull-left[
 ```python
 medals = px.data.medals_long()
 alt.Chart(medals).mark_bar().encode(
@@ -2429,7 +2451,8 @@ alt.Chart(medals).mark_bar().encode(
 ).save('week4_files/alt_facet1.html')
 show_fig2('week4_files/alt_facet1.html')
 ```
-
+]
+.pull-right[
 
 
 <iframe
@@ -2440,7 +2463,7 @@ show_fig2('week4_files/alt_facet1.html')
     allowfullscreen
 ></iframe>
 
-
+]
 
 ---
 
@@ -2900,65 +2923,6 @@ show_fig2('week4_files/alt_concat2.html', height=600)
 
 ## Composite plots
 
-
-```python
-base = alt.Chart(penguins)
-xscale = alt.Scale(zero=False, domain=(32, 60))
-yscale = alt.Scale(zero=False, domain=(2500, 6500))
-area_args = {"opacity": 0.4, "interpolate": "step"}
-
-scatter = base.mark_circle().encode(
-    x=alt.X("bill_length_mm", scale=xscale),
-    y=alt.Y("body_mass_g", scale=yscale),
-    color="species",
-)
-
-top_hist = (
-    base.mark_area(**area_args)
-    .encode(
-        x=alt.X(
-            "bill_length_mm",
-            bin=alt.Bin(maxbins=50, extent=xscale.domain),
-            stack=None,
-            title="",
-        ),
-        y=alt.Y("count()", stack=None, title=""),
-        color="species",
-    )
-    .properties(height=60)
-)
-
-right_hist = (
-    base.mark_area(**area_args)
-    .encode(
-        y=alt.Y(
-            "body_mass_g",
-            bin=alt.Bin(maxbins=50, extent=yscale.domain),
-            stack=None,
-            title="",
-        ),
-        x=alt.X("count()", stack=None, title=""),
-        color="species",
-    )
-    .properties(width=60)
-)
-
-(top_hist & (
-    (
-        scatter
-        + scatter.transform_regression(
-            "bill_length_mm", "body_mass_g", groupby=["species"]
-        ).mark_line()
-    )
-    | right_hist
-)).save('week4_files/alt_joint.html')
-show_fig2('week4_files/alt_joint.html')
-```
-
----
-
-## Composite plots
-
 <iframe
     width="100%"
     height="500"
@@ -2967,12 +2931,69 @@ show_fig2('week4_files/alt_joint.html')
     allowfullscreen
 ></iframe>
 
+---
 
+
+```python
+base = alt.Chart(penguins)
+xscale = alt.Scale(zero=False, domain=(32, 60))
+yscale = alt.Scale(zero=False, domain=(2500, 6500))
+area_args = {"opacity": 0.4, "interpolate": "step"}
+
+scatter = base.mark_circle().encode(
+    x=alt.X("bill_length_mm", scale=xscale),y=alt.Y("body_mass_g", scale=yscale),color="species",
+)
+
+top_hist = (
+    base.mark_area(**area_args)
+    .encode(
+      x=alt.X("bill_length_mm",bin=alt.Bin(maxbins=50, extent=xscale.domain), stack=None, title="",),
+      y=alt.Y("count()", stack=None, title=""),
+      color="species",
+    )
+    .properties(height=60)
+)
+
+right_hist = (
+    base.mark_area(**area_args)
+    .encode(
+        y=alt.Y( "body_mass_g", bin=alt.Bin(maxbins=50, extent=yscale.domain), stack=None, title="", ),
+        x=alt.X("count()", stack=None, title=""),
+        color="species",
+    )
+    .properties(width=60)
+)
+```
+
+---
+
+```python
+(top_hist & ((
+        scatter + 
+        scatter.transform_regression("bill_length_mm", "body_mass_g", 
+          groupby=["species"] ).mark_line() )
+  | right_hist)
+).save('week4_files/alt_joint.html')
+show_fig2('week4_files/alt_joint.html')
+```
 
 ---
 class:middle,center,inverse
 
 # Interactivity
+
+---
+
+## Brushing
+
+
+<iframe
+    width="100%"
+    height="500"
+    src="week4_files/alt_brush1.html"
+    frameborder="0"
+    allowfullscreen
+></iframe>
 
 ---
 
@@ -3005,20 +3026,20 @@ y_ticks = base.mark_tick().encode(
 show_fig2('week4_files/alt_brush1.html')
 ```
 
+
+
+
 ---
 
 ## Brushing
 
-
 <iframe
     width="100%"
     height="500"
-    src="week4_files/alt_brush1.html"
+    src="week4_files/alt_brush2.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
-
-
 
 ---
 
@@ -3043,19 +3064,20 @@ base = (
 show_fig2('week4_files/alt_brush2.html')
 ```
 
+
+
+
 ---
 
-## Brushing
+## Multi-line highlight
 
 <iframe
     width="100%"
     height="500"
-    src="week4_files/alt_brush2.html"
+    src="week4_files/alt_lines1.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
-
-
 
 ---
 
@@ -3089,18 +3111,6 @@ lines = base.mark_line().encode(
 (points + lines).save('week4_files/alt_lines1.html')
 show_fig2('week4_files/alt_lines1.html')
 ```
-
----
-
-## Multi-line highlight
-
-<iframe
-    width="100%"
-    height="500"
-    src="week4_files/alt_lines1.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
 
 
 

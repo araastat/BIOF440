@@ -166,7 +166,7 @@ plt.show();
 
 ---
 
-## Kaplan-Meier curve using _lifelines
+## Kaplan-Meier curve using _lifelines_
 
 We can also add the table of deaths below the curve.
 
@@ -188,7 +188,7 @@ plt.show();
 
 ---
 
-## Kaplan-Meier curve using _lifelines
+## Kaplan-Meier curve using _lifelines_
 
 We can also add the table of deaths below the curve, even in grouped data
 
