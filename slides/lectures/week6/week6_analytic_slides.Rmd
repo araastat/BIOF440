@@ -58,22 +58,9 @@ tips.head()
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
-    <tr style="text-align: right;">
+    <tr>
       <th></th>
       <th>total_bill</th>
       <th>tip</th>
@@ -154,6 +141,9 @@ results = model.fit()
 print(results.summary2())
 ```
 
+
+<pre style = 'font-size: 12px;'>
+
                      Results: Ordinary least squares
     =================================================================
     Model:              OLS              Adj. R-squared:     0.454   
@@ -175,6 +165,7 @@ print(results.summary2())
     Kurtosis:             4.711        Condition No.:          53    
     =================================================================
     
+</pre>
 
 
 ---
@@ -204,22 +195,9 @@ d.reset_index().rename(columns={'index':'variables'})
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
-    <tr style="text-align: right;">
+    <tr ">
       <th></th>
       <th>variables</th>
       <th>coef</th>
@@ -275,22 +253,9 @@ housing.head()
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
-    <tr style="text-align: right;">
+    <tr >
       <th></th>
       <th>price</th>
       <th>lotsize</th>
@@ -399,6 +364,8 @@ model = smf.ols('price ~ lotsize1 + bedrooms + bathrooms + stories + driveway + 
 print(model.summary())
 ```
 
+<pre style="font-size: 12px;">
+
                                 OLS Regression Results                            
     ==============================================================================
     Dep. Variable:                  price   R-squared:                       0.673
@@ -435,6 +402,7 @@ print(model.summary())
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 
+</pre>
 
 ---
 
@@ -448,8 +416,8 @@ sns.displot(data=housing, x = 'price');
 ```
 
 
-    
-![svg](week6_analytic_results_files/week6_analytic_results_15_0.svg)
+
+![:scale 30%](week6_analytic_results_files/week6_analytic_results_15_0.svg)
     
 
 
@@ -516,24 +484,11 @@ coefs
 
 
 
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
-    <tr style="text-align: right;">
+    <tr >
       <th></th>
       <th>variables</th>
       <th>coef</th>
@@ -660,7 +615,6 @@ coefs
 </div>
 
 
-
 ---
 
 ## Multiple linear regression
@@ -669,17 +623,27 @@ For each predictor we're plotting the point estimate and confidence interval, wi
 
 .pull-left[
 ```python
-coefs['indic'] = np.where(coefs['P>|t|'] <= 0.05, 
-  'red','blue') # Find which predictors are "significant"
+(coefs['indic'] = 
+  pd.Categorical(np.where(coefs['P>|t|'] <= 0.05, 
+      'signif','not signif'),
+    categories = ['not signif','signif'])# Find which predictors are "significant"
+
 fig, ax = plt.subplots()
-sns.scatterplot(data=coefs, x = 'coef', y = 'variables', 
-  palette = ['red','blue'],
+
+sns.scatterplot(data=coefs, 
+  x = 'coef', y = 'variables', 
+  palette = ['blue','red'],
   hue = 'indic',ax=ax, legend=None);
-ax.hlines(y = coefs.variables, xmin = coefs['[0.025'], 
-  xmax = coefs['0.975]'], colors=coefs.indic);
+
+ax.hlines(y = coefs.variables, 
+  xmin = coefs['[0.025'], 
+  xmax = coefs['0.975]'], 
+  colors=np.where(coefs.indic=='signif','red','blue');
+
 ax.set_ylabel('predictors'); 
 ax.set_xlabel('Change in price for unit change in predictor')
 ax.axvline(0, linestyle=':', color = 'green');
+ax.legend(title='')
 ```
 ]
 .pull-right[
@@ -887,20 +851,8 @@ D.head()
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
+<table  class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>

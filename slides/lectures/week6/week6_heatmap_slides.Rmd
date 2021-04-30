@@ -66,6 +66,15 @@ dc_weather.index.name='Month'
 ## Weather data: Seaborn
 
 
+    
+![svg](week6_heatmap_files/week6_heatmap_5_0.svg)
+    
+
+
+---
+
+## Weather data: Seaborn
+
 ```python
 fig, ax = plt.subplots(figsize = (15,5))
 sns.heatmap(dc_weather, cmap="inferno", cbar_kws={'shrink':0.8, 'label': 'Degrees (F)'}, ax=ax);
@@ -79,14 +88,7 @@ show_fig2('img/temp_sns.html')
 
 ```
 
-
-    
-![svg](week6_heatmap_files/week6_heatmap_5_0.svg)
-    
-
-
 ---
-
 ## Weather data: matplotlib
 
 
@@ -104,6 +106,7 @@ fig.savefig('img/temp_mpl.html')
 show_fig2('img/temp_mpl.html')
 ```
 
+---
 
     
 ![svg](week6_heatmap_files/week6_heatmap_7_0.svg)
@@ -172,20 +175,7 @@ data.head()
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -478,20 +468,7 @@ measles.head()
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1025,18 +1002,77 @@ measles.head()
 </div>
 
 
-
+---
 
 ```python
 measles2 = measles.reset_index().melt(id_vars = 'state',var_name='Year', value_name='count') # Tidying the data
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>state</th>
+      <th>Year</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alabama</td>
+      <td>1930</td>
+      <td>4389</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Alaska</td>
+      <td>1930</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+:      <td>American Samoa</td>
+      <td>1930</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Arizona</td>
+      <td>1930</td>
+      <td>2107</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Arkansas</td>
+      <td>1930</td>
+      <td>996</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+```python
 bl = measles2.groupby('state')['count'].sum()
+bl
+```
+
+<pre>state
+Alabama           197407
+Alaska             16720
+American Samoa         3
+Arizona           157140
+Arkansas          122452
+Name: count, dtype: int64
+</pre>
+
+```python
 ind = bl.argsort() # Find index order that makes the states ordered by total case
 ```
 
 
 ```python
----
-class:middle,center,inverse
 
 # Creating marginal frequency distributions
 d1 = measles2.groupby('Year').sum().reset_index()
@@ -1067,7 +1103,7 @@ g.fig.savefig('img/measles_sns.png')
 
 ## measles: seaborn
     
-![svg](week6_heatmap_files/week6_heatmap_25_0.svg)
+![:scale 50%](week6_heatmap_files/week6_heatmap_25_0.svg)
     
 ---
 
@@ -1096,14 +1132,13 @@ fig1.update_yaxes(showticklabels=False, row=2, col=2)
 fig1.update_yaxes(row=2, col=1, autorange='reversed')
 fig1.update_yaxes(row=2, col=2, autorange='reversed')
 fig1.update_layout(showlegend=False, template = 'simple_white')
-show_fig(fig1, 'img/measles_plotly.html')
 ```
 
-
+---
 
 <iframe
     width="100%"
-    height="500"
+    height="600"
     src="img/measles_plotly.html"
     frameborder="0"
     allowfullscreen
@@ -1148,7 +1183,7 @@ heatmap = alt.Chart(measles2).mark_rect().encode(
 
 <iframe
     width="100%"
-    height="80%"
+    height="400"
     src="img/measles_alt.html"
     frameborder="0"
     allowfullscreen

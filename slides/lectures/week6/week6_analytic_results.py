@@ -8,8 +8,9 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.10.3
 #   kernelspec:
-#     display_name: 'Python 3.8.8 64-bit (''biof440'': conda)'
-#     name: python388jvsc74a57bd0b8a008180da9e18ef20641f3ac8286a501f34fc11767b3b3fb216c86c1ec99bf
+#     display_name: Python 3
+#     language: python
+#     name: python3
 # ---
 
 # %% [markdown]
@@ -157,12 +158,14 @@ coefs
 # For each predictor we're plotting the point estimate and confidence interval, with color determining statistical significance at 5% significance level (red)
 
 # %%
-coefs['indic'] = np.where(coefs['P>|t|'] <= 0.05, 'red','blue') # Find which predictors are "significant"
+coefs['indic'] = pd.Categorical(np.where(coefs['P>|t|'] <= 0.05, 'signif','not signif'), categories = ['not signif','signif']) # Find which predictors are "significant"
 fig, ax = plt.subplots()
-sns.scatterplot(data=coefs, x = 'coef', y = 'variables', palette = ['red','blue'], hue = 'indic',ax=ax, legend=None);
-ax.hlines(y = coefs.variables, xmin = coefs['[0.025'], xmax = coefs['0.975]'], colors=coefs.indic);
+sns.scatterplot(data=coefs, x = 'coef', y = 'variables', palette = ['blue','red'], hue = 'indic',ax=ax);
+ax.hlines(y = coefs.variables, xmin = coefs['[0.025'], xmax = coefs['0.975]'], colors=np.where(coefs.indic=='signif','red','blue'));
 ax.set_ylabel('predictors'); ax.set_xlabel('Change in price for unit change in predictor')
 ax.axvline(0, linestyle=':', color = 'green');
+ax.legend(title='');
+fig.savefig('week6_analytic_results_files/week6_analytic_results_23_0.svg')
 
 # %% [markdown]
 # ## Multiple linear regression

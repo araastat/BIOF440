@@ -8,8 +8,9 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.10.3
 #   kernelspec:
-#     display_name: 'Python 3.8.8 64-bit (''biof440'': conda)'
-#     name: python388jvsc74a57bd0b8a008180da9e18ef20641f3ac8286a501f34fc11767b3b3fb216c86c1ec99bf
+#     display_name: Python 3
+#     language: python
+#     name: python3
 # ---
 
 # %% [markdown]
@@ -28,7 +29,7 @@ import os
 if not os.path.exists('img'):
     os.makedirs('img')
 
-from IPython.display import IFrame, display_html
+from IPython.display import IFrame, display_html, HTML
 def show_fig(fig, filename, width="100%", height=500):
     plotly.offline.plot(fig, filename=filename, auto_open=False, auto_play=False)
     display_html(IFrame(filename, height=height, width=width))
@@ -75,8 +76,8 @@ sns.heatmap(dc_weather, cmap="inferno", cbar_kws={'shrink':0.8, 'label': 'Degree
 ax.set_yticklabels(ax.get_yticklabels(), rotation = 0, horizontalalignment='right');
 ax.set_xticklabels(ax.get_xticklabels(), rotation = 45, horizontalalignment='right');
 ax.set_title('Average monthly temperature in Washington DC (1971-2020)', loc='left');
-fig.savefig('img/temp_sns.html')
-show_fig2('img/temp_sns.html')
+fig.savefig('img/temp_sns.png')
+show_fig2('img/temp_sns.png')
 
 
 
@@ -93,8 +94,8 @@ ax.set_yticks(np.arange(dc_weather.shape[0]))
 ax.set_xticklabels(dc_weather.columns.values, rotation=45, horizontalalignment='right')
 ax.set_yticklabels(dc_weather.index.values);
 ax.set_title('Average monthly temperature in Washington DC (1971-2020)', loc='left');
-fig.savefig('img/temp_mpl.html')
-show_fig2('img/temp_mpl.html')
+fig.savefig('img/temp_mpl.svg')
+show_fig2('img/temp_mpl.svg')
 
 # %% [markdown]
 # ## Weather data: Plotly express
@@ -176,7 +177,13 @@ measles.head()
 
 # %%
 measles2 = measles.reset_index().melt(id_vars = 'state',var_name='Year', value_name='count') # Tidying the data
+measles2.head()
+
+# %%
 bl = measles2.groupby('state')['count'].sum()
+bl.head()
+
+# %%
 ind = bl.argsort() # Find index order that makes the states ordered by total case
 
 # %%

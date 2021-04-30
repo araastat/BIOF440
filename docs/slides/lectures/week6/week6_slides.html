@@ -6,9 +6,17 @@
     <meta name="author" content="Abhijit Dasgupta" />
     <script src="week6_slides_files/header-attrs-2.6/header-attrs.js"></script>
     <link href="week6_slides_files/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
-    <link href="week6_slides_files/panelset-0.2.3.9000/panelset.css" rel="stylesheet" />
-    <script src="week6_slides_files/panelset-0.2.3.9000/panelset.js"></script>
-    <link href="week6_slides_files/xaringanExtra-extra-styles-0.2.3.9000/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link href="week6_slides_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="week6_slides_files/panelset-0.2.6/panelset.js"></script>
+    <link href="week6_slides_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="week6_slides_files/mark.js-8.11.1/mark.min.js"></script>
+    <link href="week6_slides_files/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="week6_slides_files/xaringanExtra-search-0.0.1/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
+    <script src="week6_slides_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="week6_slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="week6_slides_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
     <link rel="stylesheet" href="../css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="../css/custom.css" type="text/css" />
     <link rel="stylesheet" href="../css/sfah.css" type="text/css" />
@@ -22,6 +30,7 @@ class: center, middle, inverse, title-slide
 ### Abhijit Dasgupta
 
 ---
+
 
 
 
@@ -94,22 +103,9 @@ tips.head()
 
 
 &lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border="1" class="dataframe"&gt;
+&lt;table class="dataframe"&gt;
   &lt;thead&gt;
-    &lt;tr style="text-align: right;"&gt;
+    &lt;tr&gt;
       &lt;th&gt;&lt;/th&gt;
       &lt;th&gt;total_bill&lt;/th&gt;
       &lt;th&gt;tip&lt;/th&gt;
@@ -190,6 +186,9 @@ results = model.fit()
 print(results.summary2())
 ```
 
+
+&lt;pre style = 'font-size: 12px;'&gt;
+
                      Results: Ordinary least squares
     =================================================================
     Model:              OLS              Adj. R-squared:     0.454   
@@ -211,6 +210,7 @@ print(results.summary2())
     Kurtosis:             4.711        Condition No.:          53    
     =================================================================
     
+&lt;/pre&gt;
 
 
 ---
@@ -240,22 +240,9 @@ d.reset_index().rename(columns={'index':'variables'})
 
 
 &lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border="1" class="dataframe"&gt;
+&lt;table class="dataframe"&gt;
   &lt;thead&gt;
-    &lt;tr style="text-align: right;"&gt;
+    &lt;tr "&gt;
       &lt;th&gt;&lt;/th&gt;
       &lt;th&gt;variables&lt;/th&gt;
       &lt;th&gt;coef&lt;/th&gt;
@@ -311,22 +298,9 @@ housing.head()
 
 
 &lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border="1" class="dataframe"&gt;
+&lt;table class="dataframe"&gt;
   &lt;thead&gt;
-    &lt;tr style="text-align: right;"&gt;
+    &lt;tr &gt;
       &lt;th&gt;&lt;/th&gt;
       &lt;th&gt;price&lt;/th&gt;
       &lt;th&gt;lotsize&lt;/th&gt;
@@ -435,6 +409,8 @@ model = smf.ols('price ~ lotsize1 + bedrooms + bathrooms + stories + driveway + 
 print(model.summary())
 ```
 
+&lt;pre style="font-size: 12px;"&gt;
+
                                 OLS Regression Results                            
     ==============================================================================
     Dep. Variable:                  price   R-squared:                       0.673
@@ -471,6 +447,7 @@ print(model.summary())
     Notes:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 
+&lt;/pre&gt;
 
 ---
 
@@ -484,8 +461,8 @@ sns.displot(data=housing, x = 'price');
 ```
 
 
-    
-![svg](week6_analytic_results_files/week6_analytic_results_15_0.svg)
+
+![:scale 30%](week6_analytic_results_files/week6_analytic_results_15_0.svg)
     
 
 
@@ -552,24 +529,11 @@ coefs
 
 
 
-
 &lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border="1" class="dataframe"&gt;
+&lt;table class="dataframe"&gt;
   &lt;thead&gt;
-    &lt;tr style="text-align: right;"&gt;
+    &lt;tr &gt;
       &lt;th&gt;&lt;/th&gt;
       &lt;th&gt;variables&lt;/th&gt;
       &lt;th&gt;coef&lt;/th&gt;
@@ -696,7 +660,6 @@ coefs
 &lt;/div&gt;
 
 
-
 ---
 
 ## Multiple linear regression
@@ -705,17 +668,27 @@ For each predictor we're plotting the point estimate and confidence interval, wi
 
 .pull-left[
 ```python
-coefs['indic'] = np.where(coefs['P&gt;|t|'] &lt;= 0.05, 
-  'red','blue') # Find which predictors are "significant"
+(coefs['indic'] = 
+  pd.Categorical(np.where(coefs['P&gt;|t|'] &lt;= 0.05, 
+      'signif','not signif'),
+    categories = ['not signif','signif'])# Find which predictors are "significant"
+
 fig, ax = plt.subplots()
-sns.scatterplot(data=coefs, x = 'coef', y = 'variables', 
-  palette = ['red','blue'],
+
+sns.scatterplot(data=coefs, 
+  x = 'coef', y = 'variables', 
+  palette = ['blue','red'],
   hue = 'indic',ax=ax, legend=None);
-ax.hlines(y = coefs.variables, xmin = coefs['[0.025'], 
-  xmax = coefs['0.975]'], colors=coefs.indic);
+
+ax.hlines(y = coefs.variables, 
+  xmin = coefs['[0.025'], 
+  xmax = coefs['0.975]'], 
+  colors=np.where(coefs.indic=='signif','red','blue');
+
 ax.set_ylabel('predictors'); 
 ax.set_xlabel('Change in price for unit change in predictor')
 ax.axvline(0, linestyle=':', color = 'green');
+ax.legend(title='')
 ```
 ]
 .pull-right[
@@ -923,20 +896,8 @@ D.head()
 
 
 &lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border="1" class="dataframe"&gt;
+&lt;table  class="dataframe"&gt;
   &lt;thead&gt;
     &lt;tr style="text-align: right;"&gt;
       &lt;th&gt;&lt;/th&gt;
@@ -1290,7 +1251,7 @@ show_fig2('img/temp_sns.html')
 
 ```
 
-
+---
     
 ![svg](week6_heatmap_files/week6_heatmap_5_0.svg)
     
@@ -1315,6 +1276,7 @@ fig.savefig('img/temp_mpl.html')
 show_fig2('img/temp_mpl.html')
 ```
 
+---
 
     
 ![svg](week6_heatmap_files/week6_heatmap_7_0.svg)
@@ -1383,20 +1345,7 @@ data.head()
 
 
 &lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border="1" class="dataframe"&gt;
+&lt;table class="dataframe"&gt;
   &lt;thead&gt;
     &lt;tr style="text-align: right;"&gt;
       &lt;th&gt;&lt;/th&gt;
@@ -1689,20 +1638,7 @@ measles.head()
 ```
 
 &lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border="1" class="dataframe"&gt;
+&lt;table class="dataframe"&gt;
   &lt;thead&gt;
     &lt;tr style="text-align: right;"&gt;
       &lt;th&gt;&lt;/th&gt;
@@ -2236,18 +2172,77 @@ measles.head()
 &lt;/div&gt;
 
 
-
+---
 
 ```python
 measles2 = measles.reset_index().melt(id_vars = 'state',var_name='Year', value_name='count') # Tidying the data
+```
+
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;state&lt;/th&gt;
+      &lt;th&gt;Year&lt;/th&gt;
+      &lt;th&gt;count&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;Alabama&lt;/td&gt;
+      &lt;td&gt;1930&lt;/td&gt;
+      &lt;td&gt;4389&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;Alaska&lt;/td&gt;
+      &lt;td&gt;1930&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+:      &lt;td&gt;American Samoa&lt;/td&gt;
+      &lt;td&gt;1930&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;Arizona&lt;/td&gt;
+      &lt;td&gt;1930&lt;/td&gt;
+      &lt;td&gt;2107&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;Arkansas&lt;/td&gt;
+      &lt;td&gt;1930&lt;/td&gt;
+      &lt;td&gt;996&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+```python
 bl = measles2.groupby('state')['count'].sum()
+bl
+```
+
+&lt;pre&gt;state
+Alabama           197407
+Alaska             16720
+American Samoa         3
+Arizona           157140
+Arkansas          122452
+Name: count, dtype: int64
+&lt;/pre&gt;
+
+```python
 ind = bl.argsort() # Find index order that makes the states ordered by total case
 ```
 
 
 ```python
----
-class:middle,center,inverse
 
 # Creating marginal frequency distributions
 d1 = measles2.groupby('Year').sum().reset_index()
@@ -2278,7 +2273,7 @@ g.fig.savefig('img/measles_sns.png')
 
 ## measles: seaborn
     
-![svg](week6_heatmap_files/week6_heatmap_25_0.svg)
+![:scale 50%](week6_heatmap_files/week6_heatmap_25_0.svg)
     
 ---
 
@@ -2307,14 +2302,13 @@ fig1.update_yaxes(showticklabels=False, row=2, col=2)
 fig1.update_yaxes(row=2, col=1, autorange='reversed')
 fig1.update_yaxes(row=2, col=2, autorange='reversed')
 fig1.update_layout(showlegend=False, template = 'simple_white')
-show_fig(fig1, 'img/measles_plotly.html')
 ```
 
-
+---
 
 &lt;iframe
     width="100%"
-    height="500"
+    height="600"
     src="img/measles_plotly.html"
     frameborder="0"
     allowfullscreen
@@ -2359,7 +2353,7 @@ heatmap = alt.Chart(measles2).mark_rect().encode(
 
 &lt;iframe
     width="100%"
-    height="80%"
+    height="400"
     src="img/measles_alt.html"
     frameborder="0"
     allowfullscreen
