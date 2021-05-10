@@ -4,7 +4,8 @@ exclude: ['Personal','docs','slides','assignments','notes', 'R', 'README.Rmd']
 navbar:
   title: Data Visualization using Python
   left:
-    - text: "Home"
+    - icon: fa-home
+      text: "Home"
       href: index.html
     - text: Syllabus
       href: syllabus.html
@@ -20,7 +21,7 @@ navbar:
   right:
     - icon: fa-github
       text: GitHub
-      href: https://www.github.com/araastat/BIOF439
+      href: https://www.github.com/araastat/BIOF440
 output:
   html_document:
     theme: cosmo
