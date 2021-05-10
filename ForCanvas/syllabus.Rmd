@@ -20,7 +20,7 @@ h4 {
 }
 ```
 
-<img src="../img/faes.png" class="center" height="80"/>
+<img src="img/faes.png" class="center" height="80"/>
 
 <div style="text-align: center;">
 

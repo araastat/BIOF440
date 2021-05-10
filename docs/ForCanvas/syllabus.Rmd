@@ -20,7 +20,7 @@ h4 {
 }
 ```
 
-<img src="../img/faes.png" class="center" height="80"/>
+<img src="img/faes.png" class="center" height="80"/>
 
 <div style="text-align: center;">
 
@@ -34,7 +34,7 @@ Number of credits : 1
 
 <p>
 
-Spring 2021 Term B
+Summer 2021
 
 <p>
 
@@ -50,14 +50,12 @@ Abhijit Dasgupta, PhD
 
 -   E-mail: [dasgupta.faes\@gmail.com](mailto:dasgupta.faes@gmail.com)
 -   Preferred method of communcation: via
-    [Slack](https://biof440.slack.com){target="_blank"}. Sign up via
-    [this
-    link](https://join.slack.com/t/slack-5xv1054/shared_invite/zt-o6oag3f4-B6lJl1yQDmfNWeK2uCgxHQ){target="_blank"}
+    [Slack](https://biof440.slack.com){target="_blank"}. Sign up link will be available the week before class starts
 
 ### Course information
 
 Prerequisites, if any: None, though some knowledge and practice of
-Python may be useful
+Python may be useful. 
 
 #### Course description
 
