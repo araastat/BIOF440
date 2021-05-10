@@ -14,6 +14,7 @@ toplevel: FORCE ## Create top level website
 	cp  docs/toplevel/*.html docs
 	cp -r docs/toplevel/site_libs docs
 	cp -r docs/toplevel/ForCanvas/* docs/ForCanvas
+	for i in docs/*.html; do sed -i '' 's/fas\ fa-github/fab\ fa-github/g' $$i; done;
 
 all: lectures slides_web toplevel
 

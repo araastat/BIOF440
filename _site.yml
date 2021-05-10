@@ -7,21 +7,22 @@ navbar:
     - icon: fa-home
       text: "Home"
       href: index.html
-    - text: Syllabus
+    - icon: fa-book-open
+      text: Syllabus
       href: syllabus.html
-    - text: Instructor bio
+    - icon: fa-user
+      text: Instructor bio
       href: bio.html
     - text: Lectures
       href: slides/
     - text: Homework
       href: assignments/
+  right:
     - text: Resources
       href: resources.html
-
-  right:
-    - icon: fa-github
-      text: GitHub
+    - text: GitHub
       href: https://www.github.com/araastat/BIOF440
+      icon: fa-github
 output:
   html_document:
     theme: cosmo
