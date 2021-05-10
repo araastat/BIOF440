@@ -91,7 +91,9 @@ def show_fig2(filename, width="100%", height=500):
 
 ## Simple linear regression
 
-We'll start with an linear regression (OLS) using the mpg dataset. We first load the data into Python
+We'll start with an linear regression (OLS) using the `tips` dataset. This is data collected by a server in a restaurant during two and a half months in early 1990 working at a national chain in a suburban mall in the US. 
+
+We first load the data into Python
 
 
 ```python
@@ -1238,6 +1240,15 @@ dc_weather.index.name='Month'
 ## Weather data: Seaborn
 
 
+    
+![svg](week6_heatmap_files/week6_heatmap_5_0.svg)
+    
+
+
+---
+
+## Weather data: Seaborn
+
 ```python
 fig, ax = plt.subplots(figsize = (15,5))
 sns.heatmap(dc_weather, cmap="inferno", cbar_kws={'shrink':0.8, 'label': 'Degrees (F)'}, ax=ax);
@@ -1252,13 +1263,6 @@ show_fig2('img/temp_sns.html')
 ```
 
 ---
-    
-![svg](week6_heatmap_files/week6_heatmap_5_0.svg)
-    
-
-
----
-
 ## Weather data: matplotlib
 
 

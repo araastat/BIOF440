@@ -46,7 +46,9 @@ def show_fig2(filename, width="100%", height=500):
 
 ## Simple linear regression
 
-We'll start with an linear regression (OLS) using the mpg dataset. We first load the data into Python
+We'll start with an linear regression (OLS) using the `tips` dataset. This is data collected by a server in a restaurant during two and a half months in early 1990 working at a national chain in a suburban mall in the US. 
+
+We first load the data into Python
 
 
 ```python
