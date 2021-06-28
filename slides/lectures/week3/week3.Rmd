@@ -34,7 +34,7 @@ This chart is not novel or fancy, but the annotations make it relevant and conte
 
 Data visualizations should be readable. It should be obvious what the chart is about and how to interpret it.
 
-![:scale 40%](img/bad1.png)
+![](img/bad1.png)
 
 ![](img/good1.png)
 
