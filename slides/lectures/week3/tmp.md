@@ -1,22 +1,15 @@
 ---
-title: "Statistical data visualizations (static)"
+title: "Statistical data visualizations (static)
 author: "Abhijit Dasgupta"
 subtitle: "BIOF 440"
 ---
----
-class:middle,center,inverse
-
-# Data visualization
-
----
+---@class:middle,center,inverse@@# Data visualization
 
 ## Visualization for analysis
 
 - Tool for understanding datasets
 - You ask questions and quickly answer them
 - Iterate to develop insights.
-
----
 
 ## Context is important
 
@@ -28,8 +21,6 @@ This makes the visualization **informative**.
 
 This chart is not novel or fancy, but the annotations make it relevant and contextual
 
----
-
 ## Improve readability
 
 Data visualizations should be readable. It should be obvious what the chart is about and how to interpret it.
@@ -38,8 +29,6 @@ Data visualizations should be readable. It should be obvious what the chart is a
 
 ![](img/good1.png)
 
-
----
 
 ## Some ideas
 
@@ -57,8 +46,6 @@ Data visualizations should be readable. It should be obvious what the chart is a
 >
 > -- <cite>Edward Tufte, The Visual Display of Quantitative Data
 
----
-
 ## Tufte's Principles of Graphical Integrity
 
 1. Show data variation, not design variation
@@ -66,8 +53,6 @@ Data visualizations should be readable. It should be obvious what the chart is a
 1. Use clear, detailed, thorough labelling.
 1. Representation of numbers should be directly proportional to numerical quantities
 1. Don't use more dimensions than the data require
-
----
 
 ## Tufte's Principles of Graphical Integrity
 
@@ -82,8 +67,6 @@ Data visualizations should be readable. It should be obvious what the chart is a
 1. Don't use more dimensions than the data require
    - Be appropriate in use of 3D graphics, for example
 
----
-
 ## Tufte's Fundamental Principles of Design
 
    1. Show comparisons
@@ -92,8 +75,6 @@ Data visualizations should be readable. It should be obvious what the chart is a
    1. Completely integrate modes (like text, images, numbers)
    1. Establish credibility
    1. Focus on content
-
----
 
 ## Nathan Yau's Seven Basic Rules for Making Charts and Graphs
 
@@ -162,12 +143,7 @@ Data visualizations should be readable. It should be obvious what the chart is a
 * Avoid quirky fonts
 * Make good design choices
 
----
-class:middle,center,inverse
-
-# Data to graphics
-
----
+---@class:middle,center,inverse@@# Data to graphics
 
 ## Visual encoding
 
@@ -179,15 +155,11 @@ The basic question in data visualization is how we transform data values into bl
 
 We can also refer to these as **visual encoding**, i.e., how we encode aspects of data visually
 
----
-
 ## Common aesthetics/encodings
 
 ![:scale 50](img/aesthetics.png)
 
 
-
----
 
 ## Common aesthetics/encodings
 
@@ -197,8 +169,6 @@ The choice of aesthetics often will be guided by the kind of data you're trying 
 - Categorical ordered
 - Categorical unordered
 - Time (dates, times, years)
-
----
 
 ## Common aesthetics/encodings
 
@@ -211,20 +181,13 @@ Time | x, y | |
 
 > Can you think of examples where we can encode data types with different kinds of visualizations?
 
----
-class:middle,center,inverse
-
-# Statistical Data Visualization
-
----
+---@class:middle,center,inverse@@# Statistical Data Visualization
 
 ## Statistical data visualization
 
 In this class we will mainly be dealing with statistical data visualizations, rather than visualizing functions and fixed patterns.
 
 The package **seaborn** will be our main high-level Python tool to enable us to do this.
-
----
 
 ## seaborn, pandas and matplotlib
 
@@ -236,8 +199,6 @@ The package **seaborn** will be our main high-level Python tool to enable us to 
 
 ![:scale 75%](img/mpl.png)
 
----
-
 ## seaborn, pandas and matplotlib
 
 - Both **pandas** plotting and **seaborn** are built on top of **matplotlib**
@@ -247,12 +208,7 @@ The package **seaborn** will be our main high-level Python tool to enable us to 
     - customize visualizations
     - save visualizations
 
----
-class:middle,center,inverse
-
-# Let's get started
-
----
+---@class:middle,center,inverse@@# Let's get started
 
 ## Setting up
 
@@ -266,13 +222,10 @@ import pandas as pd
 import seaborn as sns
 
 %matplotlib inline
-plt.style.use("seaborn-whitegrid") # this is a built-in style
-mpl.rcParams['figure.figsize'] = (8,6) # Sets default size of graphics in inches
+plt.style.use("seaborn-whitegrid")
 ```
 
 This will be the usual setup for the material this week
-
----
 
 ## Starting with basic pandas plots
 
@@ -283,8 +236,6 @@ It also allows us to see the direct relationship between the data and visualizat
 We can plot from both `Series` and `DataFrame` objects
 
 **pandas** was originally built to work with time series, so a tacit assumption underlying **pandas** plotting is that the index of the `DataFrame` or `Series` is a series of dates or times, and each column is data collected at each of these time points for a particular variable. So a `DataFrame` was assumed to be a set of time series, and the plotting tools were designed accordingly. However, we won't follow that assumption here, since a `DataFrame` is used much more richly in data science.
-
----
 
 ## Starting with basic pandas plots
 
@@ -431,64 +382,69 @@ cars.head()
 
 
 
----
-class:middle,center,inverse
-
-# Visualizing one variable (Continuous)
-
----
+---@class:middle,center,inverse@@# Visualizing one variable (Continuous)
 
 ## Histogram
 
 
 ```python
-cars["MPG"].plot(kind="hist");
+cars["MPG"].plot(kind="hist")
 ```
 
 
+
+
+    <AxesSubplot:ylabel='Frequency'>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_41_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_41_1.png)
     
 
-
-> **Note:** Notice the semi-colon after the command. This is to ensure that there is no textual meta-data about the plot that is printed. This is an inheritance from Matlab that has remained. 
-
----
 
 ## Density plot
 
 
 ```python
-cars["MPG"].plot(kind="kde");
+cars["MPG"].plot(kind="kde")
 ```
 
 
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_44_0.png)
-    
 
 
----
+    <AxesSubplot:ylabel='Density'>
+
+
+
+
+    
+![png](03_01_data_visualization_files/03_01_data_visualization_43_1.png)
+    
+
 
 ## Box plot
 
 
 ```python
-cars["MPG"].plot(kind="box");
+cars["MPG"].plot(kind="box")
 ```
 
 
+
+
+    <AxesSubplot:>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_46_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_45_1.png)
     
 
 
----
-class:middle,center,inverse
-
-# Visualizing one variable (categorical)
-
----
+---@class:middle,center,inverse@@# Visualizing one variable (categorical)
 
 ## Frequency barplot
 
@@ -514,22 +470,25 @@ cars["Cylinders"].value_counts()
 
 
 
----
-
 ## Frequency barplot
 
 
 ```python
-cars["Cylinders"].value_counts().plot(kind="bar");
+cars["Cylinders"].value_counts().plot(kind="bar")
 ```
 
 
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_51_0.png)
-    
 
 
----
+    <AxesSubplot:>
+
+
+
+
+    
+![png](03_01_data_visualization_files/03_01_data_visualization_50_1.png)
+    
+
 
 ## Frequency barplot
 
@@ -537,36 +496,43 @@ To order the bars by their natural order, we can modify how `value_counts` is co
 
 
 ```python
-cars["Cylinders"].value_counts(sort=False).plot(kind="bar");
+cars["Cylinders"].value_counts(sort=False).plot(kind="bar")
 ```
 
 
+
+
+    <AxesSubplot:>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_53_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_52_1.png)
     
 
 
----
-class:middle,center,inverse
-
-# Visualizing bivariate relationships
-
----
+---@class:middle,center,inverse@@# Visualizing bivariate relationships
 
 ## Scatter plot (2 continuous variables)
 
 
 ```python
-cars.plot(x="Displacement", y="MPG", kind="scatter");
+cars.plot(x="Displacement", y="MPG", kind="scatter")
 ```
 
 
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_56_0.png)
-    
 
 
----
+    <AxesSubplot:xlabel='Displacement', ylabel='MPG'>
+
+
+
+
+    
+![png](03_01_data_visualization_files/03_01_data_visualization_55_1.png)
+    
+
 
 ## Scatterplot matrix
 
@@ -579,13 +545,34 @@ pd.plotting.scatter_matrix(penguins);
 ```
 
 
+
+
+    array([[<AxesSubplot:xlabel='bill_length_mm', ylabel='bill_length_mm'>,
+            <AxesSubplot:xlabel='bill_depth_mm', ylabel='bill_length_mm'>,
+            <AxesSubplot:xlabel='flipper_length_mm', ylabel='bill_length_mm'>,
+            <AxesSubplot:xlabel='body_mass_g', ylabel='bill_length_mm'>],
+           [<AxesSubplot:xlabel='bill_length_mm', ylabel='bill_depth_mm'>,
+            <AxesSubplot:xlabel='bill_depth_mm', ylabel='bill_depth_mm'>,
+            <AxesSubplot:xlabel='flipper_length_mm', ylabel='bill_depth_mm'>,
+            <AxesSubplot:xlabel='body_mass_g', ylabel='bill_depth_mm'>],
+           [<AxesSubplot:xlabel='bill_length_mm', ylabel='flipper_length_mm'>,
+            <AxesSubplot:xlabel='bill_depth_mm', ylabel='flipper_length_mm'>,
+            <AxesSubplot:xlabel='flipper_length_mm', ylabel='flipper_length_mm'>,
+            <AxesSubplot:xlabel='body_mass_g', ylabel='flipper_length_mm'>],
+           [<AxesSubplot:xlabel='bill_length_mm', ylabel='body_mass_g'>,
+            <AxesSubplot:xlabel='bill_depth_mm', ylabel='body_mass_g'>,
+            <AxesSubplot:xlabel='flipper_length_mm', ylabel='body_mass_g'>,
+            <AxesSubplot:xlabel='body_mass_g', ylabel='body_mass_g'>]],
+          dtype=object)
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_58_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_57_1.png)
     
 
 
-
----
 
 ## Box plots (continuous x categorical)
 
@@ -595,17 +582,19 @@ cars.boxplot(column="MPG", by="Cylinders");
 ```
 
 
+
+
+    <AxesSubplot:title={'center':'MPG'}, xlabel='Cylinders'>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_60_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_59_1.png)
     
 
 
----
-class:middle,center,inverse
-
-# An aside about pandas plotting
-
----
+---@class:middle,center,inverse@@# An aside about pandas plotting
 
 ## Plotting several columns in a DataFrame
 
@@ -619,12 +608,17 @@ penguins.plot(kind="kde");
 ```
 
 
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_63_0.png)
-    
 
 
----
+    <AxesSubplot:ylabel='Density'>
+
+
+
+
+    
+![png](03_01_data_visualization_files/03_01_data_visualization_62_1.png)
+    
+
 
 ## Plotting several columns in a DataFrame
 
@@ -636,12 +630,19 @@ penguins.plot(kind="kde", subplots=True);
 ```
 
 
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_65_0.png)
-    
 
 
----
+    array([<AxesSubplot:ylabel='Density'>, <AxesSubplot:ylabel='Density'>,
+           <AxesSubplot:ylabel='Density'>, <AxesSubplot:ylabel='Density'>],
+          dtype=object)
+
+
+
+
+    
+![png](03_01_data_visualization_files/03_01_data_visualization_64_1.png)
+    
+
 
 ## Plotting several columns in a DataFrame
 
@@ -653,12 +654,19 @@ penguins.plot(kind="kde", subplots=True, sharex=False, layout=(2, 2));
 ```
 
 
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_67_0.png)
-    
 
 
----
+    array([[<AxesSubplot:ylabel='Density'>, <AxesSubplot:ylabel='Density'>],
+           [<AxesSubplot:ylabel='Density'>, <AxesSubplot:ylabel='Density'>]],
+          dtype=object)
+
+
+
+
+    
+![png](03_01_data_visualization_files/03_01_data_visualization_66_1.png)
+    
+
 
 ## Boxplots of several columns
 
@@ -669,11 +677,9 @@ penguins[["bill_length_mm", "bill_depth_mm", "flipper_length_mm"]].plot(kind="bo
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_69_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_68_0.png)
     
 
-
----
 
 ## Plotting against the index of a Series or DataFrame
 
@@ -715,11 +721,9 @@ plt.show()
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_73_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_72_0.png)
     
 
-
----
 
 ## Another example
 
@@ -762,38 +766,38 @@ D.head()
   <tbody>
     <tr>
       <th>0</th>
-      <td>-0.974184</td>
-      <td>0.498637</td>
-      <td>1.041256</td>
-      <td>-0.262377</td>
+      <td>-0.383480</td>
+      <td>0.829288</td>
+      <td>0.381476</td>
+      <td>2.407786</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-1.535481</td>
-      <td>-0.289788</td>
-      <td>1.102533</td>
-      <td>-0.258064</td>
+      <td>-0.137275</td>
+      <td>2.494902</td>
+      <td>-1.366498</td>
+      <td>0.963358</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.422345</td>
-      <td>-0.912403</td>
-      <td>0.542796</td>
-      <td>-0.749465</td>
+      <td>-0.504763</td>
+      <td>0.851114</td>
+      <td>-0.977248</td>
+      <td>0.290317</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.577320</td>
-      <td>0.531865</td>
-      <td>1.282063</td>
-      <td>-0.272626</td>
+      <td>1.817811</td>
+      <td>-0.275058</td>
+      <td>-1.492786</td>
+      <td>-0.004308</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-3.278632</td>
-      <td>-0.352470</td>
-      <td>-0.981695</td>
-      <td>-0.655427</td>
+      <td>-1.062513</td>
+      <td>0.430877</td>
+      <td>0.548559</td>
+      <td>-1.141157</td>
     </tr>
   </tbody>
 </table>
@@ -815,18 +819,13 @@ D.plot(kind="line")
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_76_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_75_1.png)
     
 
 
 So we can plot multiple variables on a plot (but does it make sense?)
 
----
-class:middle,center,inverse
-
-# seaborn for statistical visualization
-
----
+---@class:middle,center,inverse@@# seaborn for statistical visualization
 
 ## seaborn
 
@@ -836,15 +835,11 @@ Using **pandas**, we see basic encodings, basically just `x` and `y`
 
 We'll see later how we'd do a similar plot using more granular code from **matplotlib**
 
----
-
 ## seaborn
 
 The main classes of figures created using **seaborn**: 
 
 ![](https://seaborn.pydata.org/_images/function_overview_8_0.png)
-
----
 
 ## seaborn
 
@@ -852,8 +847,6 @@ The main classes of figures created using **seaborn**:
 
 - _facets_, i.e., subplots based on unique values of column(s) of the `DataFrame`
 - _overlays_, i.e., plots where we can encode unique values of column(s) of a `DataFrame` on the same plot
-
----
 
 ## seaborn
 
@@ -868,8 +861,6 @@ The main classes of figures created using **seaborn**:
 ```python
 sns.set_style("white", {"font.family": "Futura"})
 ```
-
----
 
 ## Histograms
 
@@ -886,13 +877,13 @@ sns.displot(
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7fa28ea06a30>
+    <seaborn.axisgrid.FacetGrid at 0x7fa795e169d0>
 
 
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_85_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_84_1.png)
     
 
 
@@ -909,17 +900,15 @@ sns.displot(
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7fa28e8be7f0>
+    <seaborn.axisgrid.FacetGrid at 0x7fa7955b1250>
 
 
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_86_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_85_1.png)
     
 
-
----
 
 ## Histograms
 
@@ -936,13 +925,13 @@ sns.displot(
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7fa28e88a040>
+    <seaborn.axisgrid.FacetGrid at 0x7fa79501a3d0>
 
 
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_88_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_87_1.png)
     
 
 
@@ -962,17 +951,15 @@ sns.displot(
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7fa28951e250>
+    <seaborn.axisgrid.FacetGrid at 0x7fa796940fa0>
 
 
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_89_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_88_1.png)
     
 
-
----
 
 ## Density plot
 
@@ -984,17 +971,15 @@ sns.displot(data=penguins, x="bill_length_mm", hue="species", kind="kde")
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7fa28dd65e80>
+    <seaborn.axisgrid.FacetGrid at 0x7fa796d3f130>
 
 
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_91_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_90_1.png)
     
 
-
----
 
 ## Empirical cumulative distribution plots
 
@@ -1006,11 +991,9 @@ plt.show()
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_93_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_92_0.png)
     
 
-
----
 
 ## Categorical plots
 
@@ -1022,17 +1005,15 @@ sns.catplot(data=penguins, x="species", kind="count")
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7fa28ea28820>
+    <seaborn.axisgrid.FacetGrid at 0x7fa796daa910>
 
 
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_95_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_94_1.png)
     
 
-
----
 
 ## Relating two continuous variables
 
@@ -1042,8 +1023,15 @@ sns.relplot(data=penguins, x="bill_length_mm", y="body_mass_g");
 ```
 
 
+
+
+    <seaborn.axisgrid.FacetGrid at 0x7fa797165910>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_97_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_96_1.png)
     
 
 
@@ -1053,8 +1041,15 @@ sns.relplot(data=penguins, x="bill_length_mm", y="body_mass_g", hue="species");
 ```
 
 
+
+
+    <seaborn.axisgrid.FacetGrid at 0x7fa7973d83d0>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_98_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_97_1.png)
     
 
 
@@ -1072,38 +1067,13 @@ sns.relplot(
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7fa28eceec70>
+    <seaborn.axisgrid.FacetGrid at 0x7fa79715b970>
 
 
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_99_1.png)
-    
-
-
-
-```python
-sns.relplot(
-    data=penguins,
-    x="bill_length_mm",
-    y="body_mass_g",
-    hue="species",
-    style="species",
-    col="island",
-)
-```
-
-
-
-
-    <seaborn.axisgrid.FacetGrid at 0x7fa28db3bfd0>
-
-
-
-
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_100_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_98_1.png)
     
 
 
@@ -1122,13 +1092,38 @@ sns.relplot(
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7fa28da397f0>
+    <seaborn.axisgrid.FacetGrid at 0x7fa7973d1cd0>
 
 
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_101_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_99_1.png)
+    
+
+
+
+```python
+sns.relplot(
+    data=penguins,
+    x="bill_length_mm",
+    y="body_mass_g",
+    hue="species",
+    style="species",
+    col="island",
+)
+```
+
+
+
+
+    <seaborn.axisgrid.FacetGrid at 0x7fa796db5250>
+
+
+
+
+    
+![png](03_01_data_visualization_files/03_01_data_visualization_100_1.png)
     
 
 
@@ -1145,16 +1140,21 @@ sns.relplot(
     col_order=["Biscoe", "Dream", "Torgersen"],
     height=3,
     aspect=1.5,
-);
+)
 ```
 
 
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_102_0.png)
-    
 
 
----
+    <seaborn.axisgrid.FacetGrid at 0x7fa7980f09a0>
+
+
+
+
+    
+![png](03_01_data_visualization_files/03_01_data_visualization_101_1.png)
+    
+
 
 ## Line plots
 
@@ -1241,23 +1241,37 @@ fmri.head()
 
 
 ```python
-sns.relplot(data=fmri, x="timepoint", y="signal", kind="line");
+sns.relplot(data=fmri, x="timepoint", y="signal", kind="line")
 ```
 
 
+
+
+    <seaborn.axisgrid.FacetGrid at 0x7fa798554d00>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_105_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_104_1.png)
     
 
 
 
 ```python
-sns.relplot(data=fmri, x="timepoint", y="signal", kind="line", hue="event");
+sns.relplot(data=fmri, x="timepoint", y="signal", kind="line", hue="event")
 ```
 
 
+
+
+    <seaborn.axisgrid.FacetGrid at 0x7fa7985934c0>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_106_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_105_1.png)
     
 
 
@@ -1265,12 +1279,19 @@ sns.relplot(data=fmri, x="timepoint", y="signal", kind="line", hue="event");
 ```python
 sns.relplot(
     data=fmri, x="timepoint", y="signal", kind="line", hue="event", style="region"
-);
+)
 ```
 
 
+
+
+    <seaborn.axisgrid.FacetGrid at 0x7fa79886b880>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_107_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_106_1.png)
     
 
 
@@ -1284,12 +1305,19 @@ sns.relplot(
     hue="event",
     style="region",
     ci=None,
-);
+)
 ```
 
 
+
+
+    <seaborn.axisgrid.FacetGrid at 0x7fa798902730>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_108_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_107_1.png)
     
 
 
@@ -1299,12 +1327,19 @@ sns.lmplot(
     data=penguins,
     x="bill_length_mm",
     y="body_mass_g",
-);
+)
 ```
 
 
+
+
+    <seaborn.axisgrid.FacetGrid at 0x7fa79856fd30>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_109_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_108_1.png)
     
 
 
@@ -1321,13 +1356,13 @@ sns.lmplot(
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7fa28d99edf0>
+    <seaborn.axisgrid.FacetGrid at 0x7fa798e42310>
 
 
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_110_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_109_1.png)
     
 
 
@@ -1338,16 +1373,21 @@ sns.lmplot(
     x="bill_length_mm",
     y="body_mass_g",
     hue="species",
-);
+)
 ```
 
 
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_111_0.png)
-    
 
 
----
+    <seaborn.axisgrid.FacetGrid at 0x7fa7990da2e0>
+
+
+
+
+    
+![png](03_01_data_visualization_files/03_01_data_visualization_110_1.png)
+    
+
 
 ## Categorical plots
 
@@ -1366,12 +1406,19 @@ diamonds.shape
 
 
 ```python
-sns.catplot(data=diamonds, x="cut", y="price", kind="box");
+sns.catplot(data=diamonds, x="cut", y="price", kind="box")
 ```
 
 
+
+
+    <seaborn.axisgrid.FacetGrid at 0x7fa798bfe910>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_114_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_113_1.png)
     
 
 
@@ -1390,13 +1437,13 @@ sns.catplot(
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7fa2926b0e50>
+    <seaborn.axisgrid.FacetGrid at 0x7fa79925deb0>
 
 
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_115_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_114_1.png)
     
 
 
@@ -1409,27 +1456,39 @@ sns.catplot(
     y="price",
     kind="bar",
     order=cat_order,
-);
+)
 ```
 
 
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_116_0.png)
-    
 
 
----
+    <seaborn.axisgrid.FacetGrid at 0x7fa79ac02eb0>
+
+
+
+
+    
+![png](03_01_data_visualization_files/03_01_data_visualization_115_1.png)
+    
+
 
 ## Pair plot
 
 
 ```python
-sns.pairplot(data=penguins);
+sns.pairplot(data=penguins)
 ```
 
 
+
+
+    <seaborn.axisgrid.PairGrid at 0x7fa79adf8f70>
+
+
+
+
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_118_0.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_117_1.png)
     
 
 
@@ -1441,13 +1500,13 @@ sns.pairplot(data=penguins, hue="species")
 
 
 
-    <seaborn.axisgrid.PairGrid at 0x7fa29230a3d0>
+    <seaborn.axisgrid.PairGrid at 0x7fa77ce64190>
 
 
 
 
     
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_119_1.png)
+![png](03_01_data_visualization_files/03_01_data_visualization_118_1.png)
     
 
 
@@ -1456,31 +1515,22 @@ sns.pairplot(data=penguins, hue="species")
 g = sns.PairGrid(penguins, diag_sharey=False)
 g.map_upper(sns.scatterplot)
 g.map_lower(sns.kdeplot)
-g.map_diag(sns.kdeplot, lw=2);
+g.map_diag(sns.kdeplot, lw=2)
 ```
 
 
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_120_0.png)
-    
 
 
----
+    <seaborn.axisgrid.PairGrid at 0x7fa77ce9bd30>
+
+
 
 ## Joint plot
 
 
 ```python
-sns.jointplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species");
+sns.jointplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species")
 ```
-
-
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_122_0.png)
-    
-
-
----
 
 ## Overlaying aesthetics
 
@@ -1489,78 +1539,10 @@ sns.jointplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="spe
 g = sns.catplot(data=penguins, x="species", y="body_mass_g", kind="violin")
 sns.swarmplot(data=penguins, x="species", y="body_mass_g", ax=g.ax, color="black")
 g.set_xlabels("Species")
-g.set_ylabels("Body mass (g)");
+g.set_ylabels("Body mass (g)")
 ```
 
-
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_124_0.png)
-    
-
-
----
-class:middle,center,inverse
-
-# Saving your work
-
-**matplotlib**, and, by extension, **pandas** and **seaborn**, has a large number of backend engines that enables one to save their visualizations in several file formats. 
-
-
-```python
-print(pd.Series(fig.canvas.get_supported_filetypes()))
-```
-
-    eps              Encapsulated Postscript
-    jpg     Joint Photographic Experts Group
-    jpeg    Joint Photographic Experts Group
-    pdf             Portable Document Format
-    pgf                   PGF code for LaTeX
-    png            Portable Network Graphics
-    ps                            Postscript
-    raw                      Raw RGBA bitmap
-    rgba                     Raw RGBA bitmap
-    svg             Scalable Vector Graphics
-    svgz            Scalable Vector Graphics
-    tif             Tagged Image File Format
-    tiff            Tagged Image File Format
-    dtype: object
-
-
----
-class:middle,center,inverse
-
-# Saving your work
-
-You can save your work using the `plt.savefig` function
-
-
-```python
----
-class:middle,center,inverse
-
-# This will save the last run figure
-plt.savefig("penguins.png", transparent=True, dpi=300);
-```
-
-
-    <Figure size 432x288 with 0 Axes>
-
-
-
-```python
----
-class:middle,center,inverse
-
-# This will save the figure contained in fig
-fig.savefig("penguins.png", transparent=True, dpi=300)
-```
-
----
-class:middle,center,inverse
-
-# matplotlib
-
----
+---@class:middle,center,inverse@@# matplotlib
 
 ## Granular control
 
@@ -1576,14 +1558,8 @@ We can build a visualization from the ground up
 fig, ax = plt.subplots()
 ax.scatter(penguins["bill_length_mm"], penguins["body_mass_g"])
 ax.set_xlabel("Bill length (mm)")
-ax.set_ylabel("Body mass (g)");
+ax.set_ylabel("Body mass (g)")
 ```
-
-
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_132_0.png)
-    
-
 
 
 ```python
@@ -1593,14 +1569,8 @@ for i, u in enumerate(penguins["species"].unique()):
     d = penguins[penguins["species"] == u]
     ax.scatter(d["bill_length_mm"], d["body_mass_g"], c=cols[i], label=u)
 ax.legend(title="Species", loc="best", labelcolor="black")
-plt.show();
+plt.show()
 ```
-
-
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_133_0.png)
-    
-
 
 
 ```python
@@ -1613,14 +1583,8 @@ for i, u in enumerate(penguins["species"].unique()):
     axs[i].set_xlabel("Bill length(mm)")
     if i == 0:
         axs[i].set_ylabel("Body mass (g)")
-fig.legend();
+fig.legend()
 ```
-
-
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_134_0.png)
-    
-
 
 
 ```python
@@ -1632,8 +1596,32 @@ g.set_ylabels("Body mass (g)")
 plt.show()
 ```
 
+---@class:middle,center,inverse@@# Saving your work
 
-    
-![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_135_0.png)
-    
+**matplotlib**, and, by extension, **pandas** and **seaborn**, has a large number of backend engines that enables one to save their visualizations in several file formats. 
 
+
+```python
+print(pd.Series(fig.canvas.get_supported_filetypes()))
+```
+
+---@class:middle,center,inverse@@# Saving your work
+
+You can save your work using the `plt.savefig` function
+
+
+```python
+---@class:middle,center,inverse@@# This will save the last run figure
+plt.savefig("penguins.png", transparent=True, dpi=300)
+```
+
+
+```python
+---@class:middle,center,inverse@@# This will save the figure contained in fig
+fig.savefig("penguins.png", transparent=True, dpi=300)
+```
+
+
+```python
+!ls -l
+```

@@ -1,5 +1,5 @@
 # ---
-# title: "Statistical data visualizations (static)
+# title: "Statistical data visualizations (static)"
 # author: "Abhijit Dasgupta"
 # subtitle: "BIOF 440"
 # jupyter:
@@ -16,8 +16,6 @@
 #     name: python3
 # ---
 
-# %%
-
 # %% [markdown] slideshow={"slide_type": "slide"}
 # # Data visualization
 
@@ -28,7 +26,7 @@
 # - You ask questions and quickly answer them
 # - Iterate to develop insights.
 
-# %% [markdown] slideshow={"slide_type": "slide"} hide_input=false
+# %% [markdown] hide_input=false slideshow={"slide_type": "slide"}
 # ## Context is important
 #
 # A data visualization should be self-contained and be able to express the **context** of the data. 
@@ -268,7 +266,9 @@ import pandas as pd
 import seaborn as sns
 
 # %matplotlib inline
-plt.style.use("seaborn-whitegrid")
+plt.style.use("seaborn-whitegrid") # this is a built-in style
+mpl.rcParams['figure.figsize'] = (8,6) # Sets default size of graphics in inches
+from IPython.display import Image # import images into Jupyter notebooks
 
 # %% [markdown] slideshow={"slide_type": "fragment"}
 # This will be the usual setup for the material this week
@@ -301,19 +301,22 @@ cars.head()
 # ## Histogram
 
 # %% slideshow={"slide_type": "fragment"}
-cars["MPG"].plot(kind="hist")
+cars["MPG"].plot(kind="hist");
+
+# %% [markdown]
+# > **Note:** Notice the semi-colon after the command. This is to ensure that there is no textual meta-data about the plot that is printed. This is an inheritance from Matlab that has remained. 
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Density plot
 
 # %% slideshow={"slide_type": "fragment"}
-cars["MPG"].plot(kind="kde")
+cars["MPG"].plot(kind="kde");
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Box plot
 
 # %% slideshow={"slide_type": "fragment"}
-cars["MPG"].plot(kind="box")
+cars["MPG"].plot(kind="box");
 
 # %% [markdown] slideshow={"slide_type": "slide"}
 # # Visualizing one variable (categorical)
@@ -330,7 +333,7 @@ cars["Cylinders"].value_counts()
 # ## Frequency barplot
 
 # %% slideshow={"slide_type": "fragment"}
-cars["Cylinders"].value_counts().plot(kind="bar")
+cars["Cylinders"].value_counts().plot(kind="bar");
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Frequency barplot
@@ -338,7 +341,7 @@ cars["Cylinders"].value_counts().plot(kind="bar")
 # To order the bars by their natural order, we can modify how `value_counts` is computed
 
 # %% slideshow={"slide_type": "fragment"}
-cars["Cylinders"].value_counts(sort=False).plot(kind="bar")
+cars["Cylinders"].value_counts(sort=False).plot(kind="bar");
 
 # %% [markdown] slideshow={"slide_type": "slide"}
 # # Visualizing bivariate relationships
@@ -347,7 +350,7 @@ cars["Cylinders"].value_counts(sort=False).plot(kind="bar")
 # ## Scatter plot (2 continuous variables)
 
 # %% slideshow={"slide_type": "fragment"}
-cars.plot(x="Displacement", y="MPG", kind="scatter")
+cars.plot(x="Displacement", y="MPG", kind="scatter");
 
 # %% [markdown] slideshow={"slide_type": "slide"}
 # ## Scatterplot matrix
@@ -430,7 +433,7 @@ D = pd.DataFrame(n, columns=["A", "B", "C", "D"])
 D.head()
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"}
-D.plot(kind="line")
+D.plot(kind="line");
 
 # %% [markdown] slideshow={"slide_type": "fragment"}
 # So we can plot multiple variables on a plot (but does it make sense?)
@@ -478,29 +481,29 @@ sns.set_style("white", {"font.family": "Futura"})
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Histograms
 #
-# %% name="a1" cell_style="split" eval=false slideshow={"slide_type": "fragment"}
+# %% cell_style="split" eval=false name="a1" slideshow={"slide_type": "fragment"}
 sns.displot(
     data=penguins,  # DataFrame
     x="bill_length_mm",  # columns to encode
     kind="hist",  # Type of encoding
-)
-# %% name="a2" cell_style="split" eval=false slideshow={"slide_type": "fragment"}
+);
+# %% cell_style="split" eval=false name="a2" slideshow={"slide_type": "fragment"}
 sns.displot(
     data=penguins,  # DataFrame
     x="bill_length_mm",  # columns to encode
     kind="hist",  # Type of encoding
     hue="species",  # Encode species as colors (hue) and overlay
-)
+);
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Histograms
-# %% name="a3" cell_style="split" eval=false slideshow={"slide_type": "fragment"}
+# %% cell_style="split" eval=false name="a3" slideshow={"slide_type": "fragment"}
 sns.displot(
     data=penguins,  # DataFrame
     x="bill_length_mm",  # columns to encode
     kind="hist",  # Type of encoding
     col="species",  # Encode species as facets, one per column
-)
-# %% name="a4" cell_style="split" eval=false slideshow={"slide_type": "fragment"}
+);
+# %% cell_style="split" eval=false name="a4" slideshow={"slide_type": "fragment"}
 sns.displot(
     data=penguins,  # DataFrame
     x="bill_length_mm",  # columns to encodeS
@@ -509,25 +512,25 @@ sns.displot(
     col_wrap=2,
     height=2.5,
     aspect=1.5,
-)
+);
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Density plot
 
 # %% fig.height=3
-sns.displot(data=penguins, x="bill_length_mm", hue="species", kind="kde")
+sns.displot(data=penguins, x="bill_length_mm", hue="species", kind="kde");
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Empirical cumulative distribution plots
 
 # %% slideshow={"slide_type": "fragment"}
 sns.displot(data=penguins, x="bill_length_mm", hue="species", kind="ecdf")
-plt.show()
+plt.show();
 
 # %% [markdown] slideshow={"slide_type": "slide"}
 # ## Categorical plots
 
 # %% slideshow={"slide_type": "fragment"}
-sns.catplot(data=penguins, x="species", kind="count")
+sns.catplot(data=penguins, x="species", kind="count");
 
 # %% [markdown] slideshow={"slide_type": "slide"}
 # ## Relating two continuous variables
@@ -545,7 +548,7 @@ sns.relplot(
     y="body_mass_g",
     hue="species",
     style="species",
-)
+);
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"}
 sns.relplot(
@@ -555,7 +558,7 @@ sns.relplot(
     hue="species",
     style="species",
     col="island",
-)
+);
 
 # %% cell_style="center" slideshow={"slide_type": "subslide"} tags=[]
 sns.relplot(
@@ -565,7 +568,7 @@ sns.relplot(
     hue="species",
     style="species",
     col="island",
-)
+);
 
 # %% cell_style="center" slideshow={"slide_type": "subslide"} tags=[]
 sns.relplot(
@@ -579,7 +582,7 @@ sns.relplot(
     col_order=["Biscoe", "Dream", "Torgersen"],
     height=3,
     aspect=1.5,
-)
+);
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Line plots
@@ -589,15 +592,15 @@ fmri = sns.load_dataset("fmri")
 fmri.head()
 
 # %% cell_style="split" slideshow={"slide_type": "subslide"} tags=[]
-sns.relplot(data=fmri, x="timepoint", y="signal", kind="line")
+sns.relplot(data=fmri, x="timepoint", y="signal", kind="line");
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"} tags=[]
-sns.relplot(data=fmri, x="timepoint", y="signal", kind="line", hue="event")
+sns.relplot(data=fmri, x="timepoint", y="signal", kind="line", hue="event");
 
 # %% cell_style="split" slideshow={"slide_type": "subslide"} tags=[]
 sns.relplot(
     data=fmri, x="timepoint", y="signal", kind="line", hue="event", style="region"
-)
+);
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"} tags=[]
 sns.relplot(
@@ -608,14 +611,14 @@ sns.relplot(
     hue="event",
     style="region",
     ci=None,
-)
+);
 
 # %% cell_style="split" slideshow={"slide_type": "subslide"}
 sns.lmplot(
     data=penguins,
     x="bill_length_mm",
     y="body_mass_g",
-)
+);
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"}
 sns.lmplot(
@@ -623,7 +626,7 @@ sns.lmplot(
     x="bill_length_mm",
     y="body_mass_g",
     lowess=True,
-)
+);
 
 # %% slideshow={"slide_type": "subslide"}
 sns.lmplot(
@@ -631,7 +634,7 @@ sns.lmplot(
     x="bill_length_mm",
     y="body_mass_g",
     hue="species",
-)
+);
 
 # %% [markdown] slideshow={"slide_type": "slide"}
 # ## Categorical plots
@@ -641,7 +644,7 @@ diamonds = sns.load_dataset("diamonds")
 diamonds.shape
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"}
-sns.catplot(data=diamonds, x="cut", y="price", kind="box")
+sns.catplot(data=diamonds, x="cut", y="price", kind="box");
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"}
 cat_order = ["Fair", "Good", "Very Good", "Premium", "Ideal"]
@@ -651,7 +654,7 @@ sns.catplot(
     y="price",
     kind="strip",
     order=cat_order,
-)
+);
 
 # %% slideshow={"slide_type": "subslide"}
 cat_order = ["Fair", "Good", "Very Good", "Premium", "Ideal"]
@@ -661,28 +664,28 @@ sns.catplot(
     y="price",
     kind="bar",
     order=cat_order,
-)
+);
 
 # %% [markdown] slideshow={"slide_type": "slide"}
 # ## Pair plot
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"}
-sns.pairplot(data=penguins)
+sns.pairplot(data=penguins);
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"}
-sns.pairplot(data=penguins, hue="species")
+sns.pairplot(data=penguins, hue="species");
 
 # %% slideshow={"slide_type": "subslide"}
 g = sns.PairGrid(penguins, diag_sharey=False)
 g.map_upper(sns.scatterplot)
 g.map_lower(sns.kdeplot)
-g.map_diag(sns.kdeplot, lw=2)
+g.map_diag(sns.kdeplot, lw=2);
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Joint plot
 
 # %% slideshow={"slide_type": "fragment"}
-sns.jointplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species")
+sns.jointplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species");
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
 # ## Overlaying aesthetics
@@ -691,7 +694,31 @@ sns.jointplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="spe
 g = sns.catplot(data=penguins, x="species", y="body_mass_g", kind="violin")
 sns.swarmplot(data=penguins, x="species", y="body_mass_g", ax=g.ax, color="black")
 g.set_xlabels("Species")
-g.set_ylabels("Body mass (g)")
+g.set_ylabels("Body mass (g)");
+
+# %% [markdown] slideshow={"slide_type": "slide"} tags=[]
+# # Saving your work
+#
+# ## Saving your work
+#
+# **matplotlib**, and, by extension, **pandas** and **seaborn**, has a large number of backend engines that enables one to save their visualizations in several file formats. 
+
+# %% [markdown] slideshow={"slide_type": "subslide"}
+# You can save your work using the `plt.savefig` function
+
+# %% cell_style="center" slideshow={"slide_type": "fragment"}
+# This will save the last run figure
+plt.savefig("penguins.png", transparent=True, dpi=300);
+
+# %% [markdown] slideshow={"slide_type": "fragment"}
+# The type of file will be automatically determined by the last three letters of the file name
+#
+# + penguins.png = PNG file
+# + penguins.tif = TIFF file
+# + penguins.pdf = PDF file
+# + penguins.svg = SVG file
+#
+# See `help(plt.savefig)` or the [online documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html) for details.
 
 # %% [markdown] slideshow={"slide_type": "slide"}
 # # matplotlib
@@ -701,26 +728,143 @@ g.set_ylabels("Body mass (g)")
 # **matplotlib** allows us a lot of granular control of a data visualization.
 #
 # We can build a visualization from the ground up
-#
-# ![:scale 50%](https://matplotlib.org/stable/_images/anatomy.png)
-#
-# %% slideshow={"slide_type": "subslide"}
-fig, ax = plt.subplots()
-ax.scatter(penguins["bill_length_mm"], penguins["body_mass_g"])
-ax.set_xlabel("Bill length (mm)")
-ax.set_ylabel("Body mass (g)")
+# %% slideshow={"slide_type": "-"} hide_input=true
+Image('https://matplotlib.org/stable/_images/anatomy.png',width=400,height=400)
 
-# %% slideshow={"slide_type": "subslide"}
+# %% [markdown] slideshow={"slide_type": "slide"}
+# ## Matplotlib
+#
+# Both `seaborn` and `pandas` plotting methods actually are creating `matplotlib` plots, so knowing `matplotlib` is useful
+#
+# + to add features or annotations to a plot
+# + to customize aspects of the plot
+# + to easily compose sets of plots
+# + to export and save plots
+# + to do visualizations that are not "baked in" to `seaborn` or `pandas`
+#
+# We've seen some of the elements of `matplotlib` syntax already, but we'll take a deeper dive now.
+
+# %% [markdown] slideshow={"slide_type": "subslide"}
+# ## Matplotlib
+#
+# + `seaborn` and `pandas` makes things easier to do quickly
+#     - Nicer, more expressive code for creating common visualizations (better API)
+#     - based on `pandas.DataFrame`
+#     - Less things to learn and remember
+#     - Nicer for **data visualization**
+# + `matplotlib` is getting into the trenches, in some ways
+#     - powerful visualization tool in its own right
+#     - based on `numpy.array`
+#     - can create graphs of functions and other kinds of constructs
+#     - more involved syntax
+#
+
+# %% [markdown] slideshow={"slide_type": "slide"}
+# ## Matplotlib
+#
+# We'll see the *object-oriented API* of matplotlib
+#
+# > There is another way to create functions in matplotlib, that mimicks Matlab
+# > That API is considered outdated in favor of the OO one.
+#
+#
+
+# %% [markdown] slideshow={"slide_type": "subslide"}
+# ## Matplotlib
+#
+# Let's start with creating a figure "canvas"
+
+# %% slideshow={"slide_type": "-"}
+fig, ax = plt.subplots() # default is 1 row and 1 col, so a single plot
+
+# %% [markdown] slideshow={"slide_type": "-"}
+# In the code, `fig` refers to the figure and `ax` refers to the axis or axes (if more than one subplot is created)
+
+# %% [markdown] cell_style="center" slideshow={"slide_type": "subslide"}
+# ## Matplotlib
+#
+# + **Figure** refers to the topmost layer of a plot, which can contain axes, titles, labels, subplots
+# + **Axes** define a subplot
+#     - We can write our own x-axis limits, y-axis limits, their labels, the type of graph. 
+#     - It controls every detail inside the subplot
+#     
+# Typically we will control aspects of our data visualization at the **axis** level. 
+
+# %% [markdown] slideshow={"slide_type": "subslide"}
+# ## Matplotlib
+#
+# Now lets add some data to this plot
+
+# %% slideshow={"slide_type": "-"}
+fig, ax = plt.subplots()
+ax.scatter(penguins['body_mass_g'], penguins['flipper_length_mm'])
+ax.set_xlabel('Body mass (g)')
+ax.set_ylabel('Flipper length (mm)')
+ax.set_title('Palmer penguins');
+
+# %% [markdown] slideshow={"slide_type": "subslide"}
+# ## Matplotlib
+#
+# We can easily do subplots in this paradigm
+
+# %% slideshow={"slide_type": "-"}
+fig, ax = plt.subplots(nrows=1, ncols=3, figsize=(20,4))
+ax[0].scatter(penguins['body_mass_g'], penguins['flipper_length_mm'])
+ax[1].scatter(penguins['bill_length_mm'],penguins['flipper_length_mm'])
+ax[2].scatter(penguins['body_mass_g'], penguins['bill_depth_mm']);
+
+# %% [markdown] slideshow={"slide_type": "fragment"}
+# Note that there is no labeling or annotation here. This needs to be done explicitly.
+
+# %% [markdown] slideshow={"slide_type": "subslide"}
+# ## Matplotlib
+#
+# You can also create a 2-d grid of subplots quite easily
+
+# %%
+cts = penguins['species'].value_counts()
+fig,ax = plt.subplots(nrows=2, ncols=2, figsize = (10,4))
+ax[0,0].scatter(penguins['body_mass_g'], penguins['flipper_length_mm'])
+ax[0,1].scatter(penguins['bill_length_mm'],penguins['flipper_length_mm'])
+ax[1,0].hist(penguins['body_mass_g'], color='orange');
+ax[1,1].bar(cts.index, cts, color = ['red','blue','green']);
+
+# %% [markdown] slideshow={"slide_type": "fragment"}
+# Of course you have to label and clean up the figure
+
+# %% [markdown] slideshow={"slide_type": "slide"}
+# ## Matplotlib
+#
+# The part that gets complicated with `matplotlib` are overlays. 
+#
+# - You will have to layer each overlay on to the canvas using separate commands or loops
+# - This is where `seaborn`'s API makes things much simpler
+
+# %% [markdown] slideshow={"slide_type": "subslide"}
+# ## Matplotlib
+
+# %% slideshow={"slide_type": "-"} cell_style="split"
 fig, ax = plt.subplots()
 cols = ["red", "blue", "green"]
 for i, u in enumerate(penguins["species"].unique()):
     d = penguins[penguins["species"] == u]
     ax.scatter(d["bill_length_mm"], d["body_mass_g"], c=cols[i], label=u)
 ax.legend(title="Species", loc="best", labelcolor="black")
-plt.show()
+plt.show();
 
-# %% cell_style="split" slideshow={"slide_type": "subslide"}
-fig, axs = plt.subplots(nrows=1, ncols=3, sharex=True, sharey=True, figsize=[15, 5])
+# %% cell_style="split" slideshow={"slide_type": "fragment"}
+sns.relplot(
+    data=penguins,
+    x='bill_length_mm', y='body_mass_g',
+    hue='species');
+
+# %% [markdown] slideshow={"slide_type": "subslide"}
+# ## Matplotlib
+
+# %% cell_style="split" slideshow={"slide_type": "-"}
+fig, axs = plt.subplots(nrows=1, ncols=3, 
+                        sharey=True,
+                        figsize=[15, 5])
 cols = ["red", "blue", "green"]
 for i, u in enumerate(penguins["species"].unique()):
     d = penguins[penguins["species"] == u]
@@ -729,36 +873,64 @@ for i, u in enumerate(penguins["species"].unique()):
     axs[i].set_xlabel("Bill length(mm)")
     if i == 0:
         axs[i].set_ylabel("Body mass (g)")
-fig.legend()
+fig.legend();
 
 # %% cell_style="split" slideshow={"slide_type": "fragment"}
 g = sns.relplot(
-    data=penguins, x="bill_length_mm", y="body_mass_g", col="species", hue="species"
+    data=penguins, x="bill_length_mm", 
+    y="body_mass_g", col="species", hue="species",
 )
 g.set_xlabels("Bill length (mm)")
-g.set_ylabels("Body mass (g)")
-plt.show()
-
-# %% [markdown] slideshow={"slide_type": "slide"}
-# # Saving your work
-#
-# **matplotlib**, and, by extension, **pandas** and **seaborn**, has a large number of backend engines that enables one to save their visualizations in several file formats. 
-
-# %% slideshow={"slide_type": "fragment"}
-print(pd.Series(fig.canvas.get_supported_filetypes()))
+g.set_ylabels("Body mass (g)");
 
 # %% [markdown] slideshow={"slide_type": "subslide"}
-# # Saving your work
+# ## Matplotlib
 #
-# You can save your work using the `plt.savefig` function
+# You can mix-and-match different `matplotlib` and `seaborn` axis-level graphics using the axis commands. 
 
-# %% cell_style="split" slideshow={"slide_type": "fragment"}
-# This will save the last run figure
-plt.savefig("penguins.png", transparent=True, dpi=300)
+# %% slideshow={"slide_type": "-"}
+fig, axs = plt.subplots(nrows=1, ncols=2, figsize=[15,5])
+axs[0].bar(cts.index, cts)
+axs[0].set_xlabel('Species')
+sns.boxplot(ax = axs[1], data=penguins, 
+              x = 'species', y = 'bill_length_mm', hue='species',);
 
-# %% cell_style="split" slideshow={"slide_type": "fragment"}
-# This will save the figure contained in fig
-fig.savefig("penguins.png", transparent=True, dpi=300)
+# %% [markdown] slideshow={"slide_type": "subslide"} cell_style="split"
+# ## Matplotlib and seaborn compatibility
 
-# %% slideshow={"slide_type": "fragment"}
-# !ls -l
+# %% [markdown] slideshow={"slide_type": "-"} cell_style="split"
+# ![:scale 50%](https://seaborn.pydata.org/_images/function_overview_8_0.png)
+
+# %% [markdown] cell_style="split" slideshow={"slide_type": "-"}
+# - The functions at the top (relplot, displot, catplot) are *figure-level* functions and cannot be used with axes
+# - The functions below them are *axis-level* functions and can be used with axes
+
+# %% [markdown] slideshow={"slide_type": "subslide"}
+# ## Matplotlib and seaborn compatibility
+
+# %% slideshow={"slide_type": "-"}
+fig, ax = plt.subplots(nrows=1, ncols=2, figsize=[15,4])
+sns.countplot(ax=ax[0], data=penguins, x = 'species')
+sns.histplot(ax=ax[1], data=penguins, x = 'body_mass_g');
+ax[1].set_xlabel('Body mass(g)');
+fig.suptitle('Penguins');
+
+# %% [markdown] slideshow={"slide_type": "subslide"}
+# ## Matplotlib and pandas compatibility
+
+# %% slideshow={"slide_type": "-"}
+fig, ax=plt.subplots(nrows=1, ncols=2, figsize=[15,4])
+penguins['species'].value_counts().plot(kind='bar', ax=ax[0]);
+penguins['body_mass_g'].plot(kind='hist', ax = ax[1]);
+fig.suptitle('Penguins');
+
+# %% [markdown] slideshow={"slide_type": "slide"}
+# # Further reading
+
+# %% [markdown] slideshow={"slide_type": "subslide"}
+# ## Further reading
+#
+# + [An overview of matplotlib plots](https://matplotlib.org/stable/tutorials/introductory/sample_plots.html)
+# + [The lifecycle of a matplotlib plot](https://matplotlib.org/stable/tutorials/introductory/lifecycle.html)
+# + [The matplotlib usage guide](https://matplotlib.org/stable/tutorials/introductory/usage.html)
+#
