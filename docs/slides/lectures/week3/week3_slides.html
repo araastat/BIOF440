@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta name="author" content="Abhijit Dasgupta" />
     <script src="week3_slides_files/header-attrs-2.9.1/header-attrs.js"></script>
-    <link rel="stylesheet" href="/Users/abhijit/ARAASTAT/Teaching/BIOF440/slides/lectures/css/xaringan-themer.css" type="text/css" />
-    <link rel="stylesheet" href="/Users/abhijit/ARAASTAT/Teaching/BIOF440/slides/lectures/css/custom.css" type="text/css" />
-    <link rel="stylesheet" href="/Users/abhijit/ARAASTAT/Teaching/BIOF440/slides/lectures/css/sfah.css" type="text/css" />
+    <link rel="stylesheet" href="../css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="../css/sfah.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -35,7 +35,7 @@ class:middle,center,inverse
 
 ## Context is important
 
-A data visualization should be self-contained and be able to express the **context** of the data. 
+A data visualization should be self-contained and be able to express the **context** of the data.
 
 This makes the visualization **informative**.
 
@@ -210,7 +210,7 @@ class:middle,center,inverse
 
 ## Visual encoding
 
-The basic question in data visualization is how we transform data values into blobs of ink on paper, or more recently, pixels on a screen. 
+The basic question in data visualization is how we transform data values into blobs of ink on paper, or more recently, pixels on a screen.
 
 &gt; All data visualizations map data values into quantifiable features of the resulting graphic. We refer to these as *aesthetics*
 &gt;
@@ -281,7 +281,7 @@ The package **seaborn** will be our main high-level Python tool to enable us to 
 
 - Both **pandas** plotting and **seaborn** are built on top of **matplotlib**
 - Both **pandas** plotting and **seaborn** allow the creation of data visualizations with simpler code
-- You can use the capabilities of **matplotlib** to 
+- You can use the capabilities of **matplotlib** to
     - set up visualizations
     - customize visualizations
     - save visualizations
@@ -486,12 +486,12 @@ cars["MPG"].plot(kind="hist");
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_41_0.png)
-    
 
 
-&gt; **Note:** Notice the semi-colon after the command. This is to ensure that there is no textual meta-data about the plot that is printed. This is an inheritance from Matlab that has remained. 
+
+&gt; **Note:** Notice the semi-colon after the command. This is to ensure that there is no textual meta-data about the plot that is printed. This is an inheritance from Matlab that has remained.
 
 ---
 
@@ -503,9 +503,9 @@ cars["MPG"].plot(kind="kde");
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_44_0.png)
-    
+
 
 
 ---
@@ -518,9 +518,9 @@ cars["MPG"].plot(kind="box");
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_46_0.png)
-    
+
 
 
 ---
@@ -564,9 +564,9 @@ cars["Cylinders"].value_counts().plot(kind="bar");
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_51_0.png)
-    
+
 
 
 ---
@@ -581,9 +581,9 @@ cars["Cylinders"].value_counts(sort=False).plot(kind="bar");
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_53_0.png)
-    
+
 
 
 ---
@@ -601,9 +601,9 @@ cars.plot(x="Displacement", y="MPG", kind="scatter");
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_56_0.png)
-    
+
 
 
 ---
@@ -618,9 +618,9 @@ penguins = sns.load_dataset("penguins")
 pd.plotting.scatter_matrix(penguins);
 ```
 
-    
+
 ![:scale 40%](03_01_data_visualization_files/03_01_data_visualization_58_1.png)
-    
+
 
 
 
@@ -634,9 +634,9 @@ cars.boxplot(column="MPG", by="Cylinders");
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_60_0.png)
-    
+
 
 
 ---
@@ -671,9 +671,9 @@ penguins.plot(kind="kde", subplots=True);
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_65_0.png)
-    
+
 
 
 ---
@@ -815,9 +815,9 @@ D.head()
 ```python
 D.plot(kind="line");
 ```
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_76_0.png)
-    
+
 
 So we can plot multiple variables on a plot (but does it make sense?)
 ]
@@ -841,7 +841,7 @@ We'll see later how we'd do a similar plot using more granular code from **matpl
 
 ## seaborn
 
-The main classes of figures created using **seaborn**: 
+The main classes of figures created using **seaborn**:
 
 ![](https://seaborn.pydata.org/_images/function_overview_8_0.png)
 
@@ -849,7 +849,7 @@ The main classes of figures created using **seaborn**:
 
 ## seaborn
 
-**seaborn** allows us to make it easier to create 
+**seaborn** allows us to make it easier to create
 
 - _facets_, i.e., subplots based on unique values of column(s) of the `DataFrame`
 - _overlays_, i.e., plots where we can encode unique values of column(s) of a `DataFrame` on the same plot
@@ -899,9 +899,9 @@ sns.displot(
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_86_0.png)
-    
+
 ]
 
 ---
@@ -919,9 +919,9 @@ sns.displot(
 ```
 
 
-    
+
 ![:scale 80%](03_01_data_visualization_files/03_01_data_visualization_88_0.png)
-    
+
 ]
 .pull-right[
 
@@ -939,9 +939,9 @@ sns.displot(
 ```
 
 
-    
+
 ![:scale 80%](03_01_data_visualization_files/03_01_data_visualization_89_0.png)
-    
+
 ]
 
 ---
@@ -954,9 +954,9 @@ sns.displot(data=penguins, x="bill_length_mm", hue="species", kind="kde");
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_91_0.png)
-    
+
 
 
 ---
@@ -970,9 +970,9 @@ plt.show();
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_93_0.png)
-    
+
 
 
 ---
@@ -994,9 +994,9 @@ sns.catplot(data=penguins, x="species", kind="count");
 ```python
 sns.relplot(data=penguins, x="bill_length_mm", y="body_mass_g");
 ```
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_97_0.png)
-    
+
 
 ]
 .pull-right[
@@ -1006,9 +1006,9 @@ sns.relplot(data=penguins, x="bill_length_mm", y="body_mass_g", hue="species");
 ```
 
 
-    
+
 ![:scale 60%](03_01_data_visualization_files/03_01_data_visualization_98_0.png)
-    
+
 ]
 
 ---
@@ -1026,9 +1026,9 @@ sns.relplot(
 ```
 
 
-    
+
 ![:scale 80%](03_01_data_visualization_files/03_01_data_visualization_99_0.png)
-    
+
 
 ]
 .pull-right[
@@ -1043,9 +1043,9 @@ sns.relplot(
     col="island",
 );
 ```
-    
+
 ![:scale 80%](03_01_data_visualization_files/03_01_data_visualization_100_1.png)
-    
+
 ]
 
 ---
@@ -1063,9 +1063,9 @@ sns.relplot(
 ```
 
 
-    
+
 ![](03_01_data_visualization_files/03_01_data_visualization_101_0.png)
-    
+
 
 ]
 .pull-right[
@@ -1086,9 +1086,9 @@ sns.relplot(
 ```
 
 
-    
+
 ![](03_01_data_visualization_files/03_01_data_visualization_102_0.png)
-    
+
 ]
 
 ---
@@ -1183,9 +1183,9 @@ sns.relplot(data=fmri, x="timepoint", y="signal", kind="line");
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_105_0.png)
-    
+
 ]
 .pull-right[
 
@@ -1194,9 +1194,9 @@ sns.relplot(data=fmri, x="timepoint", y="signal", kind="line", hue="event");
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_106_0.png)
-    
+
 
 ]
 
@@ -1211,9 +1211,9 @@ sns.relplot(
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_107_0.png)
-    
+
 
 
 ]
@@ -1231,9 +1231,9 @@ sns.relplot(
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_108_0.png)
-    
+
 ]
 
 ---
@@ -1248,9 +1248,9 @@ sns.lmplot(
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_109_0.png)
-    
+
 ]
 .pull-right[
 
@@ -1265,9 +1265,9 @@ sns.lmplot(
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_110_0.png)
-    
+
 
 
 ]
@@ -1284,9 +1284,9 @@ sns.lmplot(
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_111_0.png)
-    
+
 
 
 ---
@@ -1304,7 +1304,7 @@ diamonds.shape
 sns.catplot(data=diamonds, x="cut", y="price", kind="box");
 ```
 ![:scale 20%](03_01_data_visualization_files/03_01_data_visualization_114_0.png)
-    
+
 
 ---
 
@@ -1323,7 +1323,7 @@ sns.catplot(
 ```
 
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_115_0.png)
-    
+
 ]
 .pull-right[
 
@@ -1340,9 +1340,9 @@ sns.catplot(
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_116_0.png)
-    
+
 ]
 
 ---
@@ -1355,9 +1355,9 @@ sns.pairplot(data=penguins);
 ```
 
 
-    
+
 ![:scale 40%](03_01_data_visualization_files/03_01_data_visualization_118_0.png)
-    
+
 
 ---
 
@@ -1366,9 +1366,9 @@ sns.pairplot(data=penguins, hue="species");
 ```
 
 
-    
+
 ![:scale 40%](03_01_data_visualization_files/03_01_data_visualization_119_0.png)
-    
+
 
 ---
 
@@ -1380,9 +1380,9 @@ g.map_diag(sns.kdeplot, lw=2);
 ```
 
 
-    
+
 ![:scale 40%](03_01_data_visualization_files/03_01_data_visualization_120_0.png)
-    
+
 
 
 ---
@@ -1395,9 +1395,9 @@ sns.jointplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="spe
 ```
 
 
-    
+
 ![:scale 40%](03_01_data_visualization_files/03_01_data_visualization_122_0.png)
-    
+
 
 
 ---
@@ -1413,9 +1413,9 @@ g.set_ylabels("Body mass (g)");
 ```
 
 
-    
+
 ![:scale 35%](03_01_data_visualization_files/03_01_data_visualization_124_0.png)
-    
+
 
 
 ---
@@ -1427,7 +1427,7 @@ class:middle,center,inverse
 
 ## Saving your work
 
-**matplotlib**, and, by extension, **pandas** and **seaborn**, has a large number of backend engines that enables one to save their visualizations in several file formats. 
+**matplotlib**, and, by extension, **pandas** and **seaborn**, has a large number of backend engines that enables one to save their visualizations in several file formats.
 
 You can save your work using the `plt.savefig` function
 
@@ -1465,7 +1465,7 @@ We can build a visualization from the ground up
 
 
 ![:scale 30%](03_01_data_visualization_files/03_01_data_visualization_131_0.png)
-    
+
 
 
 
@@ -1522,9 +1522,9 @@ fig, ax = plt.subplots() # default is 1 row and 1 col, so a single plot
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_136_0.png)
-    
+
 
 
 In the code, `fig` refers to the figure and `ax` refers to the axis or axes (if more than one subplot is created)
@@ -1535,10 +1535,10 @@ In the code, `fig` refers to the figure and `ax` refers to the axis or axes (if 
 
 + **Figure** refers to the topmost layer of a plot, which can contain axes, titles, labels, subplots
 + **Axes** define a subplot
-    - We can write our own x-axis limits, y-axis limits, their labels, the type of graph. 
+    - We can write our own x-axis limits, y-axis limits, their labels, the type of graph.
     - It controls every detail inside the subplot
-    
-Typically we will control aspects of our data visualization at the **axis** level. 
+
+Typically we will control aspects of our data visualization at the **axis** level.
 
 ---
 
@@ -1556,9 +1556,9 @@ ax.set_title('Palmer penguins');
 ```
 
 
-    
+
 ![:scale 30%](03_01_data_visualization_files/03_01_data_visualization_140_0.png)
-    
+
 
 
 ---
@@ -1576,9 +1576,9 @@ ax[2].scatter(penguins['body_mass_g'], penguins['bill_depth_mm']);
 ```
 
 
-    
+
 ![:scale 60%](03_01_data_visualization_files/03_01_data_visualization_142_0.png)
-    
+
 
 
 Note that there is no labeling or annotation here. This needs to be done explicitly.
@@ -1600,9 +1600,9 @@ ax[1,1].bar(cts.index, cts, color = ['red','blue','green']);
 ```
 
 
-    
+
 ![:scale 60%](03_01_data_visualization_files/03_01_data_visualization_145_0.png)
-    
+
 
 
 Of course you have to label and clean up the figure
@@ -1611,7 +1611,7 @@ Of course you have to label and clean up the figure
 
 ## Matplotlib
 
-The part that gets complicated with `matplotlib` are overlays. 
+The part that gets complicated with `matplotlib` are overlays.
 
 - You will have to layer each overlay on to the canvas using separate commands or loops
 - This is where `seaborn`'s API makes things much simpler
@@ -1632,9 +1632,9 @@ plt.show();
 ```
 
 
-    
+
 ![:scale 40%](03_01_data_visualization_files/03_01_data_visualization_149_0.png)
-    
+
 ]
 .pull-right[
 
@@ -1647,9 +1647,9 @@ sns.relplot(
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_150_0.png)
-    
+
 
 ]
 
@@ -1659,7 +1659,7 @@ sns.relplot(
 
 .pull-left[
 ```python
-fig, axs = plt.subplots(nrows=1, ncols=3, 
+fig, axs = plt.subplots(nrows=1, ncols=3,
                         sharey=True,
                         figsize=[15, 5])
 cols = ["red", "blue", "green"]
@@ -1674,16 +1674,16 @@ fig.legend();
 ```
 
 
-    
+
 ![](03_01_data_visualization_files/03_01_data_visualization_152_0.png)
-    
+
 ]
 .pull-right[
 
 
 ```python
 g = sns.relplot(
-    data=penguins, x="bill_length_mm", 
+    data=penguins, x="bill_length_mm",
     y="body_mass_g", col="species", hue="species",
 )
 g.set_xlabels("Bill length (mm)")
@@ -1691,9 +1691,9 @@ g.set_ylabels("Body mass (g)");
 ```
 
 
-    
+
 ![](03_01_data_visualization_files/03_01_data_visualization_153_0.png)
-    
+
 
 ]
 
@@ -1701,21 +1701,21 @@ g.set_ylabels("Body mass (g)");
 
 ## Matplotlib
 
-You can mix-and-match different `matplotlib` and `seaborn` axis-level graphics using the axis commands. 
+You can mix-and-match different `matplotlib` and `seaborn` axis-level graphics using the axis commands.
 
 
 ```python
 fig, axs = plt.subplots(nrows=1, ncols=2, figsize=[15,5])
 axs[0].bar(cts.index, cts)
 axs[0].set_xlabel('Species')
-sns.boxplot(ax = axs[1], data=penguins, 
+sns.boxplot(ax = axs[1], data=penguins,
               x = 'species', y = 'bill_length_mm', hue='species',);
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_155_0.png)
-    
+
 
 
 ---
@@ -1741,9 +1741,9 @@ fig.suptitle('Penguins');
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_160_0.png)
-    
+
 
 
 ---
@@ -1759,9 +1759,9 @@ fig.suptitle('Penguins');
 ```
 
 
-    
+
 ![:scale 50%](03_01_data_visualization_files/03_01_data_visualization_162_0.png)
-    
+
 
 
 ---
