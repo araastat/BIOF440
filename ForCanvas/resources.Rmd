@@ -52,6 +52,12 @@ book
 
 ------------------------------------------------------------------------
 
+# Cheatsheets
+
+- [matplotlib](Python_Matplotlib_Cheat_Sheet.pdf)
+- [seaborn](Python_Seaborn_Cheat_Sheet.pdf)
+------------------------------------------------------------------------
+
 # Web resources
 
 -   [Flowing Data](https://www.flowingdata.com): This is one of my
