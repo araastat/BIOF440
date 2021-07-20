@@ -25,6 +25,10 @@ jupyter-contrib-nbextensions = "^0.5.1"
 jupyterlab-code-formatter = "^1.4.10"
 orca = "^1.6"
 statsmodels = "^0.12.2"
+umap-learn = "^0.5.1"
+ipykernel = "^6.0.3"
+scanpy = {extras = ["leiden"], version = "^1.8.1"}
+nbconvert = "^6.1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.6b0"
