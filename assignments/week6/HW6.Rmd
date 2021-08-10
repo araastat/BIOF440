@@ -1,0 +1,54 @@
+---
+title: Homework, Week 6
+author: BIOF 439
+output: 
+  html_document:
+    css: style.css
+---
+```{r setup, include=FALSE}
+library(reticulate)
+use_virtualenv('~/Python/venvs/biof440_env', required=T)
+knitr::opts_chunk$set(echo=FALSE, eval=FALSE, 
+                      message=FALSE, warning=FALSE,
+                      cache=FALSE)
+```
+
+# Instructions
+
+Create your own Jupyter notebook and answer the following questions. As usual, please submit both the ipynb and corresponding HTML files. 
+
+
+## Question 1 (10 points)
+
+We'll use the data set `beaches` to
+fit a linear regression of $\log_{10}(\text{enterococci})$ on other variables. 
+
+
+```{python}
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+beaches = pd.read_csv('../data/sydneybeaches3.csv')
+model = smf.ols(formula = 'np.log10(enterococci)~ temperature + rainfall + month_name', data = beaches)
+results = model.fit()
+```
+
+
+Create a plot of the coefficients and 95% confidence intervals of this model, including a reference line at 0. State which variables and levels are statistically significant. Order the months in chronological order, with January being the reference month. Make the plot publication quality, in that the graph shouldn't have raw variable names, and should have appropriate titles and axes labels and legends (in English). 
+
+> Note that the code above is basic; you may have to work on the data as well as the plot
+
+**Extra credit (5 points)**
+
+Color the plot according to which variables and levels are significant.
+
+## Question 2 (10 points)
+
+The file `accidents2019.csv` in the data folder contains aggregate data about 
+the number of traffic accidents with fatalities in the US in 2019, along with the location (Rural/Urban)
+of the accident and whether drunk driving was involved. In the spirit of the heatmap [here](https://flowingdata.com/2017/04/27/traffic-fatalities-when-and-where/), create heatmaps of the 
+percent of accidents occur in rural areas , and what percent of accidents involve drunk driving. 
+Make the plot pretty with proper ordering, legends and titles. 
+
+

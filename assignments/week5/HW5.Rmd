@@ -1,0 +1,13 @@
+---
+title: "BIOF 440: Data visualization using Python"
+subtitle: "Homework 5"
+---
+
+Create a Jupyter Notebook for this homework and answer the following questions. As usual, submit both the notebook and a HTML representation of the notebook.
+
+1. Using the dataset clinical_data_breast_cancer_modified.xlsx available in the data folder, create graphs showing Kaplan-Meier curves of Overall Survival (OS) stratified by (a) ER status, and (b) Node status. Add tables of at-risk individuals and deaths at different times, as in the lecture. Ensure that legends and axes are properly labelled (10 + 10 points)
+2. The USArrests.csv file in the data folder provides data on murder, assault and rapes per 100,000 people, as well as the percent of the population in a state who live in urban areas. Using the plotly package, create choropleth maps of the USA, where each state is colored based on the data in the 4 columns of this data set. You should create 4 maps, one per column. Ensure that each visualization is properly labeled. (4 x 10 points)
+
+Extra credit (15 points)
+
+Choose one of the columns in the USArrests.csv data, and create a choropleth using Folium, including tooltips that will provide information about the data on hovering over a state with the mouse. .
