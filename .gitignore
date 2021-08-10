@@ -40,7 +40,7 @@ slides/lectures/figure/*.png
 
 **/*.ipynb
 .ipynb_checkpoints
-!docs/assignments/**/*.ipynb
+#!docs/assignments/**/*.ipynb
 ForCanvas/*.html
 ForCanvas/*.png
 ForCanvas/img
@@ -52,3 +52,6 @@ notes/*.html
 notes/*.ipynb
 
 **/data
+
+FinalProjects/*
+HW_Submissions/*
